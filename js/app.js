@@ -22,6 +22,7 @@
     const $ = (s, r = document) => r.querySelector(s);
     const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
     const SVG = 'http://www.w3.org/2000/svg';
+    document.documentElement.classList.add('js');
     const PAGE = document.body.classList.contains('page-menu') ? 'menu' : 'landing';
     const ROOT = window.ASSET_ROOT || '';
     const asset = p => (p ? ROOT + p : p);
@@ -253,6 +254,16 @@
             refreshPrices();
         }));
 
+        /* On phones the tool rows tuck away while scrolling down and return on the way up */
+        if (hasGsap) {
+            gsap.registerPlugin(ScrollTrigger);
+            gsap.matchMedia().add('(max-width: 900px)', () => {
+                const bar = $('#mbar');
+                const st = ScrollTrigger.create({ start: 300, end: 'max', onUpdate: self => bar.classList.toggle('is-compact', self.direction === 1 && !$('#menu-search').matches(':focus')), onLeaveBack: () => bar.classList.remove('is-compact') });
+                return () => { st.kill(); bar.classList.remove('is-compact'); };
+            });
+        }
+
         /* Scrollspy for the chips */
         if ('IntersectionObserver' in window) {
             const io = new IntersectionObserver(entries => {
@@ -474,8 +485,9 @@
         const groups = ['MEAT', 'SEA', 'CHEESE', 'VEG', 'SAUCE'];
         host.innerHTML = groups.map(g => {
             const list = toppings.filter(x => x.group === g); if (!list.length) return '';
-            return `<div class="tgroup"><p class="tgroup-name">${esc(t('builder.group.' + g))}</p><div class="tchips">${list.map(x =>
-                `<button type="button" class="tchip" data-top="${x.id}" aria-pressed="${state.build.tops.has(x.id)}">${esc(topName(x))}<small data-tprice>+${fmt(x[state.build.size])}</small></button>`).join('')}</div></div>`;
+            const open = matchMedia('(min-width: 901px)').matches || g === 'MEAT' || list.some(x => state.build.tops.has(x.id));
+            return `<details class="tgroup" data-group="${g}" ${open ? 'open' : ''}><summary class="tgroup-name">${esc(t('builder.group.' + g))}<span class="tgroup-count" data-gcount>${list.filter(x => state.build.tops.has(x.id)).length || ''}</span></summary><div class="tchips">${list.map(x =>
+                `<button type="button" class="tchip" data-top="${x.id}" aria-pressed="${state.build.tops.has(x.id)}">${esc(topName(x))}<small data-tprice>+${fmt(x[state.build.size])}</small></button>`).join('')}</div></details>`;
         }).join('');
     }
 
@@ -628,6 +640,7 @@
             const adding = !state.build.tops.has(id);
             adding ? state.build.tops.add(id) : state.build.tops.delete(id);
             b.setAttribute('aria-pressed', String(adding));
+            const grp = b.closest('.tgroup'); if (grp) { const n = $$('.tchip[aria-pressed="true"]', grp).length; $('[data-gcount]', grp).textContent = n || ''; }
             drawTops(adding ? id : null);
             showBill(true);
         });
@@ -686,6 +699,16 @@
             h.innerHTML = text.split(/\s+/).map(w => `<span class="word">${esc(w)}</span>`).join(' ');
             h.setAttribute('aria-label', text);
         });
+    }
+
+    /* ---------- Images: fade in once decoded, so lazy loads never pop ---------- */
+    function initImageFade() {
+        const mark = img => img.classList.add('is-loaded');
+        document.addEventListener('load', e => { if (e.target.tagName === 'IMG') mark(e.target); }, true);
+        document.addEventListener('error', e => { if (e.target.tagName === 'IMG') mark(e.target); }, true);
+        const sweep = () => $$('img').forEach(img => { if (img.complete && img.naturalWidth > 0) mark(img); });
+        sweep();
+        new MutationObserver(sweep).observe(document.body, { childList: true, subtree: true });
     }
 
     /* ---------- Intro curtain (landing) ---------- */
@@ -860,19 +883,24 @@
             gsap.fromTo(img, { yPercent: -amt }, { yPercent: amt, ease: 'none', scrollTrigger: { trigger: img.parentElement, start: 'top bottom', end: 'bottom top', scrub: true } });
         });
 
-        ScrollTrigger.batch('[data-reveal], .story-photo, .tl-media, .loc-media, .statement-media, .teaser-media', {
-            start: 'top 88%', once: true,
-            onEnter: els => els.forEach((el, i) => gsap.fromTo(el, { clipPath: 'inset(0 0 100% 0)' }, { clipPath: 'inset(0 0 0% 0)', duration: 1.1, delay: i * 0.08, ease: 'power4.out' }))
+        const REVEAL = '[data-reveal], .story-photo, .tl-media, .loc-media, .statement-media, .teaser-media';
+        gsap.set(REVEAL, { clipPath: 'inset(0 0 100% 0)' });
+        ScrollTrigger.batch(REVEAL, {
+            start: 'top 92%', once: true,
+            onEnter: els => els.forEach((el, i) => gsap.to(el, { clipPath: 'inset(0 0 0% 0)', duration: 1.1, delay: i * 0.08, ease: 'power4.out' }))
         });
+        gsap.set('h2[data-split] .word', { yPercent: 60, opacity: 0 });
         ScrollTrigger.batch('h2[data-split]', {
-            start: 'top 85%', once: true,
-            onEnter: els => els.forEach(h => gsap.from($$('.word', h), { yPercent: 60, opacity: 0, duration: 0.8, stagger: 0.05, ease: 'power3.out' }))
+            start: 'top 90%', once: true,
+            onEnter: els => els.forEach(h => gsap.to($$('.word', h), { yPercent: 0, opacity: 1, duration: 0.8, stagger: 0.05, ease: 'power3.out' }))
         });
         const strip = $('.catering-strip');
         if (strip) gsap.fromTo(strip, { x: 60 }, { x: -120, ease: 'none', scrollTrigger: { trigger: strip, start: 'top bottom', end: 'bottom top', scrub: true } });
-        ScrollTrigger.batch('.sig, .loc, .social-track a, .card', {
+        const LIFT = '.sig, .loc, .social-track a';
+        gsap.set(LIFT, { y: 28, opacity: 0 });
+        ScrollTrigger.batch(LIFT, {
             start: 'top 94%', once: true,
-            onEnter: els => gsap.from(els, { y: 28, opacity: 0, duration: 0.7, stagger: 0.04, ease: 'power3.out', clearProps: 'transform' })
+            onEnter: els => gsap.to(els, { y: 0, opacity: 1, duration: 0.7, stagger: 0.04, ease: 'power3.out', clearProps: 'transform' })
         });
         $$('video').forEach(v => new IntersectionObserver(([en]) => { en.isIntersecting ? v.play().catch(() => {}) : v.pause(); }).observe(v));
     }
@@ -880,6 +908,7 @@
     /* ---------- Boot ---------- */
     document.addEventListener('DOMContentLoaded', () => {
         if (reduceMotion.matches) $$('video[autoplay]').forEach(v => { v.removeAttribute('autoplay'); v.pause(); });
+        initImageFade();
         initHeader();
         initMenuPage();
         initDish();
