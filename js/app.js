@@ -1,4 +1,4 @@
-/* The Upper Crust Türkiye, v7. Vanilla + GSAP/ScrollTrigger (loaded from cdnjs; every effect degrades to a static page). */
+/* The Upper Crust Türkiye, v8. Vanilla + GSAP/ScrollTrigger (+ Lenis when available). Every effect degrades to a static page. */
 (() => {
     'use strict';
 
@@ -13,6 +13,7 @@
 
     const $ = (s, r = document) => r.querySelector(s);
     const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+    const SVG = 'http://www.w3.org/2000/svg';
     const data = window.menuData || [];
     const dict = window.translations || {};
     const byId = new Map(data.map(i => [i.id, i]));
@@ -42,7 +43,7 @@
         if (vars) for (const k in vars) s = s.replace(`{${k}}`, vars[k]);
         return s;
     };
-    const fmt = n => new Intl.NumberFormat(LOCALE[state.lang]).format(n) + ' ₺';
+    const fmt = n => new Intl.NumberFormat(LOCALE[state.lang]).format(Math.round(n)) + ' ₺';
     const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
     function applyI18n() {
@@ -57,8 +58,8 @@
         renderMenu();
         renderSignature();
         renderTray();
-        renderBuilderOptions();
-        renderBuilder();
+        renderThumbs();
+        renderBuilder(false);
         updateOpenStatus();
         if (state.dish) fillDish();
         splitHeadings();
@@ -87,6 +88,7 @@
             drawer.setAttribute('aria-hidden', String(!open));
             document.body.classList.toggle('drawer-open', open);
             document.body.style.overflow = open ? 'hidden' : '';
+            if (window.__lenis) open ? window.__lenis.stop() : window.__lenis.start();
         };
         burger.addEventListener('click', () => setDrawer(burger.getAttribute('aria-expanded') !== 'true'));
         $$('a', drawer).forEach(a => a.addEventListener('click', () => setDrawer(false)));
@@ -239,7 +241,7 @@
             const item = byId.get(id); if (!item) return '';
             const from = hasSizes(item) ? SIZE_ORDER.map(s => `${s} ${fmt(item.sizes[s])}`).join('   ') : fmt(item.sizes.ONE_SIZE);
             return `<button type="button" class="sig ${i === 0 ? 'is-feature' : ''}" data-id="${item.id}" aria-haspopup="dialog">
-                <span class="sig-media"><img src="${item.img}" alt="" loading="lazy" decoding="async"></span>
+                <span class="sig-media" data-reveal><img src="${item.img}" alt="" loading="lazy" decoding="async"></span>
                 <span class="sig-text">
                     <span class="sig-name">${item.num ? esc(item.num) + ' ' : ''}${esc(item.name)}</span>
                     <span class="sig-desc">${esc(item.desc)}</span>
@@ -248,7 +250,7 @@
             </button>`;
         });
         cards.push(`<a class="sig is-season" href="https://instagram.com/uppercrusttr" target="_blank" rel="noopener noreferrer">
-            <span class="sig-media"><img src="${SEASON_IMG}" alt="" loading="lazy" decoding="async" style="object-position:50% 40%"></span>
+            <span class="sig-media" data-reveal><img src="${SEASON_IMG}" alt="" loading="lazy" decoding="async" style="object-position:50% 40%"></span>
             <span class="sig-text">
                 <span class="sig-kicker">${esc(t('signature.season'))}</span>
                 <span class="sig-name">${esc(t('signature.season.name'))}</span>
@@ -262,12 +264,14 @@
     /* ---------- Dialog helpers ---------- */
     function closeDialog(d) {
         if (!d.open || d.classList.contains('is-closing')) return;
+        if (window.__lenis) window.__lenis.start();
         if (reduceMotion.matches) { d.close(); return; }
         d.classList.add('is-closing');
         const done = () => { d.classList.remove('is-closing'); d.close(); };
         d.addEventListener('animationend', done, { once: true });
         setTimeout(() => { if (d.classList.contains('is-closing')) done(); }, 300);
     }
+    function openModal(d) { if (window.__lenis) window.__lenis.stop(); d.showModal(); }
     function wireDialog(d) {
         d.addEventListener('cancel', e => { e.preventDefault(); closeDialog(d); });
         d.addEventListener('click', e => {
@@ -283,7 +287,7 @@
         state.dish = item;
         state.dishSize = hasSizes(item) && item.sizes[state.size] != null ? state.size : SIZE_ORDER.find(s => item.sizes[s] != null) || 'S';
         state.dishQty = 1;
-        fillDish(); dish.showModal();
+        fillDish(); openModal(dish);
         $('.dish-body', dish).scrollTop = 0;
     }
     function fillDish() {
@@ -332,7 +336,7 @@
     const lineItem = l => l.custom ? { name: l.custom.name, num: '', sizes: l.custom.sizes } : byId.get(l.id);
 
     function addToTray(line) {
-        const key = line.custom ? `${line.id}:${line.size}` : `${line.id}:${line.size}`;
+        const key = `${line.id}:${line.size}`;
         const cur = state.tray[key] || { ...line, qty: 0 };
         cur.qty = Math.min(50, cur.qty + line.qty);
         state.tray[key] = cur;
@@ -375,7 +379,7 @@
     }
     function initTray() {
         wireDialog(tray);
-        $('#tray-btn').addEventListener('click', () => { renderTray(); tray.showModal(); });
+        $('#tray-btn').addEventListener('click', () => { renderTray(); openModal(tray); });
         $('#tray-lines').addEventListener('click', e => {
             const li = e.target.closest('.line'); if (!li) return;
             const key = li.dataset.key;
@@ -393,55 +397,140 @@
 
     /* ---------- Builder: half and half ---------- */
     const pizzas = () => data.filter(i => i.cat === 'PIZZAS' && hasSizes(i));
-    function renderBuilderOptions() {
+    const half = { l: { img: '#half-l-img', txt: '#half-l-txt', nimg: '#half-l-next', ntxt: '#half-l-ntxt', wipe: '#wipeL-c' },
+                   r: { img: '#half-r-img', txt: '#half-r-txt', nimg: '#half-r-next', ntxt: '#half-r-ntxt', wipe: '#wipeR-c' } };
+    const shortName = item => item.num || item.name.split(' ')[0];
+
+    function renderThumbs() {
         ['l', 'r'].forEach(side => {
-            const sel = $(`#half-${side}`);
-            sel.innerHTML = pizzas().map(p => `<option value="${p.id}" ${p.id === state.build[side] ? 'selected' : ''}>${esc((p.num ? p.num + ' ' : '') + p.name)}</option>`).join('');
+            const wrap = $(`#thumbs-${side}`); if (!wrap) return;
+            wrap.innerHTML = pizzas().map(p => `<button type="button" role="radio" class="thumb ${p.img ? '' : 'is-text'}" data-id="${p.id}" aria-checked="${p.id === state.build[side]}" title="${esc((p.num ? p.num + ' ' : '') + p.name)}">
+                <span class="thumb-disc">${p.img ? `<img src="${p.img}" alt="" loading="lazy" decoding="async">` : `<span>${esc(p.num || p.name.slice(0, 2))}</span>`}</span>
+                <span class="thumb-name">${esc(p.name)}</span>
+            </button>`).join('');
         });
     }
+
+    function setHalf(side, id, animate) {
+        const item = byId.get(id); if (!item) return;
+        const h = half[side];
+        const put = (imgSel, txtSel) => {
+            const img = $(imgSel), txt = $(txtSel);
+            if (item.img) { img.setAttribute('href', item.img); img.style.opacity = 1; txt.textContent = ''; }
+            else { img.style.opacity = 0; txt.textContent = shortName(item); }
+        };
+        if (animate && motionOK()) {
+            put(h.nimg, h.ntxt);
+            gsap.fromTo($(h.wipe), { attr: { r: 0 } }, { attr: { r: 300 }, duration: 0.7, ease: 'power3.inOut', onComplete: () => { put(h.img, h.txt); gsap.set($(h.wipe), { attr: { r: 0 } }); } });
+        } else {
+            put(h.img, h.txt);
+        }
+    }
+
     const buildPrice = () => {
         const a = byId.get(state.build.l), b = byId.get(state.build.r);
         return Math.max(priceOf(a, state.build.size), priceOf(b, state.build.size));
     };
-    function renderBuilder() {
-        const svg = $('#pz');
-        ['l', 'r'].forEach(side => {
-            const item = byId.get(state.build[side]);
-            const img = $(`#half-${side}-img`), txt = $(`#half-${side}-txt`);
-            if (item.img) { img.setAttribute('href', item.img); img.style.opacity = 1; txt.textContent = ''; }
-            else { img.style.opacity = 0; txt.textContent = item.num || item.name.split(' ')[0]; }
-        });
+    const priceState = { v: 0 };
+    function showPrice(animate) {
+        const target = buildPrice(); const el = $('#builder-price'); if (!el) return;
+        if (animate && motionOK() && priceState.v) {
+            gsap.to(priceState, { v: target, duration: 0.6, ease: 'power2.out', onUpdate: () => { el.textContent = fmt(priceState.v); } });
+        } else { priceState.v = target; el.textContent = fmt(target); }
+    }
+
+    function renderBuilder(animate = true) {
+        const svg = $('#pz'); if (!svg) return;
+        setHalf('l', state.build.l, false);
+        setHalf('r', state.build.r, false);
         svg.style.setProperty('--sauce', state.build.base === 'red' ? '#B8321F' : '#F3E4C2');
         svg.style.setProperty('--crust', state.build.crust === 'white' ? '#E0B679' : '#8E5B2E');
         const scale = state.build.size === 'L' ? SIZE_CM.L / SIZE_CM.XXL : 1;
-        if (motionOK()) gsap.to('#pz-scale', { scale, duration: 0.6, ease: 'power3.out', transformOrigin: '50% 50%' });
+        if (motionOK()) gsap.to('#pz-scale', { scale, duration: animate ? 0.7 : 0, ease: 'back.out(1.6)', transformOrigin: '50% 50%' });
         else $('#pz-scale').setAttribute('transform', `translate(200 200) scale(${scale}) translate(-200 -200)`);
         $$('.seg[data-seg] button').forEach(b => b.setAttribute('aria-checked', String(state.build[b.closest('.seg').dataset.seg] === b.dataset.val)));
-        $('#builder-price').textContent = fmt(buildPrice());
+        ['l', 'r'].forEach(side => $$(`#thumbs-${side} .thumb`).forEach(b => b.setAttribute('aria-checked', String(b.dataset.id === state.build[side]))));
+        showPrice(animate);
     }
+
+    /* Drag to spin, with inertia and a slow idle turn */
+    function initSpin() {
+        const stage = $('#stage'), rot = $('#pz-rot');
+        if (!stage || !rot || !motionOK()) return;
+        const spin = { a: 0 };
+        const apply = () => gsap.set(rot, { rotation: spin.a, transformOrigin: '50% 50%' });
+        const idle = gsap.to(spin, { a: '+=360', duration: 140, ease: 'none', repeat: -1, onUpdate: apply });
+        let dragging = false, last = 0, lastT = 0, vel = 0, inertia = null;
+        const angleAt = e => { const r = stage.getBoundingClientRect(); return Math.atan2(e.clientY - (r.top + r.height / 2), e.clientX - (r.left + r.width / 2)) * 180 / Math.PI; };
+        stage.addEventListener('pointerdown', e => {
+            if (e.target.closest('button')) return;
+            dragging = true; idle.pause(); if (inertia) inertia.kill();
+            last = angleAt(e); lastT = performance.now(); vel = 0;
+            stage.setPointerCapture(e.pointerId); stage.classList.add('is-dragging');
+        });
+        stage.addEventListener('pointermove', e => {
+            if (!dragging) return;
+            const a = angleAt(e); let d = a - last; if (d > 180) d -= 360; if (d < -180) d += 360;
+            const now = performance.now(); vel = d / Math.max(1, now - lastT); last = a; lastT = now;
+            spin.a += d; apply();
+        });
+        const release = () => {
+            if (!dragging) return; dragging = false; stage.classList.remove('is-dragging');
+            inertia = gsap.to(spin, { a: spin.a + vel * 700, duration: 1.6, ease: 'power3.out', onUpdate: apply, onComplete: () => idle.play() });
+        };
+        stage.addEventListener('pointerup', release);
+        stage.addEventListener('pointercancel', release);
+        $('#pz-spin')?.addEventListener('click', () => { idle.pause(); if (inertia) inertia.kill(); inertia = gsap.to(spin, { a: spin.a + 360, duration: 1.2, ease: 'power3.inOut', onUpdate: apply, onComplete: () => idle.play() }); });
+    }
+
+    /* The pizza flies into the tray */
+    function flyToTray() {
+        const svg = $('#pz'), target = $('#tray-btn');
+        if (!svg || !target || !motionOK()) return;
+        const from = svg.getBoundingClientRect(), to = target.getBoundingClientRect();
+        const ghost = svg.cloneNode(true);
+        ghost.removeAttribute('id'); ghost.classList.add('pz-ghost');
+        ghost.querySelectorAll('[id]').forEach(el => el.removeAttribute('id'));
+        Object.assign(ghost.style, { position: 'fixed', left: from.left + 'px', top: from.top + 'px', width: from.width + 'px', height: from.height + 'px', zIndex: 90, pointerEvents: 'none' });
+        document.body.appendChild(ghost);
+        gsap.to(ghost, { x: to.left + to.width / 2 - (from.left + from.width / 2), y: to.top + to.height / 2 - (from.top + from.height / 2), scale: 0.06, rotate: 240, duration: 0.9, ease: 'power3.in', onComplete: () => ghost.remove() });
+    }
+
     function initBuilder() {
-        ['l', 'r'].forEach(side => $(`#half-${side}`).addEventListener('change', e => {
-            state.build[side] = e.target.value;
-            const img = $(`#half-${side}-img`);
-            if (motionOK()) gsap.fromTo(img, { opacity: 0 }, { opacity: 1, duration: 0.5, ease: 'power2.out' });
-            renderBuilder();
+        if (!$('#pz')) return;
+        renderThumbs();
+        ['l', 'r'].forEach(side => $(`#thumbs-${side}`).addEventListener('click', e => {
+            const b = e.target.closest('.thumb'); if (!b || b.dataset.id === state.build[side]) return;
+            state.build[side] = b.dataset.id;
+            setHalf(side, b.dataset.id, true);
+            $$(`#thumbs-${side} .thumb`).forEach(x => x.setAttribute('aria-checked', String(x === b)));
+            b.scrollIntoView({ inline: 'center', block: 'nearest', behavior: reduceMotion.matches ? 'auto' : 'smooth' });
+            showPrice(true);
         }));
         $$('.seg[data-seg]').forEach(seg => seg.addEventListener('click', e => {
             const b = e.target.closest('button'); if (!b) return;
-            state.build[seg.dataset.seg] = b.dataset.val; renderBuilder();
+            const key = seg.dataset.seg;
+            if (state.build[key] === b.dataset.val) return;
+            state.build[key] = b.dataset.val;
+            if (motionOK()) {
+                if (key === 'base') gsap.fromTo('.pz-sauce', { scale: 0.9 }, { scale: 1, duration: 0.7, ease: 'back.out(2)', transformOrigin: '50% 50%' });
+                if (key === 'crust') gsap.fromTo('.pz-crust', { scale: 0.96 }, { scale: 1, duration: 0.6, ease: 'back.out(2)', transformOrigin: '50% 50%' });
+            }
+            renderBuilder(true);
         }));
-        $('#pz-spin').addEventListener('click', () => {
-            if (motionOK()) gsap.fromTo('#pz-rot', { rotate: 0 }, { rotate: 360, duration: 1.2, ease: 'power3.inOut', transformOrigin: '50% 50%' });
-        });
         $('#builder-add').addEventListener('click', () => {
             const a = byId.get(state.build.l), b = byId.get(state.build.r);
             const same = a.id === b.id;
             const name = same ? `${a.num ? a.num + ' ' : ''}${a.name} (${t(state.build.base === 'red' ? 'builder.base.red' : 'builder.base.white')}, ${t(state.build.crust === 'white' ? 'builder.crust.white' : 'builder.crust.wheat')})`
                 : `${t('builder.name')}: ${a.name} + ${b.name}`;
             const sizes = { L: Math.max(a.sizes.L, b.sizes.L), XXL: Math.max(a.sizes.XXL, b.sizes.XXL) };
-            addToTray({ id: `half:${a.id}|${b.id}|${state.build.base}|${state.build.crust}`, size: state.build.size, qty: 1, custom: { name, sizes } });
-            toast(t('tray.added'));
+            flyToTray();
+            setTimeout(() => {
+                addToTray({ id: `half:${a.id}|${b.id}|${state.build.base}|${state.build.crust}`, size: state.build.size, qty: 1, custom: { name, sizes } });
+                toast(t('tray.added'));
+            }, motionOK() ? 850 : 0);
         });
+        initSpin();
     }
 
     /* ---------- Opening hours (Europe/Istanbul) ---------- */
@@ -480,30 +569,106 @@
         });
     }
 
+    /* ---------- Intro curtain ---------- */
+    function initIntro() {
+        const intro = $('#intro');
+        if (!intro) { document.body.classList.remove('is-intro'); return; }
+        let seen = false; try { seen = sessionStorage.getItem('uc-intro') === '1'; } catch { /* ignore */ }
+        if (seen || !motionOK()) { intro.remove(); document.body.classList.remove('is-intro'); return; }
+        try { sessionStorage.setItem('uc-intro', '1'); } catch { /* ignore */ }
+        if (window.__lenis) window.__lenis.stop();
+        const tl = gsap.timeline({ onComplete: () => { intro.remove(); document.body.classList.remove('is-intro'); if (window.__lenis) window.__lenis.start(); } });
+        tl.from('.intro-center img', { opacity: 0, y: 20, scale: 0.94, duration: 0.7, ease: 'power3.out' }, 0.15)
+          .from('.intro-center p', { opacity: 0, y: 10, duration: 0.6, ease: 'power3.out' }, 0.5)
+          .to('.intro-center', { opacity: 0, duration: 0.35, ease: 'power2.in' }, 1.5)
+          .to('.intro-top', { yPercent: -100, duration: 0.9, ease: 'expo.inOut' }, 1.6)
+          .to('.intro-bottom', { yPercent: 100, duration: 0.9, ease: 'expo.inOut' }, 1.6)
+          .add(() => document.body.classList.remove('is-intro'), 1.7);
+    }
+
+    /* ---------- Embers in the hero ---------- */
+    function initEmbers() {
+        const canvas = $('#embers');
+        if (!canvas) return;
+        if (!motionOK()) { canvas.remove(); return; }
+        const ctx = canvas.getContext('2d'); let w = 0, h = 0, raf = 0, running = false;
+        const N = 70; const p = [];
+        const reset = (e, fresh) => { e.x = Math.random() * w; e.y = fresh ? Math.random() * h : h + 10; e.r = 0.6 + Math.random() * 1.8; e.vy = 0.15 + Math.random() * 0.45; e.vx = (Math.random() - 0.5) * 0.25; e.life = Math.random(); e.tw = Math.random() * Math.PI * 2; };
+        const size = () => { const r = canvas.getBoundingClientRect(); w = canvas.width = Math.max(1, Math.floor(r.width)); h = canvas.height = Math.max(1, Math.floor(r.height)); };
+        size(); for (let i = 0; i < N; i++) { const e = {}; reset(e, true); p.push(e); }
+        const draw = () => {
+            ctx.clearRect(0, 0, w, h);
+            for (const e of p) {
+                e.y -= e.vy; e.x += e.vx + Math.sin(e.tw += 0.01) * 0.15; e.life += 0.003;
+                if (e.y < -10 || e.life > 1) reset(e, false);
+                const a = Math.sin(e.life * Math.PI) * 0.7;
+                ctx.beginPath(); ctx.arc(e.x, e.y, e.r, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(255, ${150 + Math.floor(60 * Math.sin(e.tw))}, 70, ${a})`; ctx.fill();
+            }
+            if (running) raf = requestAnimationFrame(draw);
+        };
+        const start = () => { if (!running) { running = true; raf = requestAnimationFrame(draw); } };
+        const stop = () => { running = false; cancelAnimationFrame(raf); };
+        new IntersectionObserver(([en]) => en.isIntersecting ? start() : stop()).observe(canvas);
+        addEventListener('resize', size);
+    }
+
+    /* ---------- Custom cursor ---------- */
+    function initCursor() {
+        const cur = $('#cursor');
+        if (!cur) return;
+        if (!finePointer.matches || !motionOK()) { cur.remove(); return; }
+        document.documentElement.classList.add('has-cursor');
+        const label = $('#cursor-label');
+        const xTo = gsap.quickTo(cur, 'x', { duration: 0.22, ease: 'power3' }), yTo = gsap.quickTo(cur, 'y', { duration: 0.22, ease: 'power3' });
+        let shown = false;
+        addEventListener('pointermove', e => {
+            if (!shown) { gsap.set(cur, { x: e.clientX, y: e.clientY }); cur.classList.add('is-on'); shown = true; }
+            xTo(e.clientX); yTo(e.clientY);
+            const lab = e.target.closest('[data-cursor]');
+            const hit = e.target.closest('a, button, [role="radio"], input, select, label, .gallery-track, .thumbs');
+            cur.classList.toggle('is-hover', !!hit && !lab);
+            cur.classList.toggle('is-label', !!lab && !hit);
+            label.textContent = lab ? t(lab.dataset.cursor) : '';
+        });
+        document.addEventListener('pointerleave', () => cur.classList.remove('is-on'));
+        document.addEventListener('pointerenter', () => cur.classList.add('is-on'));
+        addEventListener('pointerdown', () => cur.classList.add('is-down'));
+        addEventListener('pointerup', () => cur.classList.remove('is-down'));
+    }
+
+    /* ---------- Smooth scroll (Lenis) ---------- */
+    function initLenis() {
+        if (typeof window.Lenis === 'undefined' || !motionOK() || !finePointer.matches) return;
+        try {
+            const lenis = new Lenis({ lerp: 0.09, smoothWheel: true, anchors: true });
+            lenis.on('scroll', ScrollTrigger.update);
+            gsap.ticker.add(time => lenis.raf(time * 1000));
+            gsap.ticker.lagSmoothing(0);
+            window.__lenis = lenis;
+        } catch { /* fall back to native scrolling */ }
+    }
+
     /* ---------- Motion (GSAP) ---------- */
     function initMotion() {
         if (!motionOK()) { $('#drips')?.remove(); return; }
         gsap.registerPlugin(ScrollTrigger);
         const mm = gsap.matchMedia();
 
-        /* Hero: the slice pull. Pinned on desktop, plain scrub on small screens. */
+        /* Hero: the slice pull */
         const pie = $('#pie'), slice = $('#pie-slice'), gap = $('.pie-gap'), cheeseG = $('#cheese-g');
         const A = [-0.3827, -0.9239], B = [-0.9239, -0.3827];  // unit vectors of the two cut edges (112.5° and 157.5°): the slice points up-left, toward the headline
         const anchors = [[A, 210], [A, 330], [A, 440], [B, 250], [B, 380], [B, 470]];
-        const strings = anchors.map(() => { const p = document.createElementNS('http://www.w3.org/2000/svg', 'path'); cheeseG.appendChild(p); return p; });
-        const blobs = anchors.map(() => { const c = document.createElementNS('http://www.w3.org/2000/svg', 'circle'); cheeseG.appendChild(c); return c; });
-        const PULL = 0.30; // fraction of the disc the slice travels, along the 135° bisector
-
+        const strings = anchors.map(() => { const p = document.createElementNS(SVG, 'path'); cheeseG.appendChild(p); return p; });
+        const blobs = anchors.map(() => { const c = document.createElementNS(SVG, 'circle'); cheeseG.appendChild(c); return c; });
+        const PULL = 0.30;
         const drawCheese = p => {
             const dx = -PULL * p * 1000, dy = -PULL * p * 1000;
             const sag = 40 + 170 * p;
-            const strand = Math.max(0, 1 - Math.max(0, (p - 0.72) / 0.2));  // strands thin and snap near the end
+            const strand = Math.max(0, 1 - Math.max(0, (p - 0.72) / 0.2));
             anchors.forEach(([u, r], i) => {
-                const x1 = 500 + u[0] * r, y1 = 500 + u[1] * r;
-                const x2 = x1 + dx, y2 = y1 + dy;
-                const cx1 = x1 + dx * 0.25, cy1 = y1 + dy * 0.25 + sag * 0.8;
-                const cx2 = x1 + dx * 0.75, cy2 = y1 + dy * 0.75 + sag;
-                strings[i].setAttribute('d', `M${x1} ${y1} C${cx1} ${cy1} ${cx2} ${cy2} ${x2} ${y2}`);
+                const x1 = 500 + u[0] * r, y1 = 500 + u[1] * r, x2 = x1 + dx, y2 = y1 + dy;
+                strings[i].setAttribute('d', `M${x1} ${y1} C${x1 + dx * 0.25} ${y1 + dy * 0.25 + sag * 0.8} ${x1 + dx * 0.75} ${y1 + dy * 0.75 + sag} ${x2} ${y2}`);
                 strings[i].setAttribute('stroke-width', (34 - 24 * p) * strand + 0.01);
                 strings[i].style.opacity = p < 0.02 ? 0 : strand;
                 blobs[i].setAttribute('cx', x1); blobs[i].setAttribute('cy', y1);
@@ -518,13 +683,11 @@
         window.__uc = { drawCheese };
 
         mm.add('(min-width: 901px)', () => {
-            const tl = gsap.timeline({
-                scrollTrigger: { trigger: '.hero', start: 'top top', end: '+=130%', pin: true, scrub: 0.6, anticipatePin: 1 }
-            });
+            const tl = gsap.timeline({ scrollTrigger: { trigger: '.hero', start: 'top top', end: '+=130%', pin: true, scrub: 0.6, anticipatePin: 1 } });
             const prog = { p: 0 };
             tl.to(prog, { p: 1, duration: 0.75, ease: 'none', onUpdate: () => drawCheese(prog.p) }, 0)
               .to('.hero-copy', { y: -60, opacity: 0.15, duration: 0.45, ease: 'power1.in' }, 0.5)
-              .to('.hero-bg img', { scale: 1, y: -40, duration: 1, ease: 'none' }, 0)
+              .to('.hero-bg', { scale: 1.08, y: -40, duration: 1, ease: 'none' }, 0)
               .to('.hero-pie', { y: -80, duration: 1, ease: 'none' }, 0);
             return () => drawCheese(0);
         });
@@ -534,40 +697,47 @@
             return () => drawCheese(0);
         });
 
-        /* Cheese drips over the mural band: ambient, slow, gooey. */
+        /* Cheese drips over the mural band */
         const dripsG = $('#drips-g');
         if (dripsG) {
-            const xs = [40, 130, 205, 310, 395, 470, 560, 640, 735, 820, 905, 990, 1080, 1160];
-            xs.forEach((x, i) => {
+            [40, 130, 205, 310, 395, 470, 560, 640, 735, 820, 905, 990, 1080, 1160].forEach((x, i) => {
                 const w = 26 + ((i * 37) % 30);
-                const r = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+                const r = document.createElementNS(SVG, 'rect');
                 r.setAttribute('x', x); r.setAttribute('y', 0); r.setAttribute('width', w); r.setAttribute('height', 30); r.setAttribute('rx', w / 2);
                 dripsG.appendChild(r);
                 gsap.to(r, { attr: { height: 60 + ((i * 53) % 70) }, duration: 3.2 + (i % 5) * 0.7, ease: 'sine.inOut', repeat: -1, yoyo: true, delay: (i % 7) * 0.4 });
             });
         }
 
-        /* Mural marquee: constant drift, speeds up with scroll velocity. */
+        /* Mural marquee */
         const track = $('#marquee-track');
         if (track) {
             const loop = gsap.to(track, { xPercent: -50, duration: 28, ease: 'none', repeat: -1 });
-            let ts = 1;
-            ScrollTrigger.create({ onUpdate: self => { ts = Math.min(5, 1 + Math.abs(self.getVelocity()) / 400); loop.timeScale(ts); gsap.to(loop, { timeScale: 1, duration: 1.2, overwrite: true, ease: 'power2.out' }); } });
+            ScrollTrigger.create({ onUpdate: self => { loop.timeScale(Math.min(5, 1 + Math.abs(self.getVelocity()) / 400)); gsap.to(loop, { timeScale: 1, duration: 1.2, overwrite: true, ease: 'power2.out' }); } });
         }
 
-        /* Timeline: pinned horizontal scroll on desktop. */
+        /* Timeline: pinned horizontal scroll on desktop */
         mm.add('(min-width: 901px)', () => {
             const tlTrack = $('#tl-track'); const viewport = $('.tl-viewport');
             const dist = () => tlTrack.scrollWidth - viewport.clientWidth;
-            const tween = gsap.to(tlTrack, { x: () => -dist(), ease: 'none',
-                scrollTrigger: { trigger: '.tl', start: 'top top', end: () => '+=' + dist(), pin: true, scrub: 1, invalidateOnRefresh: true, anticipatePin: 1 } });
+            const tween = gsap.to(tlTrack, { x: () => -dist(), ease: 'none', scrollTrigger: { trigger: '.tl', start: 'top top', end: () => '+=' + dist(), pin: true, scrub: 1, invalidateOnRefresh: true, anticipatePin: 1 } });
             return () => tween.scrollTrigger && tween.scrollTrigger.kill();
         });
         mm.add('(max-width: 900px)', () => {
-            const tlTrack = $('#tl-track'); tlTrack.style.transform = 'none';
-            $('.tl-viewport').style.overflowX = 'auto';
+            $('#tl-track').style.transform = 'none'; $('.tl-viewport').style.overflowX = 'auto';
             return () => { $('.tl-viewport').style.overflowX = ''; };
         });
+
+        /* Builder assembly: dough, sauce, cheese, then the halves, as the stage scrolls in */
+        const stage = $('#stage');
+        if (stage) {
+            const asm = gsap.timeline({ scrollTrigger: { trigger: stage, start: 'top 85%', end: 'top 30%', scrub: 0.8 } });
+            asm.from(['.pz-crust', '.pz-shade'], { scale: 0, transformOrigin: '50% 50%', ease: 'back.out(1.4)', duration: 0.5 }, 0)
+               .from('.pz-sauce', { scale: 0, transformOrigin: '50% 50%', ease: 'back.out(1.4)', duration: 0.5 }, 0.2)
+               .from('.pz-cheese', { opacity: 0, duration: 0.4 }, 0.45)
+               .fromTo('#clipDisc-c', { attr: { r: 0 } }, { attr: { r: 172 }, ease: 'power2.out', duration: 0.5 }, 0.6)
+               .from('.pz-cut', { opacity: 0, duration: 0.2 }, 1);
+        }
 
         /* Parallax images */
         $$('[data-parallax]').forEach(img => {
@@ -575,25 +745,35 @@
             gsap.fromTo(img, { yPercent: -amt }, { yPercent: amt, ease: 'none', scrollTrigger: { trigger: img.parentElement, start: 'top bottom', end: 'bottom top', scrub: true } });
         });
 
-        /* Heading words rise once when they enter */
+        /* Photos reveal with a wipe when they enter */
+        ScrollTrigger.batch('[data-reveal], .story-photo, .tl-media, .loc-media, .statement-media', {
+            start: 'top 88%', once: true,
+            onEnter: els => els.forEach((el, i) => gsap.fromTo(el, { clipPath: 'inset(0 0 100% 0)' }, { clipPath: 'inset(0 0 0% 0)', duration: 1.1, delay: i * 0.08, ease: 'power4.out' }))
+        });
+
+        /* Heading words rise once */
         ScrollTrigger.batch('h2[data-split]', {
             start: 'top 85%', once: true,
             onEnter: els => els.forEach(h => gsap.from($$('.word', h), { yPercent: 60, opacity: 0, duration: 0.8, stagger: 0.05, ease: 'power3.out' }))
         });
 
-        /* Catering strip drifts sideways with scroll */
+        /* Catering strip drifts sideways */
         const strip = $('.catering-strip');
         if (strip) gsap.fromTo(strip, { x: 60 }, { x: -120, ease: 'none', scrollTrigger: { trigger: strip, start: 'top bottom', end: 'bottom top', scrub: true } });
 
-        /* Signature cards and location cards lift in */
+        /* Cards lift in */
         ScrollTrigger.batch('.sig, .loc, .social-track a', {
-            start: 'top 88%', once: true,
-            onEnter: els => gsap.from(els, { y: 40, opacity: 0, duration: 0.9, stagger: 0.08, ease: 'power3.out', clearProps: 'transform' })
+            start: 'top 92%', once: true,
+            onEnter: els => gsap.from(els, { y: 32, opacity: 0, duration: 0.8, stagger: 0.06, ease: 'power3.out', clearProps: 'transform' })
         });
+
+        /* Pause videos that are off screen */
+        $$('video').forEach(v => new IntersectionObserver(([en]) => { en.isIntersecting ? v.play().catch(() => {}) : v.pause(); }).observe(v));
     }
 
     /* ---------- Boot ---------- */
     document.addEventListener('DOMContentLoaded', () => {
+        if (reduceMotion.matches) $$('video[autoplay]').forEach(v => { v.removeAttribute('autoplay'); v.pause(); });
         initHeader();
         initMenu();
         initDish();
@@ -601,7 +781,11 @@
         initBuilder();
         initMaps();
         applyI18n();
+        initLenis();
         initMotion();
+        initEmbers();
+        initCursor();
+        initIntro();
         $('#year').textContent = new Date().getFullYear();
         setInterval(updateOpenStatus, 60000);
         window.addEventListener('load', () => { if (hasGsap) ScrollTrigger.refresh(); });

@@ -140,6 +140,11 @@ const translations = {
         "footer.menu.pdf": "Menü (PDF)",
         "footer.paket.pdf": "Paket menü (PDF)",
         "footer.rights": "Tüm hakları saklıdır.",
+        "builder.drag": "Sürükleyip döndürün",
+        "builder.pick": "Seçin",
+        "statement.title": "Bir dilim yeter.",
+        "statement.text": "Bir ısırık alanın koca bir pizzayı tek başına bitirme isteği duyduğu gurme pizzacı. Boston tarifi, İstanbul fırını.",
+        "intro.line": "Boston, 2001. İstanbul, 2009.",
         "footer.concept": "Bağımsız tasarım konsepti. Resmi web sitesi değildir; fotoğraflar ve metinler marka sahibine aittir."
     },
 
@@ -283,6 +288,11 @@ const translations = {
         "footer.menu.pdf": "Menu (PDF)",
         "footer.paket.pdf": "Takeaway menu (PDF)",
         "footer.rights": "All rights reserved.",
+        "builder.drag": "Drag to spin",
+        "builder.pick": "Pick",
+        "statement.title": "One slice is enough.",
+        "statement.text": "The gourmet pizzeria where one bite makes you want to finish the whole pizza alone. Boston recipe, Istanbul oven.",
+        "intro.line": "Boston, 2001. Istanbul, 2009.",
         "footer.concept": "Independent design concept. Not the official website; photography and copy belong to the brand owner."
     },
 
@@ -426,6 +436,11 @@ const translations = {
         "footer.menu.pdf": "القائمة (PDF)",
         "footer.paket.pdf": "قائمة الطلبات الخارجية (PDF)",
         "footer.rights": "جميع الحقوق محفوظة.",
+        "builder.drag": "اسحب للتدوير",
+        "builder.pick": "اختر",
+        "statement.title": "شريحة واحدة تكفي.",
+        "statement.text": "المطعم الذي تجعلك قضمة واحدة منه ترغب في إنهاء البيتزا كاملة بمفردك. وصفة بوسطن، وفرن إسطنبول.",
+        "intro.line": "بوسطن، 2001. إسطنبول، 2009.",
         "footer.concept": "مفهوم تصميم مستقل. ليس الموقع الرسمي؛ الصور والنصوص ملك لصاحب العلامة."
     },
 
@@ -569,6 +584,11 @@ const translations = {
         "footer.menu.pdf": "Меню (PDF)",
         "footer.paket.pdf": "Меню на вынос (PDF)",
         "footer.rights": "Все права защищены.",
+        "builder.drag": "Потяните, чтобы повернуть",
+        "builder.pick": "Выбрать",
+        "statement.title": "Одного куска достаточно.",
+        "statement.text": "Пиццерия, где после одного укуса хочется съесть всю пиццу в одиночку. Бостонский рецепт, стамбульская печь.",
+        "intro.line": "Бостон, 2001. Стамбул, 2009.",
         "footer.concept": "Независимая дизайн-концепция. Не официальный сайт; фотографии и тексты принадлежат владельцу бренда."
     },
 
@@ -712,6 +732,11 @@ const translations = {
         "footer.menu.pdf": "Speisekarte (PDF)",
         "footer.paket.pdf": "Lieferkarte (PDF)",
         "footer.rights": "Alle Rechte vorbehalten.",
+        "builder.drag": "Ziehen zum Drehen",
+        "builder.pick": "Wählen",
+        "statement.title": "Ein Slice genügt.",
+        "statement.text": "Die Pizzeria, bei der ein Bissen genügt, um die ganze Pizza allein aufessen zu wollen. Bostoner Rezept, Istanbuler Ofen.",
+        "intro.line": "Boston, 2001. Istanbul, 2009.",
         "footer.concept": "Unabhängiges Designkonzept. Nicht die offizielle Website; Fotos und Texte gehören dem Markeninhaber."
     }
 };

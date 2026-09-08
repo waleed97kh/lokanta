@@ -31,7 +31,15 @@
     }
     </script>
 </head>
-<body>
+<body class="is-intro">
+    <div class="intro" id="intro" aria-hidden="true">
+        <div class="intro-panel intro-top"></div>
+        <div class="intro-panel intro-bottom"></div>
+        <div class="intro-center">
+            <img src="images/official/uppercrust_logotype16-w.svg" alt="" width="140" height="199">
+            <p data-i18n="intro.line">Boston, 2001. İstanbul, 2009.</p>
+        </div>
+    </div>
     <a class="skip" href="#main" data-i18n="skip">İçeriğe geç</a>
     <div class="top-sentinel" id="top-sentinel" aria-hidden="true"></div>
 
@@ -93,7 +101,10 @@
         <!-- HERO: the slice pull -->
         <section class="hero" id="top">
             <div class="hero-bg" aria-hidden="true">
-                <img src="images/official/icslide2.jpg" alt="" fetchpriority="high" decoding="async">
+                <video class="hero-video" autoplay muted loop playsinline preload="metadata" poster="images/official/icslide2.jpg">
+                    <source src="video/hero-oven.mp4" type="video/mp4">
+                </video>
+                <canvas class="embers" id="embers"></canvas>
             </div>
 
             <div class="hero-copy">
@@ -217,80 +228,97 @@
 
         <!-- BUILDER -->
         <section class="builder" id="builder">
-            <div class="wrap builder-grid">
-                <div class="builder-copy">
+            <div class="wrap">
+                <div class="section-head">
                     <h2 data-split data-i18n="builder.title">Pizzanızı nasıl istersiniz?</h2>
                     <p data-i18n="builder.text">Yarısını ondan, yarısını bundan.</p>
-
-                    <div class="ctl-grid">
-                        <div class="field">
-                            <label for="half-l" data-i18n="builder.left">Sol yarı</label>
-                            <select id="half-l"></select>
-                        </div>
-                        <div class="field">
-                            <label for="half-r" data-i18n="builder.right">Sağ yarı</label>
-                            <select id="half-r"></select>
-                        </div>
-                        <div class="field">
-                            <span class="field-label" id="base-label" data-i18n="builder.base">Taban</span>
-                            <div class="seg" role="radiogroup" aria-labelledby="base-label" data-seg="base">
-                                <button type="button" role="radio" data-val="red" aria-checked="true" data-i18n="builder.base.red">Kırmızı</button>
-                                <button type="button" role="radio" data-val="white" aria-checked="false" data-i18n="builder.base.white">Beyaz</button>
-                            </div>
-                        </div>
-                        <div class="field">
-                            <span class="field-label" id="crust-label" data-i18n="builder.crust">Hamur</span>
-                            <div class="seg" role="radiogroup" aria-labelledby="crust-label" data-seg="crust">
-                                <button type="button" role="radio" data-val="white" aria-checked="true" data-i18n="builder.crust.white">Beyaz</button>
-                                <button type="button" role="radio" data-val="wheat" aria-checked="false" data-i18n="builder.crust.wheat">Kepekli</button>
-                            </div>
-                        </div>
-                        <div class="field">
-                            <span class="field-label" id="bsize-label" data-i18n="builder.size">Boyut</span>
-                            <div class="seg" role="radiogroup" aria-labelledby="bsize-label" data-seg="size">
-                                <button type="button" role="radio" data-val="L" aria-checked="true">L <small>37 cm</small></button>
-                                <button type="button" role="radio" data-val="XXL" aria-checked="false">XXL <small>47 cm</small></button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="builder-foot">
-                        <p class="builder-price" id="builder-price" aria-live="polite"></p>
-                        <button type="button" class="btn btn-primary btn-lg" id="builder-add" data-i18n="builder.add">Tepsiye ekle</button>
-                    </div>
-                    <p class="fine" data-i18n="builder.note">Yarım-yarım pizzada iki yarının yüksek fiyatı esas alınır.</p>
                 </div>
-
-                <div class="builder-stage">
-                    <svg class="pz" id="pz" viewBox="0 0 400 400" role="img" aria-label="Pizza">
-                        <defs>
-                            <clipPath id="clipL"><rect x="0" y="0" width="200" height="400"/></clipPath>
-                            <clipPath id="clipR"><rect x="200" y="0" width="200" height="400"/></clipPath>
-                            <clipPath id="clipDisc"><circle cx="200" cy="200" r="172"/></clipPath>
-                            <radialGradient id="crustShade" cx="50%" cy="50%" r="50%">
-                                <stop offset="0.86" stop-color="#000" stop-opacity="0"/>
-                                <stop offset="1" stop-color="#000" stop-opacity="0.35"/>
-                            </radialGradient>
-                        </defs>
-                        <g id="pz-scale" transform-origin="200 200">
-                            <g id="pz-rot" transform-origin="200 200">
-                                <circle class="pz-crust" cx="200" cy="200" r="196"/>
-                                <circle class="pz-sauce" cx="200" cy="200" r="182"/>
-                                <g clip-path="url(#clipDisc)">
-                                    <rect class="pz-cheese" x="0" y="0" width="400" height="400"/>
-                                    <image id="half-l-img" clip-path="url(#clipL)" x="0" y="0" width="400" height="400" preserveAspectRatio="xMidYMid slice" href=""/>
-                                    <image id="half-r-img" clip-path="url(#clipR)" x="0" y="0" width="400" height="400" preserveAspectRatio="xMidYMid slice" href=""/>
-                                    <text id="half-l-txt" class="pz-txt" x="112" y="200" text-anchor="middle"></text>
-                                    <text id="half-r-txt" class="pz-txt" x="288" y="200" text-anchor="middle"></text>
+                <div class="builder-grid">
+                    <div class="builder-stage" id="stage" data-cursor="builder.drag">
+                        <svg class="pz" id="pz" viewBox="0 0 400 400" role="img" aria-label="Pizza">
+                            <defs>
+                                <clipPath id="clipL"><rect x="0" y="0" width="200" height="400"/></clipPath>
+                                <clipPath id="clipR"><rect x="200" y="0" width="200" height="400"/></clipPath>
+                                <clipPath id="clipDisc"><circle id="clipDisc-c" cx="200" cy="200" r="172"/></clipPath>
+                                <clipPath id="wipeL"><circle id="wipeL-c" cx="200" cy="200" r="0"/></clipPath>
+                                <clipPath id="wipeR"><circle id="wipeR-c" cx="200" cy="200" r="0"/></clipPath>
+                                <radialGradient id="crustShade" cx="50%" cy="50%" r="50%">
+                                    <stop offset="0.86" stop-color="#000" stop-opacity="0"/>
+                                    <stop offset="1" stop-color="#000" stop-opacity="0.35"/>
+                                </radialGradient>
+                            </defs>
+                            <g id="pz-scale">
+                                <g id="pz-rot">
+                                    <circle class="pz-crust" cx="200" cy="200" r="196"/>
+                                    <circle class="pz-sauce" cx="200" cy="200" r="182"/>
+                                    <g clip-path="url(#clipDisc)">
+                                        <rect class="pz-cheese" x="0" y="0" width="400" height="400"/>
+                                        <g clip-path="url(#clipL)">
+                                            <image id="half-l-img" x="0" y="0" width="400" height="400" preserveAspectRatio="xMidYMid slice" href=""/>
+                                            <text id="half-l-txt" class="pz-txt" x="112" y="208" text-anchor="middle"></text>
+                                            <g clip-path="url(#wipeL)">
+                                                <image id="half-l-next" x="0" y="0" width="400" height="400" preserveAspectRatio="xMidYMid slice" href=""/>
+                                                <text id="half-l-ntxt" class="pz-txt" x="112" y="208" text-anchor="middle"></text>
+                                            </g>
+                                        </g>
+                                        <g clip-path="url(#clipR)">
+                                            <image id="half-r-img" x="0" y="0" width="400" height="400" preserveAspectRatio="xMidYMid slice" href=""/>
+                                            <text id="half-r-txt" class="pz-txt" x="288" y="208" text-anchor="middle"></text>
+                                            <g clip-path="url(#wipeR)">
+                                                <image id="half-r-next" x="0" y="0" width="400" height="400" preserveAspectRatio="xMidYMid slice" href=""/>
+                                                <text id="half-r-ntxt" class="pz-txt" x="288" y="208" text-anchor="middle"></text>
+                                            </g>
+                                        </g>
+                                    </g>
+                                    <circle class="pz-shade" cx="200" cy="200" r="196" fill="url(#crustShade)"/>
+                                    <line x1="200" y1="28" x2="200" y2="372" class="pz-cut"/>
                                 </g>
-                                <circle cx="200" cy="200" r="196" fill="url(#crustShade)"/>
-                                <line x1="200" y1="28" x2="200" y2="372" class="pz-cut"/>
                             </g>
-                        </g>
-                    </svg>
-                    <button type="button" class="icon-btn spin-btn" id="pz-spin" data-i18n-aria="builder.spin" aria-label="Döndür">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 1 1-3-6.7"/><path d="M21 3v6h-6"/></svg>
-                    </button>
+                        </svg>
+                        <p class="stage-hint" data-i18n="builder.drag">Sürükleyip döndürün</p>
+                        <button type="button" class="icon-btn spin-btn" id="pz-spin" data-i18n-aria="builder.spin" aria-label="Döndür">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 1 1-3-6.7"/><path d="M21 3v6h-6"/></svg>
+                        </button>
+                    </div>
+
+                    <div class="builder-panel">
+                        <div class="pick">
+                            <p class="field-label" id="pick-l-label" data-i18n="builder.left">Sol yarı</p>
+                            <div class="thumbs" id="thumbs-l" role="radiogroup" aria-labelledby="pick-l-label"></div>
+                        </div>
+                        <div class="pick">
+                            <p class="field-label" id="pick-r-label" data-i18n="builder.right">Sağ yarı</p>
+                            <div class="thumbs" id="thumbs-r" role="radiogroup" aria-labelledby="pick-r-label"></div>
+                        </div>
+                        <div class="ctl-grid">
+                            <div class="field">
+                                <span class="field-label" id="base-label" data-i18n="builder.base">Taban</span>
+                                <div class="seg" role="radiogroup" aria-labelledby="base-label" data-seg="base">
+                                    <button type="button" role="radio" data-val="red" aria-checked="true" data-i18n="builder.base.red">Kırmızı</button>
+                                    <button type="button" role="radio" data-val="white" aria-checked="false" data-i18n="builder.base.white">Beyaz</button>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <span class="field-label" id="crust-label" data-i18n="builder.crust">Hamur</span>
+                                <div class="seg" role="radiogroup" aria-labelledby="crust-label" data-seg="crust">
+                                    <button type="button" role="radio" data-val="white" aria-checked="true" data-i18n="builder.crust.white">Beyaz</button>
+                                    <button type="button" role="radio" data-val="wheat" aria-checked="false" data-i18n="builder.crust.wheat">Kepekli</button>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <span class="field-label" id="bsize-label" data-i18n="builder.size">Boyut</span>
+                                <div class="seg" role="radiogroup" aria-labelledby="bsize-label" data-seg="size">
+                                    <button type="button" role="radio" data-val="L" aria-checked="true">L <small>37 cm</small></button>
+                                    <button type="button" role="radio" data-val="XXL" aria-checked="false">XXL <small>47 cm</small></button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="builder-foot">
+                            <p class="builder-price" id="builder-price" aria-live="polite"></p>
+                            <button type="button" class="btn btn-primary btn-lg" id="builder-add" data-i18n="builder.add">Tepsiye ekle</button>
+                        </div>
+                        <p class="fine" data-i18n="builder.note">Yarım-yarım pizzada iki yarının yüksek fiyatı esas alınır.</p>
+                    </div>
                 </div>
             </div>
         </section>
@@ -336,6 +364,22 @@
                         <p class="results" id="results" aria-live="polite"></p>
                     </div>
                     <ul class="rows" id="rows"></ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- STATEMENT -->
+        <section class="statement">
+            <div class="wrap statement-grid">
+                <div class="statement-media">
+                    <video autoplay muted loop playsinline preload="metadata" poster="images/stock/statement.jpg">
+                        <source src="video/cheese-pull.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="statement-copy">
+                    <h2 data-split data-i18n="statement.title">Bir dilim yeter.</h2>
+                    <p data-i18n="statement.text">Bir ısırık alanın koca bir pizzayı tek başına bitirme isteği duyduğu gurme pizzacı.</p>
+                    <a class="btn btn-ghost btn-lg" href="#builder" data-i18n="nav.builder">Pizzanı Kur</a>
                 </div>
             </div>
         </section>
@@ -479,7 +523,7 @@
     </footer>
 
     <!-- DISH DIALOG -->
-    <dialog class="dish" id="dish" aria-labelledby="dish-title">
+    <dialog class="dish" id="dish" aria-labelledby="dish-title" data-lenis-prevent>
         <button type="button" class="icon-btn dialog-close" data-close data-i18n-aria="dialog.close" aria-label="Kapat">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
         </button>
@@ -508,7 +552,7 @@
     </dialog>
 
     <!-- TRAY DIALOG -->
-    <dialog class="tray" id="tray" aria-labelledby="tray-title">
+    <dialog class="tray" id="tray" aria-labelledby="tray-title" data-lenis-prevent>
         <div class="tray-head">
             <h3 id="tray-title"><span data-i18n="tray.title">Tepsiniz</span> <span class="tray-total-count" id="tray-total-count"></span></h3>
             <button type="button" class="icon-btn" data-close data-i18n-aria="dialog.close" aria-label="Kapat">
@@ -525,10 +569,12 @@
     </dialog>
 
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <div class="cursor" id="cursor" aria-hidden="true"><span class="cursor-label" id="cursor-label"></span></div>
     <img class="peek" id="peek" alt="" aria-hidden="true">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
     <script src="js/data.js"></script>
     <script src="js/i18n.js"></script>
     <script src="js/app.js"></script>
