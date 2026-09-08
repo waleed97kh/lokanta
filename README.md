@@ -1,6 +1,6 @@
 # The Upper Crust Pizzeria Türkiye
 
-Redesign concept for The Upper Crust Pizzeria Türkiye (Bebek and Maslak, Istanbul), built to pitch to the brand. Copy, photography, logo and facts come from the official site (uppercrustturkiye.com) and its Instagram; the concept adds a client-side order tray that hands off to the official ordering page.
+Redesign concept for The Upper Crust Pizzeria Türkiye (Bebek and Maslak, Istanbul), built to pitch to the brand. Two pages: a short landing page (`/`) and the full menu with the pizza builder (`/menu/`). Copy, photography, logo and facts come from the official site (uppercrustturkiye.com) and its Instagram; the concept adds a client-side order tray that hands off to the official ordering page.
 
 Independent design concept, not an official Upper Crust website. Photography and copy belong to the brand owner (see `images/official/SOURCES.md`).
 
@@ -25,14 +25,16 @@ Then open http://localhost:8090.
 
 | Path | Purpose |
 |---|---|
-| `index.html` | Page structure and static copy (Turkish defaults) |
+| `index.html` | Landing page: hero, story, timeline, signature plates, menu teaser, statement, catering, branches, Instagram |
+| `menu/index.html` | Menu page: every item from the official menu PDF with photos, sticky category bar, search, size lens, dietary filters, the half-and-half builder with extra toppings, house rules |
 | `css/style.css` | Design tokens and all styling |
-| `js/data.js` | Menu records: 66 items, prices in TRY, sizes S 23 cm / L 37 cm / XXL 47 cm |
+| `js/data.js` | Menu transcribed from the official PDF (price date 03.06.2026): 33 pizzas, 3 slices, 6 starters, 6 salads, 3 desserts, 21 drinks, 11 wines, 12 beers, 54 extra toppings, surcharges. Turkish and English descriptions |
 | `js/i18n.js` | UI strings in TR, EN, AR (RTL), RU, DE |
 | `js/app.js` | Menu, size lens, dish dialog, tray, half-and-half builder, opening hours, GSAP motion |
 | `images/official/` | Photography and logos from the brand's media library |
 | `images/social/` | Instagram posts shown on the official homepage |
 | `images/stock/`, `video/` | Pexels stock (free license), sources listed in `video/SOURCES.md` |
+| `images/menu/` | Pexels photos matched to menu items that have no official photo, listed in `images/menu/SOURCES.md` |
 
 ## What moves
 
@@ -44,6 +46,7 @@ Then open http://localhost:8090.
 - **Cheese drips** over the red mural band, ambient and slow.
 - **Mural marquee** ("One slice at a time / Happiness", the wall in the Maslak branch) that speeds up with scroll velocity.
 - **Pinned horizontal timeline**: Çırağan 2009, Bebek 2011, Maslak 2017, today.
+- **Menu page** (`/menu/`): a customer-first flow. Sizes explained up top, then a sticky bar with categories (scrollspy), search, the size lens and vegetarian / vegan / spicy filters; every item as a photo card with Turkish ingredients, tags and a one-tap add; drinks, wines (glass / bottle) and beers as compact rows; the builder; the menu's printed rules.
 - **Half-and-half builder** from the brand's own promise ("Yarısını ondan, yarısını bundan"): the pizza assembles itself as you scroll in (dough, sauce, cheese, toppings), halves are picked from photo carousels and swap with a radial wipe, you drag the pizza to spin it (with inertia), base and crust toggles ripple, the price rolls, and the finished pizza flies into the tray.
 - **Statement**: a portrait cheese-pull video beside "Bir dilim yeter."
 - **Menu**: size lens that reprices the whole list, search, dietary filters, a floating photo that follows the cursor over rows that have one.
