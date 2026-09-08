@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="tr" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Upper Crust Pizzeria Türkiye</title>
+    <meta name="description" content="Award-winning thin-crust gourmet pizza from Boston, serving Istanbul since 2009. Bebek and Maslak.">
+    <meta name="theme-color" content="#15110F">
+    <meta property="og:title" content="The Upper Crust Pizzeria Türkiye">
+    <meta property="og:description" content="Boston's thin crust, in Istanbul since 2009.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="images/hero.jpg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Manrope:wght@400;500;600;700&family=Prata&family=Cairo:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Restaurant",
+      "name": "The Upper Crust Pizzeria Türkiye",
+      "servesCuisine": "Pizza",
+      "foundingDate": "2009",
+      "address": [
+        { "@type": "PostalAddress", "streetAddress": "Küçük Bebek Cad. No:6", "addressLocality": "Bebek, İstanbul", "addressCountry": "TR" },
+        { "@type": "PostalAddress", "streetAddress": "42 Maslak, Ahi Evran Cad. No:6/190", "addressLocality": "Sarıyer, İstanbul", "addressCountry": "TR" }
+      ]
+    }
+    </script>
+</head>
+<body>
+    <a class="skip" href="#main" data-i18n="skip">İçeriğe geç</a>
+    <div class="top-sentinel" id="top-sentinel" aria-hidden="true"></div>
+
+    <header class="site-header" id="header">
+        <a class="wordmark" href="#top" aria-label="The Upper Crust"><span>The</span> Upper Crust</a>
+
+        <nav class="nav" data-i18n-aria="nav.label" aria-label="Ana menü">
+            <a href="#menu" data-i18n="nav.menu">Menü</a>
+            <a href="#story" data-i18n="nav.story">Hikayemiz</a>
+            <a href="#locations" data-i18n="nav.locations">Şubeler</a>
+        </nav>
+
+        <div class="tools">
+            <div class="lang" role="group" data-i18n-aria="lang.label" aria-label="Dil">
+                <button type="button" data-lang="TR" aria-pressed="true" lang="tr">TR</button>
+                <button type="button" data-lang="EN" aria-pressed="false" lang="en">EN</button>
+                <button type="button" data-lang="AR" aria-pressed="false" lang="ar">AR</button>
+                <button type="button" data-lang="RU" aria-pressed="false" lang="ru">RU</button>
+                <button type="button" data-lang="DE" aria-pressed="false" lang="de">DE</button>
+            </div>
+
+            <button type="button" class="tray-btn" id="tray-btn" aria-haspopup="dialog" aria-controls="tray" data-i18n-aria="tray.open" aria-label="Tepsiyi aç">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M3 10h18"/><path d="M5 10l1.2 9h11.6L19 10"/><path d="M12 3a4 4 0 0 1 4 4v3H8V7a4 4 0 0 1 4-4z"/>
+                </svg>
+                <span class="tray-count" id="tray-count" hidden>0</span>
+            </button>
+
+            <a class="btn btn-primary btn-header" href="https://uppercrustturkiye.com/online-siparis/" target="_blank" rel="noopener noreferrer" data-i18n="nav.order">Online Sipariş</a>
+
+            <button type="button" class="burger" id="burger" aria-expanded="false" aria-controls="drawer" aria-label="Menu">
+                <span></span><span></span>
+            </button>
+        </div>
+    </header>
+
+    <div class="drawer" id="drawer" aria-hidden="true">
+        <nav class="drawer-nav" data-i18n-aria="nav.label" aria-label="Ana menü">
+            <a href="#menu" data-i18n="nav.menu">Menü</a>
+            <a href="#story" data-i18n="nav.story">Hikayemiz</a>
+            <a href="#locations" data-i18n="nav.locations">Şubeler</a>
+            <a class="drawer-order" href="https://uppercrustturkiye.com/online-siparis/" target="_blank" rel="noopener noreferrer" data-i18n="nav.order">Online Sipariş</a>
+        </nav>
+        <div class="lang drawer-lang" role="group" data-i18n-aria="lang.label" aria-label="Dil">
+            <button type="button" data-lang="TR" aria-pressed="true" lang="tr">TR</button>
+            <button type="button" data-lang="EN" aria-pressed="false" lang="en">EN</button>
+            <button type="button" data-lang="AR" aria-pressed="false" lang="ar">AR</button>
+            <button type="button" data-lang="RU" aria-pressed="false" lang="ru">RU</button>
+            <button type="button" data-lang="DE" aria-pressed="false" lang="de">DE</button>
+        </div>
+    </div>
+
+    <main id="main">
+
+        <!-- HERO -->
+        <section class="hero" id="top">
+            <div class="hero-copy">
+                <h1 class="hero-title" style="--i:0" lang="en">Not your average pizza since 2009.</h1>
+                <p class="hero-sub" style="--i:1" data-i18n="hero.subtitle">Boston'dan İstanbul'a. İnce hamur, gerçek malzeme.</p>
+                <div class="hero-ctas" style="--i:2">
+                    <a class="btn btn-primary btn-lg" href="#menu" data-i18n="hero.cta.menu">Menüyü Keşfet</a>
+                    <a class="btn btn-ghost btn-lg" href="https://uppercrustturkiye.com/online-siparis/" target="_blank" rel="noopener noreferrer" data-i18n="hero.cta.order">Online Sipariş</a>
+                </div>
+            </div>
+            <div class="hero-visual" aria-hidden="true">
+                <div class="hero-disc">
+                    <div class="disc-spin">
+                        <img src="images/hero.jpg" alt="" fetchpriority="high" decoding="async">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- STORY -->
+        <section class="story" id="story">
+            <div class="wrap story-grid">
+                <div class="story-copy">
+                    <h2 data-i18n="story.title">Boston'un ince hamuru, 2009'dan beri İstanbul'da.</h2>
+                    <p data-i18n="story.text">The Upper Crust, Boston'da doğdu. 2009'dan bu yana İstanbul'da aynı tarifle çalışıyoruz: elde açılan ince hamur, gizli tarifli domates sosu ve her gün taze kesilen malzeme.</p>
+                    <dl class="facts">
+                        <div><dt data-i18n="story.fact.1.k">Kuruluş</dt><dd data-i18n="story.fact.1.v">2009, İstanbul</dd></div>
+                        <div><dt data-i18n="story.fact.2.k">Köken</dt><dd data-i18n="story.fact.2.v">Boston, ABD</dd></div>
+                        <div><dt data-i18n="story.fact.3.k">Hamur</dt><dd data-i18n="story.fact.3.v">İnce, çıtır</dd></div>
+                        <div><dt data-i18n="story.fact.4.k">Boyutlar</dt><dd data-i18n="story.fact.4.v">23 / 37 / 47 cm</dd></div>
+                    </dl>
+                </div>
+
+                <div class="gallery" data-i18n-aria="story.gallery" aria-label="Fotoğraf galerisi" role="region">
+                    <div class="gallery-track" id="gallery-track" tabindex="0">
+                        <figure><img src="images/ucbebek.jpg" alt="" loading="lazy" decoding="async"><figcaption data-i18n="story.cap.bebek">Bebek şubesi, akşam saatleri</figcaption></figure>
+                        <figure><img src="images/IMG_1808.jpg" alt="" loading="lazy" decoding="async"><figcaption data-i18n="story.cap.pins">Tavandaki oklavalar</figcaption></figure>
+                        <figure><img src="images/IMG_1807.jpg" alt="" loading="lazy" decoding="async"><figcaption data-i18n="story.cap.maslak">Maslak şubesi, salon</figcaption></figure>
+                        <figure><img src="images/TheUpperCrustBebek7.jpg" alt="" loading="lazy" decoding="async"><figcaption data-i18n="story.cap.board">Dilim menüsü, tebeşir tahtası</figcaption></figure>
+                        <figure><img src="images/kryr1.jpg" alt="" loading="lazy" decoding="async"><figcaption data-i18n="story.cap.team">Fırının başında ekibimiz</figcaption></figure>
+                    </div>
+                    <div class="gallery-nav">
+                        <button type="button" class="icon-btn" data-gallery="-1" data-i18n-aria="story.prev" aria-label="Önceki fotoğraf">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+                        </button>
+                        <button type="button" class="icon-btn" data-gallery="1" data-i18n-aria="story.next" aria-label="Sonraki fotoğraf">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SIGNATURE -->
+        <section class="signature">
+            <div class="wrap">
+                <div class="section-head">
+                    <h2 data-i18n="signature.title">İmza lezzetler</h2>
+                    <p data-i18n="signature.text">Mutfağın öne çıkardığı üç tabak.</p>
+                </div>
+                <div class="sig-grid" id="sig-grid"></div>
+            </div>
+        </section>
+
+        <!-- MENU -->
+        <section class="menu board" id="menu">
+            <div class="wrap menu-grid">
+                <aside class="rail">
+                    <h2 data-i18n="menu.title">Menü</h2>
+                    <p class="rail-text" data-i18n="menu.text">Tüm fiyatlar Türk lirasıdır. Pizzalar üç boyutta hazırlanır.</p>
+
+                    <div class="field">
+                        <label for="menu-search" data-i18n="menu.search.label">Menüde ara</label>
+                        <input type="search" id="menu-search" autocomplete="off" data-i18n-placeholder="menu.search.placeholder" placeholder="Örn. mantar, vegan, tiramisu">
+                    </div>
+
+                    <div class="cats" id="cats" role="group" data-i18n-aria="menu.filters" aria-label="Filtreler"></div>
+
+                    <div class="diet">
+                        <p class="diet-title" data-i18n="menu.diet.title">Beslenme</p>
+                        <button type="button" class="diet-btn" data-diet="V" aria-pressed="false"><span class="check" aria-hidden="true"></span><span data-i18n="menu.diet.V">Vejetaryen</span></button>
+                        <button type="button" class="diet-btn" data-diet="VG" aria-pressed="false"><span class="check" aria-hidden="true"></span><span data-i18n="menu.diet.VG">Vegan</span></button>
+                    </div>
+                </aside>
+
+                <div class="menu-main">
+                    <div class="toolbar">
+                        <div class="lens-wrap" id="lens-wrap">
+                            <span class="lens-label" id="lens-label" data-i18n="menu.size.label">Boyut</span>
+                            <div class="lens" role="radiogroup" aria-labelledby="lens-label">
+                                <button type="button" role="radio" data-size="S" aria-checked="false">S <small>23 cm</small></button>
+                                <button type="button" role="radio" data-size="L" aria-checked="true">L <small>37 cm</small></button>
+                                <button type="button" role="radio" data-size="XXL" aria-checked="false">XXL <small>47 cm</small></button>
+                            </div>
+                            <span class="lens-note" data-i18n="menu.size.note">Listedeki fiyatlar seçili boyuta göredir.</span>
+                        </div>
+                        <p class="results" id="results" aria-live="polite"></p>
+                    </div>
+                    <ul class="rows" id="rows"></ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- LOCATIONS -->
+        <section class="locations" id="locations">
+            <div class="wrap">
+                <div class="section-head">
+                    <h2 data-i18n="locations.title">Şubelerimiz</h2>
+                    <p data-i18n="locations.text">Boğaz kıyısında ve iş dünyasının merkezinde. İkisi de aynı fırın, aynı hamur.</p>
+                </div>
+
+                <div class="loc-grid">
+                    <article class="loc">
+                        <div class="loc-media" id="map-bebek">
+                            <img src="images/ucbebek.jpg" alt="Bebek" loading="lazy" decoding="async">
+                        </div>
+                        <div class="loc-body">
+                            <h3>Bebek</h3>
+                            <p data-i18n="locations.bebek.desc">Boğaz manzarası, açık hava oturma alanı.</p>
+                            <dl class="loc-facts">
+                                <div><dt data-i18n="locations.address">Adres</dt><dd>Küçük Bebek Cad. No:6, Bebek</dd></div>
+                                <div><dt data-i18n="locations.phone">Telefon</dt><dd><a href="tel:+902122650266">0212 265 0 266</a></dd></div>
+                            </dl>
+                            <div class="loc-actions">
+                                <a class="btn btn-ghost" href="https://maps.google.com/?q=The+Upper+Crust+Pizzeria+Bebek" target="_blank" rel="noopener noreferrer" data-i18n="locations.directions">Yol tarifi</a>
+                                <button type="button" class="btn btn-quiet" data-map="The Upper Crust Pizzeria Bebek Istanbul" data-target="map-bebek" data-i18n="locations.map">Haritayı göster</button>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="loc">
+                        <div class="loc-media" id="map-maslak">
+                            <img src="images/IMG_1807.jpg" alt="Maslak" loading="lazy" decoding="async">
+                        </div>
+                        <div class="loc-body">
+                            <h3>Maslak</h3>
+                            <p data-i18n="locations.maslak.desc">İş dünyasının kalbinde, hızlı servis.</p>
+                            <dl class="loc-facts">
+                                <div><dt data-i18n="locations.address">Adres</dt><dd>42 Maslak, Ahi Evran Cad. No:6/190, Sarıyer</dd></div>
+                                <div><dt data-i18n="locations.phone">Telefon</dt><dd><a href="tel:+902122761900">0212 276 1900</a></dd></div>
+                            </dl>
+                            <div class="loc-actions">
+                                <a class="btn btn-ghost" href="https://maps.google.com/?q=The+Upper+Crust+Pizzeria+Maslak" target="_blank" rel="noopener noreferrer" data-i18n="locations.directions">Yol tarifi</a>
+                                <button type="button" class="btn btn-quiet" data-map="The Upper Crust Pizzeria 42 Maslak Istanbul" data-target="map-maslak" data-i18n="locations.map">Haritayı göster</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONVERSION -->
+        <section class="conversion">
+            <div class="wrap">
+                <h2 data-i18n="conversion.title">Siparişe hazır mısınız?</h2>
+                <p data-i18n="conversion.text">İnce hamurlu gurme lezzet kapınıza gelsin.</p>
+                <a class="btn btn-primary btn-lg" href="https://uppercrustturkiye.com/online-siparis/" target="_blank" rel="noopener noreferrer" data-i18n="hero.cta.order">Online Sipariş</a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="wrap footer-grid">
+            <div>
+                <a class="wordmark" href="#top" aria-label="The Upper Crust"><span>The</span> Upper Crust</a>
+                <p class="footer-tagline" data-i18n="footer.tagline">2009'dan beri ödüllü ince hamurlu gurme pizza.</p>
+            </div>
+            <div>
+                <h4 data-i18n="footer.explore">Keşfet</h4>
+                <ul>
+                    <li><a href="#menu" data-i18n="nav.menu">Menü</a></li>
+                    <li><a href="#story" data-i18n="nav.story">Hikayemiz</a></li>
+                    <li><a href="#locations" data-i18n="nav.locations">Şubeler</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 data-i18n="footer.contact">İletişim</h4>
+                <ul>
+                    <li><a href="tel:+902122650266">Bebek 0212 265 0 266</a></li>
+                    <li><a href="tel:+902122761900">Maslak 0212 276 1900</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="wrap footer-bottom">
+            <p>&copy; <span id="year"></span> The Upper Crust Pizzeria Türkiye. <span data-i18n="footer.rights">Tüm hakları saklıdır.</span></p>
+        </div>
+    </footer>
+
+    <!-- DISH DIALOG -->
+    <dialog class="dish" id="dish" aria-labelledby="dish-title">
+        <button type="button" class="icon-btn dialog-close" data-close data-i18n-aria="dialog.close" aria-label="Kapat">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+        </button>
+        <div class="dish-grid">
+            <div class="dish-visual" id="dish-visual"></div>
+            <div class="dish-body">
+                <div class="dish-tags" id="dish-tags"></div>
+                <h3 id="dish-title"></h3>
+                <p class="dish-desc" id="dish-desc"></p>
+
+                <div class="sizes-wrap" id="sizes-wrap">
+                    <p class="label" id="sizes-label" data-i18n="dialog.size">Boyut seçin</p>
+                    <div class="sizes" id="sizes" role="radiogroup" aria-labelledby="sizes-label"></div>
+                </div>
+
+                <div class="dish-foot">
+                    <p class="dish-price" id="dish-price" aria-live="polite"></p>
+                    <div class="qty" role="group" data-i18n-aria="dialog.qty" aria-label="Adet">
+                        <button type="button" class="qty-btn" data-qty="-1" data-i18n-aria="dialog.decrease" aria-label="Azalt">&minus;</button>
+                        <output id="dish-qty">1</output>
+                        <button type="button" class="qty-btn" data-qty="1" data-i18n-aria="dialog.increase" aria-label="Artır">+</button>
+                    </div>
+                    <button type="button" class="btn btn-primary btn-lg" id="dish-add" data-i18n="dialog.add">Tepsiye ekle</button>
+                </div>
+                <p class="fine" data-i18n="dialog.note">Fiyatlar menü fiyatlarıdır. Ödeme online sipariş sayfasında tamamlanır.</p>
+            </div>
+        </div>
+    </dialog>
+
+    <!-- TRAY DIALOG -->
+    <dialog class="tray" id="tray" aria-labelledby="tray-title">
+        <div class="tray-head">
+            <h3 id="tray-title"><span data-i18n="tray.title">Tepsiniz</span> <span class="tray-total-count" id="tray-total-count"></span></h3>
+            <button type="button" class="icon-btn" data-close data-i18n-aria="dialog.close" aria-label="Kapat">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+            </button>
+        </div>
+        <ul class="tray-lines" id="tray-lines"></ul>
+        <div class="tray-foot" id="tray-foot">
+            <div class="tray-sub"><span data-i18n="tray.subtotal">Ara toplam</span><strong id="tray-subtotal"></strong></div>
+            <a class="btn btn-primary btn-lg" href="https://uppercrustturkiye.com/online-siparis/" target="_blank" rel="noopener noreferrer" data-i18n="tray.order">Siparişi online tamamla</a>
+            <button type="button" class="btn btn-quiet" id="tray-clear" data-i18n="tray.clear">Tepsiyi boşalt</button>
+            <p class="fine" data-i18n="tray.note">Bu liste sipariş notunuzdur. Ödeme resmi sipariş sayfasında yapılır.</p>
+        </div>
+    </dialog>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <script src="js/data.js"></script>
+    <script src="js/i18n.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

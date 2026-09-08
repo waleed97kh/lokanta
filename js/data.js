@@ -1,0 +1,80 @@
+/* Upper Crust Türkiye, menu records. Prices in TRY. Sizes: S 23 cm, L 37 cm, XXL 47 cm. */
+const menuData = [
+    // PIZZAS
+    { id: 'p0', num: '', name: "Pizza Margherita", cat: "PIZZAS", desc: "Tomato sauce and mozzarella.", img: "images/margherita.jpg", sizes: { S: 410, L: 970, XXL: 1475 }, tags: ["V"] },
+    { id: 'p1', num: '#1', name: "The 3 Cheese", cat: "PIZZAS", desc: "White pizza with fresh garlic, mozzarella, ricotta, diced tomato and parmesan.", img: null, sizes: { S: 520, L: 1095, XXL: 1625 }, tags: ["V"] },
+    { id: 'p2', num: '#2', name: "Pedro's Steak & Gorgonzola", cat: "PIZZAS", desc: "Marinated steak and gorgonzola cheese.", img: null, sizes: { S: 595, L: 1345, XXL: 2185 }, tags: [] },
+    { id: 'p4', num: '#4', name: "White Spinach", cat: "PIZZAS", desc: "White pizza with fresh spinach, mozzarella, white cheese and fresh garlic.", img: "images/white-spinach.jpg", sizes: { S: 410, L: 1045, XXL: 1570 }, tags: ["V"] },
+    { id: 'p5', num: '#5', name: "Hawaiian", cat: "PIZZAS", desc: "Beef bacon and diced pineapple. Jalapeño can be added.", img: "images/hawaiian.jpg", sizes: { S: 600, L: 1570, XXL: 2185 }, tags: [] },
+    { id: 'p6', num: '#6', name: "Chicken Fajita Pizza", cat: "PIZZAS", desc: "Julienne chicken with fajita sauce, colorful peppers and roasted red pepper.", img: null, sizes: { S: 495, L: 1045, XXL: 1795 }, tags: [] },
+    { id: 'p7', num: '#7', name: "Garden Veggie", cat: "PIZZAS", desc: "Fresh mushrooms, onion, sliced sweet peppers, broccoli and fresh garlic.", img: null, sizes: { S: 495, L: 925, XXL: 1260 }, tags: ["V"] },
+    { id: 'p9', num: '#9', name: "Cheddar & Bresaola", cat: "PIZZAS", desc: "White pizza with cheddar, bresaola, mushrooms, mozzarella and garlic. Served with arugula.", img: null, sizes: { S: 990, L: 1910, XXL: 2325 }, tags: [] },
+    { id: 'p10', num: '#10', name: "The Kavurma", cat: "PIZZAS", desc: "White pizza with kavurma, mozzarella, green pepper, red onion and sliced tomato.", img: null, sizes: { S: 780, L: 1565, XXL: 2005 }, tags: [] },
+    { id: 'p11', num: '#11', name: "The Harvard Street", cat: "PIZZAS", desc: "Fresh garlic, mozzarella, sliced tomato, fresh mozzarella and fresh basil.", img: null, sizes: { S: 565, L: 1175, XXL: 1570 }, tags: ["V"] },
+    { id: 'p12', num: '#12', name: "Brendan's Buffalo Chicken", cat: "PIZZAS", desc: "White pizza with buffalo chicken, Roquefort and mozzarella.", img: null, sizes: { S: 565, L: 1175, XXL: 1570 }, tags: [] },
+    { id: 'p13', num: '#13', name: "Bub's BBQ Chicken", cat: "PIZZAS", desc: "White pizza with BBQ chicken, sliced onion and mozzarella. Can be spicy.", img: "images/BBQChicken.jpg", sizes: { S: 565, L: 1175, XXL: 1570 }, tags: [] },
+    { id: 'p14', num: '#14', name: "The State House", cat: "PIZZAS", desc: "Pepperoni, Turkish sausage and minced beef.", img: null, sizes: { S: 615, L: 1315, XXL: 1715 }, tags: [] },
+    { id: 'p15', num: '#15', name: "The \"Chief\"", cat: "PIZZAS", desc: "Classic pizza with pepperoni and mushrooms.", img: "images/pepperoni.jpg", sizes: { S: 560, L: 1215, XXL: 1555 }, tags: [] },
+    { id: 'p18', num: '#18', name: "The Orhan's Fig Pizza", cat: "PIZZAS", desc: "White pizza with béchamel base, fig, beef bacon, fresh mozzarella, balsamic and arugula.", img: null, sizes: { S: 915, L: 1765, XXL: 2145 }, tags: [] },
+    { id: 'p19', num: '#19', name: "White Shrimp", cat: "PIZZAS", desc: "White pizza with fresh garlic, mozzarella, onion and shrimp.", img: "images/white-shrimp.jpg", sizes: { S: 520, L: 1095, XXL: 1395 }, tags: [] },
+    { id: 'p20', num: '#20', name: "Bir Ton Aşk / A Ton of Love", cat: "PIZZAS", desc: "Tomato sauce, mozzarella, tuna, onion and green pepper.", img: null, sizes: { S: 520, L: 1095, XXL: 1395 }, tags: [] },
+    { id: 'p21', num: '#21', name: "İstanbul Pizza", cat: "PIZZAS", desc: "Turkish sausage, sausage, mushrooms and green pepper.", img: null, sizes: { S: 665, L: 1385, XXL: 1810 }, tags: [] },
+    { id: 'p22', num: '#22', name: "Çırağan Pizza", cat: "PIZZAS", desc: "Turkish sausage, mushrooms, black olives and corn.", img: "images/chiragan.jpg", sizes: { S: 665, L: 1385, XXL: 1810 }, tags: [] },
+    { id: 'p23', num: '#23', name: "Bebek Pizza", cat: "PIZZAS", desc: "White pizza with fresh garlic, mozzarella, onion, beef bacon, sliced potato, rosemary and parsley.", img: null, sizes: { S: 780, L: 1525, XXL: 1980 }, tags: [] },
+    { id: 'p24', num: '#24', name: "Medi Pesto", cat: "PIZZAS", desc: "White pizza with pesto base, white cheese, diced tomato and fresh garlic. Black olives can be added.", img: null, sizes: { S: 520, L: 1095, XXL: 1395 }, tags: ["V"] },
+    { id: 'p25', num: '#25', name: "Pollogo Pesto", cat: "PIZZAS", desc: "Pesto base, fresh garlic, grilled chicken, gorgonzola and parmesan.", img: null, sizes: { S: 595, L: 1255, XXL: 1615 }, tags: [] },
+    { id: 'p26', num: '#26', name: "Garden Pesto", cat: "PIZZAS", desc: "Pesto base, artichoke heart, diced tomato, parmesan and fresh garlic.", img: null, sizes: { S: 715, L: 1445, XXL: 2085 }, tags: ["V"] },
+    { id: 'p27', num: '#27', name: "Rıfat'ın Acılı Pizzası", cat: "PIZZAS", desc: "Tomato sauce, chili flakes, oregano, spicy olive oil, Turkish sausage, sliced parmesan and fresh basil. No mozzarella.", img: "images/RifatinAcilisi-1.jpg", sizes: { S: 780, L: 1795, XXL: 2185 }, tags: [] },
+    { id: 'p28', num: '#28', name: "Melek Pizza", cat: "PIZZAS", desc: "Roasted eggplant and mushroom sauce base, minced beef, diced beef, sliced tomato and white cheddar.", img: null, sizes: { S: 580, L: 1210, XXL: 1580 }, tags: [] },
+    { id: 'p30', num: '#30', name: "Tıka Basa Pastırma", cat: "PIZZAS", desc: "Tomato sauce, mozzarella, pastırma, mushrooms and sliced sweet pepper.", img: null, sizes: { S: 760, L: 1470, XXL: 1905 }, tags: [] },
+    { id: 'p31', num: '#31', name: "Bonfile Pizza", cat: "PIZZAS", desc: "Tomato sauce, fresh garlic, mozzarella, onion, tenderloin and oregano.", img: null, sizes: { S: 760, L: 1470, XXL: 1905 }, tags: [] },
+    { id: 'p34', num: '#34', name: "Karnıyarık Pizza", cat: "PIZZAS", desc: "White pizza with fresh garlic, mozzarella, onion, diced tomato, minced beef, roasted eggplant and jalapeño.", img: null, sizes: { S: 580, L: 1210, XXL: 1580 }, tags: [] },
+    { id: 'p38', num: '#38', name: "Bi Nevi Vegan", cat: "PIZZAS", desc: "Vegan pizza with fermented cashew cheese, fresh spinach, fresh garlic, black olives, mushrooms and truffle oil.", img: null, sizes: { S: 990, L: 1910, XXL: 2325 }, tags: ["VG"] },
+    { id: 'p41', num: '#41', name: "CheeseBurger Pizza", cat: "PIZZAS", desc: "White pizza with moderately spicy Dijon mustard base, shredded mozzarella, minced beef, onion, diced tomato and cheddar.", img: null, sizes: { S: 615, L: 1280, XXL: 1670 }, tags: [] },
+    { id: 'p42', num: '#42', name: "The Upper Lahmacun", cat: "PIZZAS", desc: "A giant lahmacun made using their signature crust, served with lots of greens.", img: null, sizes: { ONE_SIZE: 795 }, tags: [] },
+    { id: 'p43', num: '#43', name: "Pasifik Rüzgarı", cat: "PIZZAS", desc: "Tomato sauce, fresh garlic, mozzarella, oyster mushrooms, beef ham, cherry tomatoes, dried oregano and fresh basil.", img: null, sizes: { S: 640, L: 1335, XXL: 1740 }, tags: [] },
+    { id: 'p50', num: '#50', name: "Çikolata Pizza", cat: "PIZZAS", desc: "Chocolate base with forest and seasonal fruits.", img: null, sizes: { S: 560, L: 1185, XXL: 1515 }, tags: [] },
+
+    // STARTERS
+    { id: 's1', num: '', name: "Ispanak Küpleri", cat: "STARTERS", desc: "Spinach cubes.", img: null, sizes: { ONE_SIZE: 375 }, tags: ["V"] },
+    { id: 's2', num: '', name: "Sarımsaklı Ekmek", cat: "STARTERS", desc: "Garlic Bread.", img: "images/sarmisakli.jpg", sizes: { ONE_SIZE: 310 }, tags: ["V"] },
+    { id: 's3', num: '', name: "Lazanya", cat: "STARTERS", desc: "Lasagna.", img: null, sizes: { ONE_SIZE: 550 }, tags: [] },
+    { id: 's4', num: '', name: "Parmak Patates", cat: "STARTERS", desc: "Finger Fries.", img: "images/fries.jpg", sizes: { ONE_SIZE: 295 }, tags: ["V", "VG"] },
+    { id: 's5', num: '', name: "Güveçte Acılı Tavuk Topları", cat: "STARTERS", desc: "Spicy Chicken Balls in Casserole.", img: null, sizes: { ONE_SIZE: 465 }, tags: [] },
+    { id: 's6', num: '', name: "Cheddar ve Trüflü Parmak Patates", cat: "STARTERS", desc: "Cheddar & Truffle Finger Fries.", img: null, sizes: { ONE_SIZE: 355 }, tags: ["V"] },
+
+    // SALADS
+    { id: 'sa1', num: '', name: "Fit Salata", cat: "SALADS", desc: "Fit Salad.", img: null, sizes: { ONE_SIZE: 410 }, tags: ["V"] },
+    { id: 'sa2', num: '', name: "Izgara Sebze Salatası", cat: "SALADS", desc: "Grilled Veggies Salad.", img: null, sizes: { ONE_SIZE: 490 }, tags: ["V"] },
+    { id: 'sa3', num: '', name: "Akdeniz Salata", cat: "SALADS", desc: "Mediterranean Salad.", img: "images/salad-mediterranean.jpg", sizes: { ONE_SIZE: 410 }, tags: ["V"] },
+    { id: 'sa4', num: '', name: "Roka Salatası", cat: "SALADS", desc: "Arugula Salad.", img: null, sizes: { ONE_SIZE: 410 }, tags: ["V"] },
+    { id: 'sa5', num: '', name: "Sezar Salata", cat: "SALADS", desc: "Caesar Salad.", img: "images/salad-caesar.jpg", sizes: { ONE_SIZE: 410 }, tags: [] },
+    { id: 'sa6', num: '', name: "Ton Balıklı Salata", cat: "SALADS", desc: "Tuna Salad.", img: null, sizes: { ONE_SIZE: 490 }, tags: [] },
+
+    // DESSERTS
+    { id: 'd1', num: '', name: "Bask Cheesecake", cat: "DESSERTS", desc: "Basque Cheesecake.", img: "images/cheesecake.jpg", sizes: { ONE_SIZE: 420 }, tags: ["V"] },
+    { id: 'd2', num: '', name: "Tiramisu", cat: "DESSERTS", desc: "Classic Tiramisu.", img: "images/tiramisu.jpg", sizes: { ONE_SIZE: 495 }, tags: ["V"] },
+    { id: 'd3', num: '', name: "Chocolate Calzone", cat: "DESSERTS", desc: "Chocolate Calzone.", img: null, sizes: { ONE_SIZE: 290 }, tags: ["V"] },
+
+    // DRINKS
+    { id: 'dr1', num: '', name: "Turkish Coffee", cat: "DRINKS", desc: "", img: null, sizes: { ONE_SIZE: 115 }, tags: [] },
+    { id: 'dr2', num: '', name: "Espresso", cat: "DRINKS", desc: "", img: null, sizes: { ONE_SIZE: 115 }, tags: [] },
+    { id: 'dr3', num: '', name: "Double Espresso", cat: "DRINKS", desc: "", img: null, sizes: { ONE_SIZE: 130 }, tags: [] },
+    { id: 'dr4', num: '', name: "Americano", cat: "DRINKS", desc: "", img: null, sizes: { ONE_SIZE: 130 }, tags: [] },
+    { id: 'dr5', num: '', name: "Cappuccino", cat: "DRINKS", desc: "", img: null, sizes: { ONE_SIZE: 145 }, tags: [] },
+    { id: 'dr6', num: '', name: "Filter Coffee", cat: "DRINKS", desc: "", img: null, sizes: { ONE_SIZE: 115 }, tags: [] },
+    { id: 'dr7', num: '', name: "Tea", cat: "DRINKS", desc: "", img: null, sizes: { ONE_SIZE: 70 }, tags: [] },
+    { id: 'dr8', num: '', name: "Coca-Cola 33cl", cat: "DRINKS", desc: "", img: null, sizes: { ONE_SIZE: 115 }, tags: [] },
+    { id: 'dr9', num: '', name: "Coca-Cola Zero 33cl", cat: "DRINKS", desc: "", img: null, sizes: { ONE_SIZE: 115 }, tags: [] },
+    { id: 'dr10', num: '', name: "Fanta 33cl", cat: "DRINKS", desc: "", img: null, sizes: { ONE_SIZE: 115 }, tags: [] },
+    { id: 'dr11', num: '', name: "Sprite 33cl", cat: "DRINKS", desc: "", img: null, sizes: { ONE_SIZE: 115 }, tags: [] },
+    { id: 'dr12', num: '', name: "Schweppes 33cl", cat: "DRINKS", desc: "", img: null, sizes: { ONE_SIZE: 120 }, tags: [] },
+    { id: 'dr13', num: '', name: "Fuse Tea 33cl", cat: "DRINKS", desc: "", img: null, sizes: { ONE_SIZE: 115 }, tags: [] },
+    { id: 'dr14', num: '', name: "Lemonade 33cl", cat: "DRINKS", desc: "", img: null, sizes: { ONE_SIZE: 165 }, tags: [] },
+    { id: 'dr15', num: '', name: "Uludağ Premium 75cl", cat: "DRINKS", desc: "", img: null, sizes: { ONE_SIZE: 220 }, tags: [] },
+    { id: 'dr16', num: '', name: "Mineral Water 25cl", cat: "DRINKS", desc: "", img: null, sizes: { ONE_SIZE: 75 }, tags: [] },
+    { id: 'dr17', num: '', name: "Ayran 33cl", cat: "DRINKS", desc: "", img: null, sizes: { ONE_SIZE: 90 }, tags: [] },
+    { id: 'dr18', num: '', name: "Water 33cl", cat: "DRINKS", desc: "", img: null, sizes: { ONE_SIZE: 75 }, tags: [] }
+];
+
+window.menuData = menuData;
