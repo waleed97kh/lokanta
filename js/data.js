@@ -4,7 +4,7 @@ const menuData = [
     { id: 'p0', num: '', name: "Pizza Margherita", cat: "PIZZAS", desc: "Tomato sauce and mozzarella.", img: "images/margherita.jpg", sizes: { S: 410, L: 970, XXL: 1475 }, tags: ["V"] },
     { id: 'p1', num: '#1', name: "The 3 Cheese", cat: "PIZZAS", desc: "White pizza with fresh garlic, mozzarella, ricotta, diced tomato and parmesan.", img: null, sizes: { S: 520, L: 1095, XXL: 1625 }, tags: ["V"] },
     { id: 'p2', num: '#2', name: "Pedro's Steak & Gorgonzola", cat: "PIZZAS", desc: "Marinated steak and gorgonzola cheese.", img: null, sizes: { S: 595, L: 1345, XXL: 2185 }, tags: [] },
-    { id: 'p4', num: '#4', name: "White Spinach", cat: "PIZZAS", desc: "White pizza with fresh spinach, mozzarella, white cheese and fresh garlic.", img: "images/white-spinach.jpg", sizes: { S: 410, L: 1045, XXL: 1570 }, tags: ["V"] },
+    { id: 'p4', num: '#4', name: "White Spinach", cat: "PIZZAS", desc: "White pizza with fresh spinach, mozzarella, white cheese and fresh garlic.", img: "images/official/IMG_5705.jpg", sizes: { S: 410, L: 1045, XXL: 1570 }, tags: ["V"] },
     { id: 'p5', num: '#5', name: "Hawaiian", cat: "PIZZAS", desc: "Beef bacon and diced pineapple. Jalapeño can be added.", img: "images/hawaiian.jpg", sizes: { S: 600, L: 1570, XXL: 2185 }, tags: [] },
     { id: 'p6', num: '#6', name: "Chicken Fajita Pizza", cat: "PIZZAS", desc: "Julienne chicken with fajita sauce, colorful peppers and roasted red pepper.", img: null, sizes: { S: 495, L: 1045, XXL: 1795 }, tags: [] },
     { id: 'p7', num: '#7', name: "Garden Veggie", cat: "PIZZAS", desc: "Fresh mushrooms, onion, sliced sweet peppers, broccoli and fresh garlic.", img: null, sizes: { S: 495, L: 925, XXL: 1260 }, tags: ["V"] },
