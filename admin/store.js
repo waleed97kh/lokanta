@@ -16,6 +16,7 @@ window.createStore = function createStore(cfg) {
         async signOut() { await ucdb.del('kv', 'user'); this._authCbs.forEach(cb => cb(null)); }
         async isAllowed() { return true; }
         async getDraft() { return (await ucdb.get('kv', 'draft')) || null; }
+        async getDraftStamp() { const d = await ucdb.get('kv', 'draft'); return d ? d.updatedAt || null : null; }
         async saveDraft(content, by) { content.updatedAt = now(); content.updatedBy = by || null; await ucdb.set('kv', 'draft', content); return content; }
         async getLive() { return (await ucdb.get('kv', 'live')) || null; }
         async listVersions() { const all = await ucdb.all('versions'); return all.sort((a, b) => b.id - a.id).map(v => ({ id: v.id, note: v.note, publishedAt: v.publishedAt, publishedBy: v.publishedBy })); }
@@ -67,6 +68,7 @@ window.createStore = function createStore(cfg) {
         async signOut() { await this.client.auth.signOut(); }
         async isAllowed() { const { error } = await this.client.from('draft').select('id').limit(1); return !error; }
         async getDraft() { const { data, error } = await this.client.from('draft').select('content').eq('id', 1).maybeSingle(); if (error) throw error; return data ? data.content : null; }
+        async getDraftStamp() { const { data, error } = await this.client.from('draft').select('stamp:content->>updatedAt').eq('id', 1).maybeSingle(); if (error) throw error; return data ? data.stamp || null : null; }
         async saveDraft(content, by) { content.updatedAt = now(); content.updatedBy = by || null; const { error } = await this.client.from('draft').upsert({ id: 1, content, updated_at: now(), updated_by: by || null }); if (error) throw error; return content; }
         async getLive() {
             const { data, error } = await this.client.from('live').select('version_id, published_at, versions(content)').eq('id', 1).maybeSingle(); if (error) throw error;

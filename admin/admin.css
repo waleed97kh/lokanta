@@ -163,3 +163,19 @@ body.admin button, body.admin a, body.admin [role="button"], body.admin label { 
     .sheet { margin: auto; }
 }
 @media (prefers-reduced-motion: reduce) { .sheet[open] { animation: none; } }
+
+/* ---------- Network / conflict banners ---------- */
+.netbar { position: sticky; top: 0; z-index: 60; display: flex; align-items: center; justify-content: center; gap: 0.75rem; padding: 0.5rem 1rem; font-size: 0.8125rem; font-weight: 600; }
+.netbar.is-offline { background: var(--ink-3); color: var(--chalk-70); border-bottom: 1px solid var(--line-strong); }
+.netbar.is-stale { background: var(--booth); color: #fff; }
+.netbar .btn { min-height: 32px; padding: 0 0.75rem; }
+body.admin:has(.netbar) .abar { top: 36px; }
+
+/* ---------- Drag to reorder ---------- */
+.drag { display: none; width: 18px; color: var(--chalk-50); letter-spacing: -2px; font-weight: 700; user-select: none; touch-action: none; cursor: grab; justify-self: center; }
+.list.is-sorting .drag { display: block; }
+.row-item.is-dragging { opacity: 0.85; border-color: var(--booth-soft); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35); }
+
+/* ---------- Install card ---------- */
+.panel.install { grid-template-columns: minmax(0, 1fr) auto; align-items: center; }
+.panel.install .btn { min-height: 40px; }

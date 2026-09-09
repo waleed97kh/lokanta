@@ -6,7 +6,9 @@
     const CFG = window.SITE_CONFIG || { mode: 'local' };
     const ROOT = window.ASSET_ROOT || '';
     const params = new URLSearchParams(location.search);
-    const PREVIEW = params.get('preview') === '1';
+    const PREVIEW_RAW = params.get('preview') || '';
+    const PREVIEW = PREVIEW_RAW === '1';                                                        // the draft
+    const PREVIEW_VERSION = /^v\d+$/.test(PREVIEW_RAW) ? Number(PREVIEW_RAW.slice(1)) : null;   // a published version
     const CAT_FALLBACK = ['PIZZAS', 'SLICES', 'STARTERS', 'SALADS', 'DESSERTS', 'DRINKS', 'WINES', 'BEERS'];
     const mediaCache = new Map();
 
@@ -37,15 +39,18 @@
         if (!r.ok) throw new Error(r.status + ' ' + url);
         return r.json();
     }
-    async function loadSupabaseDraft() {
+    async function supabaseRow(query) {
         const ref = (CFG.supabaseUrl.match(/https:\/\/([a-z0-9]+)\./) || [])[1];
         const raw = ref && localStorage.getItem(`sb-${ref}-auth-token`);
         if (!raw) return null;
         const token = JSON.parse(raw).access_token;
-        const r = await fetch(`${CFG.supabaseUrl}/rest/v1/draft?id=eq.1&select=content`, { headers: { apikey: CFG.supabaseAnonKey, Authorization: 'Bearer ' + token } });
+        const r = await fetch(`${CFG.supabaseUrl}/rest/v1/${query}`, { headers: { apikey: CFG.supabaseAnonKey, Authorization: 'Bearer ' + token } });
         if (!r.ok) return null;
         const rows = await r.json(); return rows[0] ? rows[0].content : null;
     }
+    const loadSupabaseDraft = () => supabaseRow('draft?id=eq.1&select=content');
+    const loadSupabaseVersion = id => supabaseRow(`versions?id=eq.${id}&select=content`);
+    async function loadLocalVersion(id) { const all = await ucdb.all('versions'); const v = all.find(x => x.id === id); return v ? v.content : null; }
     async function load() {
         let content = null, source = 'bundled';
         try {
@@ -53,6 +58,10 @@
                 if (CFG.mode === 'supabase' && CFG.supabaseUrl) content = await loadSupabaseDraft();
                 else if (window.ucdb && ucdb.available()) content = await ucdb.get('kv', 'draft');
                 if (content) source = 'draft';
+            } else if (PREVIEW_VERSION) {
+                if (CFG.mode === 'supabase' && CFG.supabaseUrl) content = await loadSupabaseVersion(PREVIEW_VERSION);
+                else if (window.ucdb && ucdb.available()) content = await loadLocalVersion(PREVIEW_VERSION);
+                if (content) source = 'version';
             }
             if (!content) {
                 if (CFG.mode === 'supabase' && CFG.supabaseUrl) {
@@ -183,9 +192,10 @@
         qa('.site-footer a[href*="twitter.com"], .site-footer a[href*="x.com"]').forEach(a => { if (L.footer?.x) a.href = L.footer.x; });
         const mtrack = q('#marquee-track');
         if (mtrack && L.marquee?.words?.length === 2) mtrack.innerHTML = Array(6).fill(0).map(() => `<span>${esc(L.marquee.words[0])}</span><span class="em">${esc(L.marquee.words[1])}</span>`).join('');
-        if (PREVIEW) {
+        if (PREVIEW || PREVIEW_VERSION) {
             const bar = document.createElement('div'); bar.className = 'preview-bar'; bar.setAttribute('role', 'status');
-            bar.innerHTML = `<span>Önizleme: yayınlanmamış taslak</span><a href="${ROOT}admin/">Yönetim paneline dön</a>`;
+            const label = window.siteContentSource === 'version' ? `Önizleme: sürüm v${PREVIEW_VERSION}` : window.siteContentSource === 'draft' ? 'Önizleme: yayınlanmamış taslak' : 'Önizleme bulunamadı, yayındaki içerik gösteriliyor';
+            bar.innerHTML = `<span>${label}</span><a href="${ROOT}admin/${PREVIEW_VERSION ? '#/versions' : ''}">Yönetim paneline dön</a>`;
             document.body.prepend(bar); document.documentElement.classList.add('is-preview');
         }
     }

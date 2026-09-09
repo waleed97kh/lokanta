@@ -49,3 +49,40 @@ Free projects pause after 7 days without activity. Options: Pro plan (no pause, 
 ## Security notes
 
 The anon key is public by design; every table and bucket is protected by RLS keyed on `allowed_users`. `media` and `public` buckets are world-readable because the site displays them. Never put the service-role key in the repo or the admin.
+
+## Sessions
+
+Supabase Auth keeps the owner signed in with a refresh token; the admin refreshes it silently. Set Authentication → Sessions → "Time-box user sessions" to 30 days (or leave unlimited) to match the spec. "Çıkış yap" revokes the session on that device.
+
+## Two devices at once
+
+Before every autosave the admin compares the draft's `updatedAt` stamp with the one stored. If another device saved in between, the panel stops saving and shows a red "Başka bir cihazda değişiklik yapıldı" bar with a Reload button. Nothing is overwritten; the later device reloads and continues from the other device's draft.
+
+## Version preview
+
+`/menu/?preview=v12` (or `/?preview=v12`) renders any published version for an allow-listed session. `?preview=1` renders the draft. Without a session both fall back to the live content and the bar says so.
+
+## Media housekeeping (optional, quarterly)
+
+Uploads are never deleted automatically so that every version can still be restored with its images. To reclaim space, list files under `media/` in Storage that no version younger than 90 days references:
+
+```sql
+with refs as (
+  select distinct m[1] as path
+  from public.versions v, regexp_matches(v.content::text, '"(items|landing|branches|posters)/[^"]+"', 'g') m
+  where v.published_at > now() - interval '90 days'
+)
+select name from storage.objects
+where bucket_id = 'media' and name not in (select trim(both '"' from path) from refs)
+order by created_at;
+```
+
+Review the list, then delete from the Storage UI. Also check the draft row before deleting.
+
+## Photo formats
+
+Photos are converted on the device to WebP (1600 px, plus a 480 px thumbnail for the admin lists). Chrome cannot decode HEIC; iPhones send JPEG when Camera → Formats is "Most Compatible", and Safari itself converts HEIC on upload. The admin shows a Turkish hint if a file cannot be decoded.
+
+## Keep-alive workflow
+
+`.github/workflows/supabase-keepalive.yml` reads one row every day when the repository secrets `SUPABASE_URL` and `SUPABASE_ANON_KEY` are set. Skip it on the Pro plan. Run `node scripts/export.js` before deploys to refresh the bundled fallback from the live publication.

@@ -48,7 +48,12 @@ Bu panel, sitenizde müşterilerin gördüğü her şeyi telefonunuzdan değişt
 - Bölümlerin sırası ve tasarımı sabittir; bu sayede site bozulmaz.
 
 ## Sürümler
+- Her sürümün yanındaki **Önizle**, siteyi o sürümle açar; **Bu sürüme dön** onu yeniden yayınlar.
 - Diğer → Sürümler. Her yayının tarihi ve notu burada. "Bu sürüme dön" ile istediğiniz güne dönebilirsiniz.
+
+## Paneli telefona eklemek
+- Başlangıç ekranındaki **Ana ekrana ekle** kartına dokunun (iPhone’da Safari → Paylaş → Ana Ekrana Ekle). Panel uygulama gibi açılır, girişiniz hatırlanır.
+- İki cihazda aynı anda düzenlerseniz panel kırmızı bir uyarı gösterir ve kaydetmeyi durdurur; **Yenile** deyip devam edin.
 
 ## Yardım gerekirse
 - Diğer → Yardım → Turu tekrar göster.

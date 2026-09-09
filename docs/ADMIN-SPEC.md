@@ -1,6 +1,6 @@
 # Upper Crust Admin Panel, Specification
 
-Version 1.0, 2026-09-08. Status: agreed in interview, ready to build.
+Version 1.1, 2026-09-09. Status: implemented (see §15); waiting for the client's Supabase project to go live.
 
 This document specifies the owner-facing admin panel for the Upper Crust Türkiye website (landing page at `/`, menu at `/menu/`). It records the decisions taken with the product owner, the screens, the data model, the publish flow, security, hosting and the delivery phases. Anything not written here is out of scope for v1.
 
@@ -418,3 +418,17 @@ Decision: quick actions go through draft → publish like everything else (whole
 
 ## 14. Out of scope for v1
 Staff roles, per-branch permissions, approval workflows, scheduled publishing, analytics, order management, reservations, loyalty, a media library, stock-photo search, design or layout controls, AR/RU/DE, email or push notifications, native app-store apps, video transcoding.
+
+## 15. Implementation status (2026-09-09)
+
+All phases (0 to 3) are built and verified in local mode. Deviations and notes:
+
+- Reordering uses both a drag handle (⋮⋮) and ▲▼ buttons; the buttons stay because they are more reliable on small phones and for accessibility.
+- Item quick actions (Bugün yok, Çoğalt, Arşivle) live in the item editor rather than on long-press or swipe; one gesture fewer to learn.
+- Sold-out reset at midnight is computed at read time from `unavailableUntil` (Istanbul time); no scheduled job is needed.
+- Two-device conflict check compares the draft's `updatedAt` stamp before each autosave and blocks with a Reload bar; no merge.
+- Version preview: `?preview=v<id>` on the public pages, linked from Sürümler.
+- Thumbnails: a 480 px WebP is uploaded next to each 1600 px photo and used in the admin lists.
+- Media cleanup (90 days) is a documented SQL query in the runbook, not automated.
+- Keep-alive for the free tier is a GitHub Action (`.github/workflows/supabase-keepalive.yml`) enabled by two repository secrets; `scripts/export.js` refreshes the bundled fallback before deploys.
+- Service worker registers only on HTTPS outside localhost to avoid stale files during development.

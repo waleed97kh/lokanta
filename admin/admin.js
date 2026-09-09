@@ -22,6 +22,10 @@
     const ago = iso => { if (!iso) return ''; const m = Math.round((Date.now() - new Date(iso).getTime()) / 60000); if (m < 1) return t('time.now'); if (m < 60) return t('time.min', { n: m }); if (m < 1440) return t('time.hour', { n: Math.round(m / 60) }); return t('time.day', { n: Math.round(m / 1440) }); };
     const uid = p => p + '-' + Math.random().toString(36).slice(2, 8);
     const media = p => store.mediaUrl(p);
+    const thumbUrl = m => m ? store.mediaUrl(m.thumb || m.path) : '';
+    /* sold-out window that has passed counts as available again (the site does the same) */
+    const isOut = it => it.available === false && !(it.unavailableUntil && istanbulNowIso() > it.unavailableUntil);
+    function istanbulNowIso() { try { const p = new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/Istanbul', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', hour12: false }).formatToParts(new Date()); const g = k => p.find(x => x.type === k).value; return `${g('year')}-${g('month')}-${g('day')}T${g('hour')}:${g('minute')}`; } catch { return new Date().toISOString().slice(0, 16); } }
     const getPath = (o, path) => path.split('.').reduce((a, k) => (a == null ? a : a[k]), o);
     const setPath = (o, path, v) => { const ks = path.split('.'); let a = o; for (let i = 0; i < ks.length - 1; i++) { if (a[ks[i]] == null) a[ks[i]] = /^\d+$/.test(ks[i + 1]) ? [] : {}; a = a[ks[i]]; } a[ks[ks.length - 1]] = v; };
     const clone = o => JSON.parse(JSON.stringify(o));
@@ -44,11 +48,22 @@
         st.dirty = true; setSaveState('is-saving', t('common.saving'));
         clearTimeout(st.saveTimer);
         st.saveTimer = setTimeout(async () => {
-            try { st.saving = true; await store.saveDraft(st.draft, st.user?.email); st.saving = false; st.dirty = false; setSaveState('', t('common.saved')); updatePendingBadge(); }
+            try {
+                st.saving = true;
+                if (store.getDraftStamp && st.draft.updatedAt) { const remote = await store.getDraftStamp(); if (remote && remote !== st.draft.updatedAt) { st.saving = false; showStale(); return; } }
+                await store.saveDraft(st.draft, st.user?.email); st.saving = false; st.dirty = false; setSaveState('', t('common.saved')); updatePendingBadge();
+            }
             catch (e) { st.saving = false; setSaveState('is-error', navigator.onLine ? t('common.error') : t('common.offline')); }
         }, 600);
     }
-    const mutate = fn => { fn(st.draft); scheduleSave(); };
+    const mutate = fn => { if (st.stale) return; fn(st.draft); scheduleSave(); };
+    function showStale() {
+        if (st.stale) return; st.stale = true; setSaveState('is-error', t('common.stale'));
+        const bar = document.createElement('div'); bar.className = 'netbar is-stale'; bar.innerHTML = `<span>${esc(t('common.stale'))}</span><button type="button" class="btn btn-ghost" data-act="reload">${esc(t('common.reload'))}</button>`; document.body.prepend(bar);
+    }
+    /* offline banner: the shell keeps working read-only, edits wait for the connection */
+    function netState() { let bar = $('.netbar.is-offline'); if (navigator.onLine) { bar?.remove(); return; } if (!bar) { bar = document.createElement('div'); bar.className = 'netbar is-offline'; bar.textContent = t('common.offline'); document.body.prepend(bar); } }
+    window.addEventListener('offline', netState);
 
     /* ---------- change summary (draft vs live) ---------- */
     function changes() {
@@ -83,7 +98,7 @@
     /* ---------- media processing ---------- */
     async function processImage(file, maxEdge = 1600, quality = 0.82) {
         const bmp = await createImageBitmap(file).catch(() => null);
-        if (!bmp) return file;
+        if (!bmp) { if (/heic|heif/i.test(file.type + file.name)) throw new Error('unsupported'); return file; }
         const scale = Math.min(1, maxEdge / Math.max(bmp.width, bmp.height));
         const c = document.createElement('canvas'); c.width = Math.round(bmp.width * scale); c.height = Math.round(bmp.height * scale);
         c.getContext('2d').drawImage(bmp, 0, 0, c.width, c.height);
@@ -93,9 +108,12 @@
     function pickFile(inputId) { return new Promise(res => { const inp = $(inputId); inp.value = ''; inp.onchange = () => res(inp.files[0] || null); inp.click(); }); }
     async function uploadImageTo(prefix, onProgress) {
         const file = await pickFile(onProgress === 'camera' ? '#file-camera' : '#file-image'); if (!file) return null;
-        const blob = await processImage(file);
-        const path = `${prefix}/${Date.now()}.webp`;
-        return { path: await store.uploadMedia(blob, path), focal: { x: 0.5, y: 0.5 } };
+        let blob, thumb;
+        try { blob = await processImage(file); thumb = await processImage(file, 480, 0.78); } catch { toast(t('item.photoUnsupported')); return null; }
+        const stamp = Date.now();
+        const path = await store.uploadMedia(blob, `${prefix}/${stamp}.webp`);
+        const thumbPath = thumb && thumb !== file ? await store.uploadMedia(thumb, `${prefix}/${stamp}-480.webp`).catch(() => null) : null;
+        return { path, thumb: thumbPath || undefined, focal: { x: 0.5, y: 0.5 } };
     }
     async function uploadVideoTo(prefix) {
         const file = await pickFile('#file-video'); if (!file) return null;
@@ -226,6 +244,7 @@
                 <div class="btn-row"><button class="btn btn-ghost" data-act="preview">${esc(t('home.preview'))}</button><button class="btn btn-primary ${ch.length ? 'is-hot' : ''}" data-act="publish" ${ch.length ? '' : 'disabled'}>${esc(t('home.publish'))}</button></div>
                 <p class="small">${st.live ? esc(t('home.live', { v: st.live.versionId, when: ago(st.live.publishedAt) })) : esc(t('home.neverLive'))}${st.versions.length > 1 ? ` · <a class="link" href="#" data-act="undo">${esc(t('home.undo'))}</a>` : ''}</p>
             </div>
+            ${st.installEvt || (isIos() && !isStandalone() && !localStorage.getItem('uc-admin-ios-hint')) ? `<div class="panel install"><div><b>${esc(t('home.install'))}</b><p class="small">${esc(st.installEvt ? t('home.installText') : t('home.installIos'))}</p></div>${st.installEvt ? `<button class="btn btn-ghost" data-act="install">${esc(t('home.installBtn'))}</button>` : `<button class="btn btn-quiet" data-act="install-dismiss">${esc(t('common.ok'))}</button>`}</div>` : ''}
             <h3>${esc(t('home.quick'))}</h3>
             <div class="quick-grid">
                 <a class="quick" href="#/quick/soldout">${ICON.off}<span>${esc(t('home.soldout'))}</span><small>${esc(t('home.soldoutSub'))}</small></a>
@@ -240,9 +259,9 @@
         const cats = st.draft.categories.slice().sort((a, b) => a.order - b.order);
         const archived = st.draft.items.filter(i => i.archived).length;
         return `${bar(t('menu.title'))}<div class="view">
-            <div class="list">${cats.map((c, i) => { const n = st.draft.items.filter(x => x.cat === c.id && !x.archived).length; return `<div class="row-item" style="grid-template-columns: minmax(0,1fr) auto auto">
+            <div class="list is-sorting" data-sort="cat">${cats.map((c, i) => { const n = st.draft.items.filter(x => x.cat === c.id && !x.archived).length; return `<div class="row-item is-sortable" data-sort-id="${esc(c.id)}" style="grid-template-columns: minmax(0,1fr) auto auto auto">
                 <a href="#/menu/${esc(c.id)}" style="min-width:0"><div class="name">${esc(T2(c.name))} ${c.hidden ? `<span class="pill">${esc(t('menu.hidden'))}</span>` : ''}</div><div class="sub">${esc(t('menu.items', { n }))}</div></a>
-                <div class="order-ctl"><button data-cat-move="${esc(c.id)}" data-dir="-1" ${i === 0 ? 'disabled' : ''} aria-label="${esc(t('f.up'))}">▲</button><button data-cat-move="${esc(c.id)}" data-dir="1" ${i === cats.length - 1 ? 'disabled' : ''} aria-label="${esc(t('f.down'))}">▼</button></div>
+                <span class="drag" data-drag="cat" aria-hidden="true">⋮⋮</span><div class="order-ctl"><button data-cat-move="${esc(c.id)}" data-dir="-1" ${i === 0 ? 'disabled' : ''} aria-label="${esc(t('f.up'))}">▲</button><button data-cat-move="${esc(c.id)}" data-dir="1" ${i === cats.length - 1 ? 'disabled' : ''} aria-label="${esc(t('f.down'))}">▼</button></div>
                 <button class="icon-btn" data-cat-edit="${esc(c.id)}" aria-label="${esc(t('cat.edit'))}" style="width:40px;height:40px">✎</button></div>`; }).join('')}</div>
             <div class="btn-row"><a class="btn btn-primary" href="#/item/new">${esc(t('menu.new'))}</a>${archived ? `<a class="btn btn-ghost" href="#/archive">${esc(t('archive.title'))} (${archived})</a>` : ''}</div>
         </div>`;
@@ -250,9 +269,9 @@
 
     const itemRow = (it, extra = '') => {
         const price = it.sizes.ONE_SIZE != null ? fmt(it.sizes.ONE_SIZE) : it.sizes.L != null ? `L ${fmt(it.sizes.L)}` : it.sizes.GLASS != null ? `${fmt(it.sizes.GLASS)} / ${fmt(it.sizes.BOTTLE)}` : '';
-        return `<a class="row-item ${it.available === false ? 'is-out' : ''} ${it.archived ? 'is-archived' : ''}" href="#/item/${esc(it.id)}">
-            <span class="thumb-disc ${it.image ? '' : 'is-empty'}">${it.image ? `<img src="${esc(media(it.image.path))}" alt="" loading="lazy" style="object-position:${(it.image.focal?.x ?? 0.5) * 100}% ${(it.image.focal?.y ?? 0.5) * 100}%">` : esc(it.num || it.name.slice(0, 1))}</span>
-            <span><span class="name">${it.num ? `<span class="row-num">${esc(it.num)}</span>` : ''}${esc(it.name)}</span><span class="sub">${it.tags.map(tg => `<span class="pill ${tg === 'SPICY' ? 'is-red' : tg === 'STAR' ? 'is-gold' : ''}">${tg === 'STAR' ? '★' : tg === 'SPICY' ? esc(t('tag.SPICY')) : tg}</span>`).join('')}${it.available === false ? `<span class="pill is-red">${esc(t('item.available'))}</span>` : ''}${it.imageIsStock ? `<span class="pill is-gold">stok</span>` : ''}${it.sizeLabel ? `<span>${esc(it.sizeLabel)}</span>` : ''}</span></span>
+        return `<a class="row-item ${isOut(it) ? 'is-out' : ''} ${it.archived ? 'is-archived' : ''}" href="#/item/${esc(it.id)}">
+            <span class="thumb-disc ${it.image ? '' : 'is-empty'}">${it.image ? `<img src="${esc(thumbUrl(it.image))}" alt="" loading="lazy" style="object-position:${(it.image.focal?.x ?? 0.5) * 100}% ${(it.image.focal?.y ?? 0.5) * 100}%">` : esc(it.num || it.name.slice(0, 1))}</span>
+            <span><span class="name">${it.num ? `<span class="row-num">${esc(it.num)}</span>` : ''}${esc(it.name)}</span><span class="sub">${it.tags.map(tg => `<span class="pill ${tg === 'SPICY' ? 'is-red' : tg === 'STAR' ? 'is-gold' : ''}">${tg === 'STAR' ? '★' : tg === 'SPICY' ? esc(t('tag.SPICY')) : tg}</span>`).join('')}${isOut(it) ? `<span class="pill is-red">${esc(t('item.available'))}</span>` : ''}${it.imageIsStock ? `<span class="pill is-gold">stok</span>` : ''}${it.sizeLabel ? `<span>${esc(it.sizeLabel)}</span>` : ''}</span></span>
             <span class="price">${price}${extra}</span></a>`;
     };
     V.menuCat = cat => {
@@ -262,7 +281,7 @@
         const shown = q ? items.filter(i => (i.num + ' ' + i.name + ' ' + (i.desc?.tr || '')).toLowerCase().includes(q)) : items;
         return `${bar(T2(c.name), '#/menu')}<div class="view">
             <div class="rowline"><div class="field" style="flex:1"><input type="search" id="q" placeholder="${esc(t('menu.search'))}" value="${esc(st.q || '')}" style="width:100%;min-height:44px;padding:0 .875rem;border-radius:var(--r);background:var(--ink-3);border:1px solid var(--line-strong);color:var(--chalk);font:inherit"></div><button class="btn btn-ghost" data-act="reorder">${st.reorder ? '✓' : '↕'}</button></div>
-            <div class="list">${shown.map((it, i) => st.reorder ? `<div class="row-item" style="grid-template-columns: minmax(0,1fr) auto"><span><span class="name">${esc(it.name)}</span></span><div class="order-ctl"><button data-item-move="${esc(it.id)}" data-dir="-1" ${i === 0 ? 'disabled' : ''}>▲</button><button data-item-move="${esc(it.id)}" data-dir="1" ${i === shown.length - 1 ? 'disabled' : ''}>▼</button></div></div>` : itemRow(it)).join('')}</div>
+            <div class="list ${st.reorder && !q ? 'is-sorting' : ''}" data-sort="item">${shown.map((it, i) => st.reorder ? `<div class="row-item is-sortable" data-sort-id="${esc(it.id)}" style="grid-template-columns: auto minmax(0,1fr) auto"><span class="drag" data-drag="item" aria-hidden="true">⋮⋮</span><span><span class="name">${esc(it.name)}</span></span><div class="order-ctl"><button data-item-move="${esc(it.id)}" data-dir="-1" ${i === 0 ? 'disabled' : ''}>▲</button><button data-item-move="${esc(it.id)}" data-dir="1" ${i === shown.length - 1 ? 'disabled' : ''}>▼</button></div></div>` : itemRow(it)).join('')}</div>
             <a class="btn btn-primary" href="#/item/new?cat=${esc(cat)}">${esc(t('menu.new'))}</a>
         </div>`;
     };
@@ -273,7 +292,7 @@
 
     const priceType = it => it.sizes.ONE_SIZE != null ? 'one' : it.sizes.GLASS != null || it.sizes.BOTTLE != null ? 'wine' : 'pizza';
     const cardPreview = it => {
-        const m = it.image; const out = it.available === false;
+        const m = it.image; const out = isOut(it);
         const price = priceType(it) === 'one' ? fmt(it.sizes.ONE_SIZE) : priceType(it) === 'wine' ? `${esc(t('item.type.wine').split(' / ')[0])} ${fmt(it.sizes.GLASS)} / ${fmt(it.sizes.BOTTLE)}` : fmt(it.sizes.L ?? it.sizes.S ?? it.sizes.XXL ?? 0);
         return `<article class="card ${out ? 'is-out' : ''}"><div class="card-media">${m ? `<img src="${esc(media(m.path))}" alt="" style="object-position:${(m.focal?.x ?? 0.5) * 100}% ${(m.focal?.y ?? 0.5) * 100}%">` : `<div class="card-type">${esc(it.num || it.name.slice(0, 1))}</div>`}</div>
             <div class="card-body"><div class="card-head"><h3 class="card-name">${it.num ? `<span class="row-num">${esc(it.num)}</span>` : ''}${esc(it.name)}</h3><p class="card-price">${price}</p></div>${out ? `<p class="card-out">${esc(t('item.available'))}</p>` : ''}<p class="card-desc">${esc(T2(it.desc))}</p><div class="card-meta">${it.tags.map(tg => `<span class="tag is-${tg.toLowerCase()}">${tg === 'STAR' ? '★' : tg === 'SPICY' ? esc(t('tag.SPICY')) : tg}</span>`).join('')}</div></div></article>`;
@@ -301,8 +320,8 @@
             <div class="field"><span class="field-label">${esc(t('item.tags'))}</span><div class="chips-row">${TAGS.map(tg => `<button type="button" class="tchip" data-tag="${tg}" aria-pressed="${it.tags.includes(tg)}">${esc(t('tag.' + tg))}</button>`).join('')}</div></div>
             <div class="grid2">${F.select(t('item.cat'), `${P}.cat`, it.cat, st.draft.categories.map(c => [c.id, T2(c.name)]))}${subs.length ? F.select(t('item.sub'), `${P}.sub`, it.sub, subs.map(s => [s, T2(st.draft.subs?.[s]) || s])) : ''}</div>
             ${type === 'pizza' ? F.toggle(t('item.inBuilder'), `${P}.inBuilder`, it.inBuilder !== false) : ''}
-            <div class="stack">${F.toggle(t('item.available'), '__soldout', it.available === false)}
-            ${it.available === false ? F.seg(t('item.until'), '__until', it.unavailableUntil ? 'midnight' : 'manual', [['midnight', t('until.midnight')], ['manual', t('until.manual')]]) : ''}</div>
+            <div class="stack">${F.toggle(t('item.available'), '__soldout', isOut(it))}
+            ${isOut(it) ? F.seg(t('item.until'), '__until', it.unavailableUntil ? 'midnight' : 'manual', [['midnight', t('until.midnight')], ['manual', t('until.manual')]]) : ''}</div>
             <div class="stack"><span class="field-label">${esc(t('item.preview'))}</span><div class="card-preview" id="card-preview">${cardPreview(it)}</div></div>
             <div class="btn-row"><a class="btn btn-primary" href="#/menu/${esc(it.cat)}">${esc(t('item.save'))}</a><button class="btn btn-ghost" data-act="duplicate">${esc(t('item.duplicate'))}</button>${it.archived ? `<button class="btn btn-ghost" data-act="restore-item">${esc(t('item.restore'))}</button>` : `<button class="btn btn-quiet" data-act="archive-item">${esc(t('item.archive'))}</button>`}</div>
         </div>`;
@@ -316,7 +335,7 @@
         const ex = pz.length === 2 ? Math.max(pz[0].sizes.XXL, pz[1].sizes.XXL) + (r.halfHalf?.XXL || 0) + (r.glutenFree?.XXL || 0) + tops.slice(0, 3).reduce((s, x) => s + (x.prices?.XXL || 0), 0) : 0;
         return `${bar(t('nav.builder'))}<div class="view">
             <div class="seg" role="tablist"><button role="tab" data-btab="tops" aria-checked="${tab === 'tops'}">${esc(t('builder.toppings'))}</button><button role="tab" data-btab="rules" aria-checked="${tab === 'rules'}">${esc(t('builder.rules'))}</button></div>
-            ${tab === 'tops' ? `<div class="stack">${GROUPS.map(g => `<details class="tgroup" open><summary class="tgroup-name">${esc(T2(st.draft.toppingGroups.find(x => x.id === g)?.name) || g)}</summary><div class="list" style="padding:.5rem 0">${tops.filter(x => x.group === g).map(x => { const i = st.draft.toppings.indexOf(x); return `<div class="row-item" style="grid-template-columns: minmax(0,1fr) 84px 84px auto"><a href="#/topping/${esc(x.id)}" style="min-width:0"><div class="name">${esc(x.name?.tr)}</div><div class="sub">${esc(x.name?.en || '')}</div></a><input type="text" inputmode="numeric" data-bind="toppings.${i}.prices.L" data-type="num" value="${x.prices?.L ?? ''}" aria-label="L" style="min-height:40px;text-align:center;padding:0 .4rem;border-radius:var(--r);background:var(--ink-3);border:1px solid var(--line-strong);color:var(--chalk);font:inherit"><input type="text" inputmode="numeric" data-bind="toppings.${i}.prices.XXL" data-type="num" value="${x.prices?.XXL ?? ''}" aria-label="XXL" style="min-height:40px;text-align:center;padding:0 .4rem;border-radius:var(--r);background:var(--ink-3);border:1px solid var(--line-strong);color:var(--chalk);font:inherit"><a href="#/topping/${esc(x.id)}" class="chev">${ICON.chev}</a></div>`; }).join('')}</div></details>`).join('')}
+            ${tab === 'tops' ? `<div class="stack">${GROUPS.map(g => `<details class="tgroup" open><summary class="tgroup-name">${esc(T2(st.draft.toppingGroups.find(x => x.id === g)?.name) || g)}</summary><div class="list is-sorting" data-sort="top" style="padding:.5rem 0">${tops.filter(x => x.group === g).map(x => { const i = st.draft.toppings.indexOf(x); return `<div class="row-item is-sortable" data-sort-id="${esc(x.id)}" style="grid-template-columns: auto minmax(0,1fr) 84px 84px auto"><span class="drag" data-drag="top" aria-hidden="true">⋮⋮</span><a href="#/topping/${esc(x.id)}" style="min-width:0"><div class="name">${esc(x.name?.tr)}</div><div class="sub">${esc(x.name?.en || '')}</div></a><input type="text" inputmode="numeric" data-bind="toppings.${i}.prices.L" data-type="num" value="${x.prices?.L ?? ''}" aria-label="L" style="min-height:40px;text-align:center;padding:0 .4rem;border-radius:var(--r);background:var(--ink-3);border:1px solid var(--line-strong);color:var(--chalk);font:inherit"><input type="text" inputmode="numeric" data-bind="toppings.${i}.prices.XXL" data-type="num" value="${x.prices?.XXL ?? ''}" aria-label="XXL" style="min-height:40px;text-align:center;padding:0 .4rem;border-radius:var(--r);background:var(--ink-3);border:1px solid var(--line-strong);color:var(--chalk);font:inherit"><a href="#/topping/${esc(x.id)}" class="chev">${ICON.chev}</a></div>`; }).join('')}</div></details>`).join('')}
                 <p class="small">L / XXL ₺</p><a class="btn btn-primary" href="#/topping/new">${esc(t('builder.newTopping'))}</a></div>`
             : `<div class="stack">
                 <div class="panel"><h3>${esc(t('rules.half'))}</h3><div class="grid2">${F.text('L', 'rules.halfHalf.L', r.halfHalf?.L, { num: true })}${F.text('XXL', 'rules.halfHalf.XXL', r.halfHalf?.XXL, { num: true })}</div></div>
@@ -339,7 +358,7 @@
         </div>`;
     };
 
-    V.branches = () => `${bar(t('branches.title'))}<div class="view"><div class="list">${st.draft.branches.filter(b => !b.archived).sort((a, b) => a.order - b.order).map(b => `<a class="row-item" href="#/branch/${esc(b.id)}"><span class="thumb-disc ${b.image ? '' : 'is-empty'}">${b.image ? `<img src="${esc(media(b.image.path))}" alt="">` : esc(b.name.slice(0, 1))}</span><span><span class="name">${esc(b.name)}</span><span class="sub">${esc(b.address || '')}</span></span><span class="chev">${ICON.chev}</span></a>`).join('')}</div><a class="btn btn-ghost" href="#/branch/new">${esc(t('branches.new'))}</a></div>`;
+    V.branches = () => `${bar(t('branches.title'))}<div class="view"><div class="list">${st.draft.branches.filter(b => !b.archived).sort((a, b) => a.order - b.order).map(b => `<a class="row-item" href="#/branch/${esc(b.id)}"><span class="thumb-disc ${b.image ? '' : 'is-empty'}">${b.image ? `<img src="${esc(thumbUrl(b.image))}" alt="">` : esc(b.name.slice(0, 1))}</span><span><span class="name">${esc(b.name)}</span><span class="sub">${esc(b.address || '')}</span></span><span class="chev">${ICON.chev}</span></a>`).join('')}</div><a class="btn btn-ghost" href="#/branch/new">${esc(t('branches.new'))}</a></div>`;
     V.branch = id => {
         let idx = st.draft.branches.findIndex(b => b.id === id);
         if (id === 'new') { const b = { id: uid('b'), name: '', order: st.draft.branches.length + 1, desc: { tr: '', en: '' }, address: '', phone: '', phoneDisplay: '', whatsapp: null, hours: Object.fromEntries(DAYS.map(d => [d, ['11:30', '22:30']])), mapsUrl: '', mapQuery: '', image: null, archived: false }; mutate(d => d.branches.push(b)); location.replace(`#/branch/${b.id}`); return ''; }
@@ -389,10 +408,10 @@
 
     V.quickSoldout = () => {
         const q = (st.q || '').toLowerCase();
-        const items = st.draft.items.filter(i => !i.archived && (!q || (i.num + ' ' + i.name).toLowerCase().includes(q))).sort((a, b) => (a.available === false ? -1 : 1) - (b.available === false ? -1 : 1) || a.order - b.order);
+        const items = st.draft.items.filter(i => !i.archived && (!q || (i.num + ' ' + i.name).toLowerCase().includes(q))).sort((a, b) => (isOut(a) ? -1 : 1) - (isOut(b) ? -1 : 1) || a.order - b.order);
         return `${bar(t('quick.soldout.title'), '#/')}<div class="view"><p class="muted">${esc(t('quick.soldout.text'))}</p>
             <input type="search" id="q" placeholder="${esc(t('menu.search'))}" value="${esc(st.q || '')}" style="min-height:44px;padding:0 .875rem;border-radius:var(--r);background:var(--ink-3);border:1px solid var(--line-strong);color:var(--chalk);font:inherit">
-            <div class="list">${items.map(it => `<div class="row-item" style="grid-template-columns: minmax(0,1fr) auto"><span><span class="name">${it.num ? esc(it.num) + ' ' : ''}${esc(it.name)}</span><span class="sub">${esc(T2(st.draft.categories.find(c => c.id === it.cat)?.name))}</span></span><button type="button" class="switch" role="switch" data-soldout="${esc(it.id)}" aria-checked="${it.available === false}" style="width:auto;background:none;border:0"><span class="knob"></span></button></div>`).join('')}</div></div>`;
+            <div class="list">${items.map(it => `<div class="row-item" style="grid-template-columns: minmax(0,1fr) auto"><span><span class="name">${it.num ? esc(it.num) + ' ' : ''}${esc(it.name)}</span><span class="sub">${esc(T2(st.draft.categories.find(c => c.id === it.cat)?.name))}</span></span><button type="button" class="switch" role="switch" data-soldout="${esc(it.id)}" aria-checked="${isOut(it)}" style="width:auto;background:none;border:0"><span class="knob"></span></button></div>`).join('')}</div></div>`;
     };
     V.quickSlice = () => {
         const pizzas = st.draft.items.filter(i => i.cat === 'PIZZAS' && !i.archived);
@@ -410,7 +429,7 @@
         return `${bar(t('quick.prices.title'), '#/')}<div class="view">
             ${F.select(t('quick.prices.scope'), '__scope', p.scope, [['ALL', t('quick.prices.all')], ...cats.map(c => [c.id, T2(c.name)])])}
             <div class="grid2">${F.seg(t('quick.prices.mode'), '__mode', p.mode, [['pct', t('quick.prices.pct')], ['abs', t('quick.prices.abs')]])}<div class="field"><label for="pv">${esc(t('quick.prices.value'))}</label><input id="pv" type="text" inputmode="decimal" value="${esc(p.value)}" placeholder="${p.mode === 'pct' ? '8' : '50'}"></div></div>
-            <p class="small">${esc(t('quick.prices.round'))}</p>
+            <p class="small">${esc(t('quick.prices.round'))} ${esc(t('quick.prices.hint'))}</p>
             <div class="btn-row"><button class="btn btn-ghost" data-act="price-preview">${esc(t('quick.prices.preview'))}</button><button class="btn btn-primary" data-act="price-apply" ${rows.length ? '' : 'disabled'}>${esc(t('quick.prices.apply'))}</button></div>
             ${rows.length ? `<div style="overflow:auto"><table class="ptable"><thead><tr><th></th><th class="num">${esc(t('quick.prices.old'))}</th><th class="num">${esc(t('quick.prices.new'))}</th></tr></thead><tbody>${rows.slice(0, 200).map(r => `<tr><td>${esc(r.name)} <span class="small">${esc(r.size)}</span></td><td class="num">${fmt(r.old)}</td><td class="num ${r.nw >= r.old ? 'up' : 'down'}">${fmt(r.nw)}</td></tr>`).join('')}</tbody></table></div>` : ''}
         </div>`;
@@ -420,12 +439,13 @@
         return `${bar(t('quick.photos.title'), '#/')}<div class="view"><p class="muted">${items.length ? esc(t('quick.photos.text')) : esc(t('quick.photos.done'))}</p><div class="list">${items.map(it => itemRow(it)).join('')}</div></div>`;
     };
 
-    V.versions = () => `${bar(t('versions.title'), '#/')}<div class="view">${st.versions.length ? `<div class="list">${st.versions.map(v => `<div class="row-item" style="grid-template-columns: minmax(0,1fr) auto"><span><span class="name">v${v.id} ${st.live?.versionId === v.id ? `<span class="pill is-green">${esc(t('versions.live'))}</span>` : ''}</span><span class="sub">${esc(v.note || '')} ${v.publishedAt ? '· ' + esc(new Date(v.publishedAt).toLocaleString(st.lang === 'TR' ? 'tr-TR' : 'en-GB')) : ''} ${v.publishedBy ? '· ' + esc(v.publishedBy) : ''}</span></span>${st.live?.versionId === v.id ? '' : `<button class="btn btn-ghost" data-restore="${v.id}">${esc(t('versions.restore'))}</button>`}</div>`).join('')}</div>` : `<p class="muted">${esc(t('versions.empty'))}</p>`}</div>`;
+    V.versions = () => `${bar(t('versions.title'), '#/')}<div class="view">${st.versions.length ? `<div class="list">${st.versions.map(v => `<div class="row-item" style="grid-template-columns: minmax(0,1fr) auto"><span><span class="name">v${v.id} ${st.live?.versionId === v.id ? `<span class="pill is-green">${esc(t('versions.live'))}</span>` : ''}</span><span class="sub">${esc(v.note || '')} ${v.publishedAt ? '· ' + esc(new Date(v.publishedAt).toLocaleString(st.lang === 'TR' ? 'tr-TR' : 'en-GB')) : ''} ${v.publishedBy ? '· ' + esc(v.publishedBy) : ''}</span></span><span class="btn-row" style="flex-wrap:nowrap"><a class="btn btn-quiet" href="../menu/?preview=v${v.id}" target="_blank" rel="noopener">${esc(t('home.preview'))}</a>${st.live?.versionId === v.id ? '' : `<button class="btn btn-ghost" data-restore="${v.id}">${esc(t('versions.restore'))}</button>`}</span></div>`).join('')}</div>` : `<p class="muted">${esc(t('versions.empty'))}</p>`}</div>`;
     V.more = () => `${bar(t('nav.more'))}<div class="view"><div class="list"><a class="row-item" href="#/versions" style="grid-template-columns:1fr auto"><span class="name">${esc(t('nav.versions'))}</span><span class="chev">${ICON.chev}</span></a><a class="row-item" href="#/settings" style="grid-template-columns:1fr auto"><span class="name">${esc(t('nav.settings'))}</span><span class="chev">${ICON.chev}</span></a><a class="row-item" href="#/help" style="grid-template-columns:1fr auto"><span class="name">${esc(t('nav.help'))}</span><span class="chev">${ICON.chev}</span></a></div></div>`;
     V.settings = () => `${bar(t('settings.title'), '#/more')}<div class="view">
         <div class="panel"><h3>${esc(t('settings.lang'))}</h3><div class="seg"><button data-alang="TR" aria-checked="${st.lang === 'TR'}">Türkçe</button><button data-alang="EN" aria-checked="${st.lang === 'EN'}">English</button></div></div>
         <div class="panel"><h3>${esc(t('settings.account'))}</h3><p class="muted">${esc(st.user?.email || '')}</p><button class="btn btn-ghost" data-act="signout">${esc(t('settings.signout'))}</button></div>
-        <div class="panel"><h3>${esc(t('settings.mode'))}</h3><p class="muted">${esc(t(store.mode === 'local' ? 'settings.mode.local' : 'settings.mode.supabase'))}</p><p class="small">${esc(t('settings.live'))}: ${st.live ? 'v' + st.live.versionId : '–'}</p></div>
+        <div class="panel"><h3>${esc(t('settings.mode'))}</h3><p class="muted">${esc(t(store.mode === 'local' ? 'settings.mode.local' : 'settings.mode.supabase'))}</p><p class="small">${esc(t('settings.live'))}: ${st.live ? 'v' + st.live.versionId : '–'}</p>${store.mode === 'supabase' ? `<a class="link" href="https://status.supabase.com" target="_blank" rel="noopener">${esc(t('settings.status'))}</a>` : ''}</div>
+        ${!isStandalone() ? `<div class="panel"><h3>${esc(t('home.install'))}</h3><p class="small">${esc(st.installEvt ? t('home.installText') : isIos() ? t('home.installIos') : t('home.installOther'))}</p>${st.installEvt ? `<button class="btn btn-ghost" data-act="install">${esc(t('home.installBtn'))}</button>` : ''}</div>` : ''}
         <div class="panel"><h3>${esc(t('settings.access'))}</h3><p class="muted">${esc(st.user?.email || '')}</p><p class="small">${esc(t('settings.accessNote'))}</p></div>
         <div class="btn-row"><a class="btn btn-ghost" href="../" target="_blank" rel="noopener">${esc(t('settings.site'))}</a><button class="btn btn-ghost" data-act="tour">${esc(t('settings.tour'))}</button>${store.mode === 'local' ? `<button class="btn btn-quiet" data-act="reset-demo">${esc(t('settings.reset'))}</button>` : ''}</div>
     </div>`;
@@ -464,7 +484,7 @@
         if (!st.user) { app.innerHTML = V.login(st.denied); return; }
         const html = route(); if (!html) return;
         app.innerHTML = html + tabs();
-        const view = $('.view'); if (view) { bindInputs(view, onFieldChange); bindPhotoFrames(view, () => refreshPreview()); }
+        const view = $('.view'); if (view) { bindInputs(view, onFieldChange); bindPhotoFrames(view, () => refreshPreview()); bindSortable(view); }
         updatePendingBadge();
         if (st.route === '/help') loadHelp();
         window.scrollTo(0, 0);
@@ -481,6 +501,9 @@
         if (act === 'signout') { await store.signOut(); st.user = null; render(); return; }
         if (act === 'preview') { e.preventDefault(); sheet(`<h3>${esc(t('home.preview'))}</h3><div class="btn-row"><a class="btn btn-ghost" href="../?preview=1" target="_blank" rel="noopener">${esc(t('nav.landing'))}</a><a class="btn btn-ghost" href="../menu/?preview=1" target="_blank" rel="noopener">${esc(t('nav.menu'))}</a></div>`); return; }
         if (act === 'publish') { publishFlow(); return; }
+        if (act === 'reload') { location.reload(); return; }
+        if (act === 'install') { const ev = st.installEvt; if (!ev) return; st.installEvt = null; ev.prompt(); await ev.userChoice.catch(() => {}); render(); return; }
+        if (act === 'install-dismiss') { localStorage.setItem('uc-admin-ios-hint', '1'); render(); return; }
         if (act === 'undo') { e.preventDefault(); undoFlow(); return; }
         if (act === 'reorder') { st.reorder = !st.reorder; render(); return; }
         if (act === 'duplicate') { const id = st.route.split('/')[2]; const src = st.draft.items.find(i => i.id === id); if (src) { const c = clone(src); c.id = uid('i'); c.name = src.name + ' (2)'; c.order = src.order + 0.5; mutate(d => d.items.push(c)); location.hash = `#/item/${c.id}`; } return; }
@@ -526,13 +549,36 @@
     });
     document.addEventListener('change', e => { if (e.target.dataset.bind === '__scope') { st.priceForm = { ...(st.priceForm || { mode: 'pct', value: '' }), scope: e.target.value }; st.pricePreview = []; } });
 
+    /* pointer drag inside .list[data-sort]: rows swap live, order is written once on release */
+    function bindSortable(rootEl) {
+        $$('.list[data-sort]', rootEl).forEach(list => {
+            let row = null;
+            list.addEventListener('pointerdown', e => {
+                const h = e.target.closest('.drag'); if (!h) return; row = h.closest('.is-sortable'); if (!row) return;
+                e.preventDefault(); row.classList.add('is-dragging'); h.setPointerCapture(e.pointerId);
+            });
+            list.addEventListener('pointermove', e => {
+                if (!row) return;
+                const over = document.elementFromPoint(e.clientX, e.clientY)?.closest('.is-sortable'); if (!over || over === row || over.parentElement !== list) return;
+                const r = over.getBoundingClientRect(); const after = e.clientY > r.top + r.height / 2;
+                list.insertBefore(row, after ? over.nextSibling : over);
+            });
+            const end = () => {
+                if (!row) return; row.classList.remove('is-dragging');
+                const ids = $$('.is-sortable', list).map(x => x.dataset.sortId); const kind = list.dataset.sort;
+                mutate(d => { const src = kind === 'cat' ? d.categories : kind === 'top' ? d.toppings : d.items; const base = kind === 'top' ? Math.min(...ids.map(id => src.find(x => x.id === id)?.order ?? 1)) : 1; ids.forEach((id, k) => { const x = src.find(y => y.id === id); if (x) x.order = base + k; }); });
+                row = null; render();
+            };
+            list.addEventListener('pointerup', end); list.addEventListener('pointercancel', end);
+        });
+    }
     function moveIn(list, pred, dir) {
         const sorted = list.slice().sort((a, b) => a.order - b.order); const i = sorted.findIndex(pred); const j = i + dir; if (i < 0 || j < 0 || j >= sorted.length) return;
         mutate(() => { const a = sorted[i].order; sorted[i].order = sorted[j].order; sorted[j].order = a; if (sorted[i].order === sorted[j].order) sorted.forEach((x, k) => x.order = k + 1); });
     }
     function catEditSheet(id) {
         const idx = st.draft.categories.findIndex(c => c.id === id); const c = st.draft.categories[idx]; const P = `categories.${idx}`;
-        const d = sheet(`<h3>${esc(t('cat.edit'))}</h3>${F.text2(t('cat.name'), `${P}.name`, c.name)}${F.seg(t('cat.layout'), `${P}.layout`, c.layout, [['cards', t('cat.cards')], ['rows', t('cat.rows')]])}${F.toggle(t('cat.hidden'), `${P}.hidden`, c.hidden)}<button class="btn btn-primary" data-x="close">${esc(t('common.save'))}</button>`);
+        const d = sheet(`<h3>${esc(t('cat.edit'))}</h3>${F.text2(t('cat.name'), `${P}.name`, c.name)}${F.seg(t('cat.layout'), `${P}.layout`, c.layout, [['cards', t('cat.cards')], ['rows', t('cat.rows')]])}${F.toggle(t('cat.hidden'), `${P}.hidden`, c.hidden)}${(c.subs || []).length ? `<div class="stack"><span class="field-label">${esc(t('cat.subs'))}</span>${c.subs.map(sId => F.text2(sId, `subs.${sId}`, st.draft.subs?.[sId])).join('')}</div>` : ''}<button class="btn btn-primary" data-x="close">${esc(t('common.save'))}</button>`);
         bindInputs(d); d.onclick = e => { if (e.target.closest('[data-x]')) { closeSheet(); render(); } };
     }
     function priceFlow(apply) {
@@ -587,12 +633,17 @@
         if (!localStorage.getItem('uc-admin-tour')) setTimeout(startTour, 600);
     }
     window.addEventListener('hashchange', render);
-    window.addEventListener('online', () => { if (st.dirty) scheduleSave(); });
+    window.addEventListener('online', () => { netState(); if (st.dirty) scheduleSave(); });
+    /* install prompt (Android/desktop Chrome); iOS shows a hint instead */
+    window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); st.installEvt = e; if (st.route === '/') render(); });
+    const isIos = () => /iphone|ipad|ipod/i.test(navigator.userAgent) && !window.MSStream;
+    const isStandalone = () => matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
     (async () => {
         try { await store.ready(); } catch { app.innerHTML = `<div class="login"><p class="muted">${esc(t('common.error'))}</p></div>`; return; }
         store.onAuth(u => { const was = !!st.user; st.user = u; if (u && !was) afterLogin(); else if (!u) render(); });
         st.user = await store.getUser();
         if (st.user) await afterLogin(); else render();
+        netState();
         if ('serviceWorker' in navigator && location.protocol === 'https:' && location.hostname !== 'localhost') navigator.serviceWorker.register('sw.js').catch(() => {});
     })();
 })();
