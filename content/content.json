@@ -1,0 +1,4400 @@
+{
+  "schema": 1,
+  "meta": {
+    "priceDate": "2026-06-03",
+    "orderUrl": "https://uppercrustturkiye.com/online-siparis/",
+    "menuPdf": "https://uppercrustturkiye.com/TheUpperCrust_Menu.pdf",
+    "paketPdf": "https://uppercrustturkiye.com/TheUpperCrust_Menu-PAKET.pdf",
+    "siteName": "The Upper Crust Pizzeria Türkiye"
+  },
+  "categories": [
+    {
+      "id": "PIZZAS",
+      "name": {
+        "tr": "Pizzalar",
+        "en": "Pizzas"
+      },
+      "order": 1,
+      "layout": "cards",
+      "subs": [],
+      "hidden": false
+    },
+    {
+      "id": "SLICES",
+      "name": {
+        "tr": "Dilim Pizza",
+        "en": "Slices"
+      },
+      "order": 2,
+      "layout": "cards",
+      "subs": [],
+      "hidden": false
+    },
+    {
+      "id": "STARTERS",
+      "name": {
+        "tr": "Başlangıçlar",
+        "en": "Starters"
+      },
+      "order": 3,
+      "layout": "cards",
+      "subs": [],
+      "hidden": false
+    },
+    {
+      "id": "SALADS",
+      "name": {
+        "tr": "Salatalar",
+        "en": "Salads"
+      },
+      "order": 4,
+      "layout": "cards",
+      "subs": [],
+      "hidden": false
+    },
+    {
+      "id": "DESSERTS",
+      "name": {
+        "tr": "Tatlılar",
+        "en": "Desserts"
+      },
+      "order": 5,
+      "layout": "cards",
+      "subs": [],
+      "hidden": false
+    },
+    {
+      "id": "DRINKS",
+      "name": {
+        "tr": "İçecekler",
+        "en": "Drinks"
+      },
+      "order": 6,
+      "layout": "rows",
+      "subs": [
+        "COLD",
+        "HOT"
+      ],
+      "hidden": false
+    },
+    {
+      "id": "WINES",
+      "name": {
+        "tr": "Şaraplar",
+        "en": "Wines"
+      },
+      "order": 7,
+      "layout": "rows",
+      "subs": [
+        "RED",
+        "WHITE",
+        "ROSE"
+      ],
+      "hidden": false
+    },
+    {
+      "id": "BEERS",
+      "name": {
+        "tr": "Biralar",
+        "en": "Beers"
+      },
+      "order": 8,
+      "layout": "rows",
+      "subs": [],
+      "hidden": false
+    }
+  ],
+  "subs": {
+    "COLD": {
+      "tr": "Soğuk",
+      "en": "Cold"
+    },
+    "HOT": {
+      "tr": "Sıcak",
+      "en": "Hot"
+    },
+    "RED": {
+      "tr": "Kırmızı",
+      "en": "Red"
+    },
+    "WHITE": {
+      "tr": "Beyaz",
+      "en": "White"
+    },
+    "ROSE": {
+      "tr": "Roze",
+      "en": "Rosé"
+    }
+  },
+  "items": [
+    {
+      "id": "p0",
+      "num": "",
+      "name": "Pizza Margherita",
+      "cat": "PIZZAS",
+      "sub": null,
+      "order": 1,
+      "desc": {
+        "tr": "Domates soslu, mozzarella peynirli pizza.",
+        "en": "Tomato sauce and mozzarella."
+      },
+      "sizes": {
+        "S": 410,
+        "L": 970,
+        "XXL": 1475
+      },
+      "sizeLabel": null,
+      "tags": [
+        "V"
+      ],
+      "image": {
+        "path": "images/margherita.jpg",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "imageIsStock": false,
+      "available": true,
+      "unavailableUntil": null,
+      "inBuilder": true,
+      "archived": false
+    },
+    {
+      "id": "p1",
+      "num": "#1",
+      "name": "The 3 Cheese",
+      "cat": "PIZZAS",
+      "sub": null,
+      "order": 2,
+      "desc": {
+        "tr": "Taze sarımsak, mozzarella, ricotta, küp domates ve parmesanlı beyaz pizza.",
+        "en": "White pizza with fresh garlic, mozzarella, ricotta, diced tomato and parmesan."
+      },
+      "sizes": {
+        "S": 520,
+        "L": 1095,
+        "XXL": 1625
+      },
+      "sizeLabel": null,
+      "tags": [
+        "V"
+      ],
+      "image": {
+        "path": "images/menu/px-5903229.jpg",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "imageIsStock": true,
+      "available": true,
+      "unavailableUntil": null,
+      "inBuilder": true,
+      "archived": false
+    },
+    {
+      "id": "p2",
+      "num": "#2",
+      "name": "Pedro's Steak & Gorgonzola",
+      "cat": "PIZZAS",
+      "sub": null,
+      "order": 3,
+      "desc": {
+        "tr": "Marine edilmiş et ve gorgonzola peynirli pizza.",
+        "en": "Marinated steak and gorgonzola cheese."
+      },
+      "sizes": {
+        "S": 595,
+        "L": 1345,
+        "XXL": 2185
+      },
+      "sizeLabel": null,
+      "tags": [],
+      "image": {
+        "path": "images/menu/px-30504704.jpg",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "imageIsStock": true,
+      "available": true,
+      "unavailableUntil": null,
+      "inBuilder": true,
+      "archived": false
+    },
+    {
+      "id": "p4",
+      "num": "#4",
+      "name": "White Spinach",
+      "cat": "PIZZAS",
+      "sub": null,
+      "order": 4,
+      "desc": {
+        "tr": "Taze ıspanak, mozzarella, beyaz peynir ve taze sarımsaklı beyaz pizza.",
+        "en": "White pizza with fresh spinach, mozzarella, white cheese and fresh garlic."
+      },
+      "sizes": {
+        "S": 410,
+        "L": 1045,
+        "XXL": 1570
+      },
+      "sizeLabel": null,
+      "tags": [
+        "V"
+      ],
+      "image": {
+        "path": "images/official/IMG_5705.jpg",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "imageIsStock": false,
+      "available": true,
+      "unavailableUntil": null,
+      "inBuilder": true,
+      "archived": false
+    },
+    {
+      "id": "p5",
+      "num": "#5",
+      "name": "Hawaiian",
+      "cat": "PIZZAS",
+      "sub": null,
+      "order": 5,
+      "desc": {
+        "tr": "Dana bacon ve küp ananaslı tropikal pizza. (Jalapeno eklenebilir.)",
+        "en": "Beef bacon and diced pineapple. Jalapeño can be added."
+      },
+      "sizes": {
+        "S": 600,
+        "L": 1570,
+        "XXL": 2185
+      },
+      "sizeLabel": null,
+      "tags": [],
+      "image": {
+        "path": "images/hawaiian.jpg",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "imageIsStock": false,
+      "available": true,
+      "unavailableUntil": null,
+      "inBuilder": true,
+      "archived": false
+    },
+    {
+      "id": "p6",
+      "num": "#6",
+      "name": "Chicken Fajita Pizza",
+      "cat": "PIZZAS",
+      "sub": null,
+      "order": 6,
+      "desc": {
+        "tr": "Fajita soslu jülyen tavuk, renkli biber, közlenmiş kırmızı biber.",
+        "en": "Julienne chicken with fajita sauce, colourful peppers and roasted red pepper."
+      },
+      "sizes": {
+        "S": 495,
+        "L": 1045,
+        "XXL": 1795
+      },
+      "sizeLabel": null,
+      "tags": [],
+      "image": {
+        "path": "images/menu/px-31587565.jpg",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "imageIsStock": true,
+      "available": true,
+      "unavailableUntil": null,
+      "inBuilder": true,
+      "archived": false
+    },
+    {
+      "id": "p7",
+      "num": "#7",
+      "name": "Garden Veggie",
+      "cat": "PIZZAS",
+      "sub": null,
+      "order": 7,
+      "desc": {
+        "tr": "Taze mantar, soğan, dilim tatlı biber, brokoli ve taze sarımsaklı pizza.",
+        "en": "Fresh mushrooms, onion, sliced sweet peppers, broccoli and fresh garlic."
+      },
+      "sizes": {
+        "S": 495,
+        "L": 925,
+        "XXL": 1260
+      },
+      "sizeLabel": null,
+      "tags": [
+        "V"
+      ],
+      "image": {
+        "path": "images/menu/px-33593000.jpg",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "imageIsStock": true,
+      "available": true,
+      "unavailableUntil": null,
+      "inBuilder": true,
+      "archived": false
+    },
+    {
+      "id": "p9",
+      "num": "#9",
+      "name": "Cheddar & Bresaola",
+      "cat": "PIZZAS",
+      "sub": null,
+      "order": 8,
+      "desc": {
+        "tr": "Cheddar, bresaola, mantar, mozzarella ve sarımsaklı beyaz pizza. Roka ile servis edilir.",
+        "en": "White pizza with cheddar, bresaola, mushrooms, mozzarella and garlic. Served with arugula."
+      },
+      "sizes": {
+        "S": 990,
+        "L": 1910,
+        "XXL": 2325
+      },
+      "sizeLabel": null,
+      "tags": [
+        "STAR"
+      ],
+      "image": {
+        "path": "images/menu/px-4748485.jpg",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "imageIsStock": true,
+      "available": true,
+      "unavailableUntil": null,
+      "inBuilder": true,
+      "archived": false
+    },
+    {
+      "id": "p10",
+      "num": "#10",
+      "name": "The Kavurma",
+      "cat": "PIZZAS",
+      "sub": null,
+      "order": 9,
+      "desc": {
+        "tr": "Kavurma, mozzarella, sivri biber, kırmızı soğan ve dilim domatesli pizza.",
+        "en": "Kavurma (braised beef), mozzarella, green pepper, red onion and sliced tomato."
+      },
+      "sizes": {
+        "S": 780,
+        "L": 1565,
+        "XXL": 2005
+      },
+      "sizeLabel": null,
+      "tags": [],
+      "image": {
+        "path": "images/menu/px-19786227.jpg",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "imageIsStock": true,
+      "available": true,
+      "unavailableUntil": null,
+      "inBuilder": true,
+      "archived": false
+    },
+    {
+      "id": "p11",
+      "num": "#11",
+      "name": "The Harvard Street",
+      "cat": "PIZZAS",
+      "sub": null,
+      "order": 10,
+      "desc": {
+        "tr": "Taze sarımsak, mozzarella peyniri, dilim domates, taze mozzarella ve taze fesleğenli pizza.",
+        "en": "Fresh garlic, mozzarella, sliced tomato, fresh mozzarella and fresh basil."
+      },
+      "sizes": {
+        "S": 565,
+        "L": 1175,
+        "XXL": 1570
+      },
+      "sizeLabel": null,
+      "tags": [
+        "V",
+        "STAR"
+      ],
+      "image": {
+        "path": "images/menu/px-10779657.jpg",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "imageIsStock": true,
+      "available": true,
+      "unavailableUntil": null,
+      "inBuilder": true,
+      "archived": false
+    },
+    {
+      "id": "p12",
+      "num": "#12",
+      "name": "Brendan's Buffalo Chicken",
+      "cat": "PIZZAS",
+      "sub": null,
+      "order": 11,
+      "desc": {
+        "tr": "Buffalo soslu tavuk, rokfor ve mozzarella peynirli beyaz pizza.",
+        "en": "White pizza with buffalo chicken, Roquefort and mozzarella."
+      },
+      "sizes": {
+        "S": 565,
+        "L": 1175,
+        "XXL": 1570
+      },
+      "sizeLabel": null,
+      "tags": [],
+      "image": {
+        "path": "images/menu/px-35123984.jpg",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "imageIsStock": true,
+      "available": true,
+      "unavailableUntil": null,
+      "inBuilder": true,
+      "archived": false
+    },
+    {
+      "id": "p13",
+      "num": "#13",
+      "name": "Bub's BBQ Chicken",
+      "cat": "PIZZAS",
+      "sub": null,
+      "order": 12,
+      "desc": {
+        "tr": "Barbekü soslu tavuk, dilim soğan ve mozzarella peynirli beyaz pizza. (Dilerseniz acılı!)",
+        "en": "White pizza with BBQ chicken, sliced onion and mozzarella. Can be spicy."
+      },
+      "sizes": {
+        "S": 565,
+        "L": 1175,
+        "XXL": 1570
+      },
+      "sizeLabel": null,
+      "tags": [
+        "STAR"
+      ],
+      "image": {
+        "path": "images/BBQChicken.jpg",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "imageIsStock": false,
+      "available": true,
+      "unavailableUntil": null,
+      "inBuilder": true,
+      "archived": false
+    },
+    {
+      "id": "p14",
+      "num": "#14",
+      "name": "The State House",
+      "cat": "PIZZAS",
+      "sub": null,
+      "order": 13,
+      "desc": {
+        "tr": "Etseverlere özel; pepperoni, Türk sosisi ve kıymalı pizza.",
+        "en": "For meat lovers: pepperoni, Turkish sausage and minced beef."
+      },
+      "sizes": {
+        "S": 615,
+        "L": 1315,
+        "XXL": 1715
+      },
+      "sizeLabel": null,
+      "tags": [],
+      "image": {
+        "path": "images/menu/px-5903231.jpg",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "imageIsStock": true,
+      "available": true,
+      "unavailableUntil": null,
+      "inBuilder": true,
+      "archived": false
+    },
+    {
+      "id": "p15",
+      "num": "#15",
+      "name": "The \"Chief\"",
+      "cat": "PIZZAS",
+      "sub": null,
+      "order": 14,
+      "desc": {
+        "tr": "Pepperoni ve mantarlı klasik pizza.",
+        "en": "Classic pizza with pepperoni and mushrooms."
+      },
+      "sizes": {
+        "S": 560,
+        "L": 1215,
+        "XXL": 1555
+      },
+      "sizeLabel": null,
+      "tags": [],
+      "image": {
+        "path": "images/pepperoni.jpg",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "imageIsStock": false,
+      "available": true,
+      "unavailableUntil": null,
+      "inBuilder": true,
+      "archived": false
+    },
+    {
+      "id": "p18",
+      "num": "#18",
+      "name": "The Orhan's Fig Pizza",
+      "cat": "PIZZAS",
+      "sub": null,
+      "order": 15,
+      "desc": {
+        "tr": "Tabanı beşamel soslu, incir, dana bacon, taze mozzarella, balzamik ve rokalı beyaz pizza.",
+        "en": "White pizza on a béchamel base with fig, beef bacon, fresh mozzarella, balsamic and arugula."
+      },
+      "sizes": {
+        "S": 915,
+        "L": 1765,
+        "XXL": 2145
+      },
+      "sizeLabel": null,
+      "tags": [
+        "STAR"
+      ],
+      "image": {
+        "path": "images/menu/px-24778235.jpg",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "imageIsStock": true,
+      "available": true,
+      "unavailableUntil": null,
+      "inBuilder": true,
+      "archived": false
+    },
+    {
+      "id": "p19",
+      "num": "#19",
+      "name": "White Shrimp",
+      "cat": "PIZZAS",
+      "sub": null,
+      "order": 16,
+      "desc": {
+        "tr": "Taze sarımsak, mozzarella, soğan ve karidesli beyaz pizza.",
+        "en": "White pizza with fresh garlic, mozzarella, onion and shrimp."
+      },
+      "sizes": {
+        "S": 520,
+        "L": 1095,
+        "XXL": 1395
+      },
+      "sizeLabel": null,
+      "tags": [],
+      "image": {
+        "path": "images/white-shrimp.jpg",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "imageIsStock": false,
+      "available": true,
+      "unavailableUntil": null,
+      "inBuilder": true,
+      "archived": false
+    },
+    {
+      "id": "p20",
+      "num": "#20",
+      "name": "Bir Ton Aşk",
+      "cat": "PIZZAS",
+      "sub": null,
+      "order": 17,
+      "desc": {
+        "tr": "Domates sosu, mozzarella peyniri, ton balığı, soğan ve sivri biberli pizza.",
+        "en": "Tomato sauce, mozzarella, tuna, onion and green pepper."
+      },
+      "sizes": {
+        "S": 520,
+        "L": 1095,
+        "XXL": 1395
+      },
+      "sizeLabel": null,
+      "tags": [],
+      "image": {
+        "path": "images/menu/px-29609011.jpg",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "imageIsStock": true,
+      "available": true,
+      "unavailableUntil": null,
+      "inBuilder": true,
+      "archived": false
+    },
+    {
+      "id": "p21",
+      "num": "#21",
+      "name": "İstanbul Pizza",
+      "cat": "PIZZAS",
+      "sub": null,
+      "order": 18,
+      "desc": {
+        "tr": "Sucuk, sosis, mantar ve sivri biberli pizza.",
+        "en": "Turkish sucuk, sausage, mushrooms and green pepper."
+      },
+      "sizes": {
+        "S": 665,
+        "L": 1385,
+        "XXL": 1810
+      },
+      "sizeLabel": null,
+      "tags": [],
+      "image": {
+        "path": "images/menu/px-19786200.jpg",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "imageIsStock": true,
+      "available": true,
+      "unavailableUntil": null,
+      "inBuilder": true,
+      "archived": false
+    },
+    {
+      "id": "p22",
+      "num": "#22",
+      "name": "Çırağan Pizza",
+      "cat": "PIZZAS",
+      "sub": null,
+      "order": 19,
+      "desc": {
+        "tr": "Sucuk, mantar, siyah zeytin ve mısırlı pizza.",
+        "en": "Turkish sucuk, mushrooms, black olives and corn."
+      },
+      "sizes": {
+        "S": 665,
+        "L": 1385,
+        "XXL": 1810
+      },
+      "sizeLabel": null,
+      "tags": [],
+      "image": {
+        "path": "images/chiragan.jpg",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "imageIsStock": false,
+      "available": true,
+      "unavailableUntil": null,
+      "inBuilder": true,
+      "archived": false
+    },
+    {
+      "id": "p23",
+      "num": "#23",
+      "name": "Bebek Pizza",
+      "cat": "PIZZAS",
+      "sub": null,
+      "order": 20,
+      "desc": {
+        "tr": "Taze sarımsak, mozzarella, soğan, dana bacon, dilim patates, biberiye ve maydanozlu beyaz pizza.",
+        "en": "White pizza with fresh garlic, mozzarella, onion, beef bacon, sliced potato, rosemary and parsley."
+      },
+      "sizes": {
+        "S": 780,
+        "L": 1525,
+        "XXL": 1980
+      },
+      "sizeLabel": null,
+      "tags": [],
+      "image": {
+        "path": "images/menu/px-13599446.jpg",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "imageIsStock": true,
+      "available": true,
+      "unavailableUntil": null,
+      "inBuilder": true,
+      "archived": false
+    },
+    {
+      "id": "p24",
+      "num": "#24",
+      "name": "Medi Pesto",
+      "cat": "PIZZAS",
+      "sub": null,
+      "order": 21,
+      "desc": {
+        "tr": "Tabanı pesto sosla kaplanmış, beyaz peynir, doğranmış domates ve taze sarımsaklı beyaz pizza. (Siyah zeytin eklenebilir.)",
+        "en": "White pizza on a pesto base with white cheese, diced tomato and fresh garlic. Black olives can be added."
+      },
+      "sizes": {
+        "S": 520,
+        "L": 1095,
+        "XXL": 1395
+      },
+      "sizeLabel": null,
+      "tags": [
+        "V"
+      ],
+      "image": {
+        "path": "images/menu/px-26575528.jpg",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "imageIsStock": true,
+      "available": true,
+      "unavailableUntil": null,
+      "inBuilder": true,
+      "archived": false
+    },
+    {
+      "id": "p25",
+      "num": "#25",
+      "name": "Pollogo Pesto",
+      "cat": "PIZZAS",
+      "sub": null,
+      "order": 22,
+      "desc": {
+        "tr": "Tabanı pesto sosla kaplı, taze sarımsak, ızgara tavuk, gorgonzola ve parmesan peynirli pizza.",
+        "en": "Pesto base, fresh garlic, grilled chicken, gorgonzola and parmesan."
+      },
+      "sizes": {
+        "S": 595,
+        "L": 1255,
+        "XXL": 1615
+      },
+      "sizeLabel": null,
+      "tags": [],
+      "image": {
+        "path": "images/menu/px-33592992.jpg",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "imageIsStock": true,
+      "available": true,
+      "unavailableUntil": null,
+      "inBuilder": true,
+      "archived": false
+    },
+    {
+      "id": "p26",
+      "num": "#26",
+      "name": "Garden Pesto",
+      "cat": "PIZZAS",
+      "sub": null,
+      "order": 23,
+      "desc": {
+        "tr": "Tabanı pesto sosla kaplanmış, enginar kalbi, doğranmış domates, parmesan ve taze sarımsaklı pizza.",
+        "en": "Pesto base, artichoke hearts, diced tomato, parmesan and fresh garlic."
+      },
+      "sizes": {
+        "S": 715,
+        "L": 1445,
+        "XXL": 2085
+      },
+      "sizeLabel": null,
+      "tags": [
+        "V",
+        "STAR"
+      ],
+      "image": {
+        "path": "images/menu/px-6761057.jpg",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "imageIsStock": true,
+      "available": true,
+      "unavailableUntil": null,
+      "inBuilder": true,
+      "archived": false
+    },
+    {
+      "id": "p27",
+      "num": "#27",
+      "name": "Rıfat'ın Acılı Pizzası",
+      "cat": "PIZZAS",
+      "sub": null,
+      "order": 24,
+      "desc": {
+        "tr": "Domates sosu, pul biber, kekik, acı zeytinyağı, sucuk, dilim parmesan ve taze fesleğenli pizza. (Mozzarella peyniri bulunmamaktadır.)",
+        "en": "Tomato sauce, chilli flakes, oregano, spicy olive oil, Turkish sucuk, sliced parmesan and fresh basil. No mozzarella."
+      },
+      "sizes": {
+        "S": 780,
+        "L": 1795,
+        "XXL": 2185
+      },
+      "sizeLabel": null,
+      "tags": [
+        "SPICY",
+        "STAR"
+      ],
+      "image": {
+        "path": "images/official/rifatinacilisi.jpg",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "imageIsStock": false,
+      "available": true,
+      "unavailableUntil": null,
+      "inBuilder": true,
+      "archived": false
+    },
+    {
+      "id": "p28",
+      "num": "#28",
+      "name": "Melek Pizza",
+      "cat": "PIZZAS",
+      "sub": null,
+      "order": 25,
+      "desc": {
+        "tr": "Tabanı köz patlıcan ve mantar sos ile kaplanmış, kıyma, kuşbaşı et, dilim domates ve beyaz cheddar peynirli pizza.",
+        "en": "Roasted eggplant and mushroom sauce base, minced beef, diced beef, sliced tomato and white cheddar."
+      },
+      "sizes": {
+        "S": 580,
+        "L": 1210,
+        "XXL": 1580
+      },
+      "sizeLabel": null,
+      "tags": [],
+      "image": {
+        "path": "images/menu/px-33592998.jpg",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "imageIsStock": true,
+      "available": true,
+      "unavailableUntil": null,
+      "inBuilder": true,
+      "archived": false
+    },
+    {
+      "id": "p30",
+      "num": "#30",
+      "name": "Tıka Basa Pastırma",
+      "cat": "PIZZAS",
+      "sub": null,
+      "order": 26,
+      "desc": {
+        "tr": "Domates sosu, mozzarella, pastırma, mantar ve dilim tatlı biber.",
+        "en": "Tomato sauce, mozzarella, pastırma (cured beef), mushrooms and sliced sweet pepper."
+      },
+      "sizes": {
+        "S": 760,
+        "L": 1470,
+        "XXL": 1905
+      },
+      "sizeLabel": null,
+      "tags": [],
+      "image": {
+        "path": "images/menu/px-33457550.jpg",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "imageIsStock": true,
+      "available": true,
+      "unavailableUntil": null,
+      "inBuilder": true,
+      "archived": false
+    },
+    {
+      "id": "p31",
+      "num": "#31",
+      "name": "Bonfile Pizza",
+      "cat": "PIZZAS",
+      "sub": null,
+      "order": 27,
+      "desc": {
+        "tr": "Domates sosu, taze sarımsak, mozzarella, soğan, bonfile ve kekikli pizza.",
+        "en": "Tomato sauce, fresh garlic, mozzarella, onion, tenderloin and oregano."
+      },
+      "sizes": {
+        "S": 760,
+        "L": 1470,
+        "XXL": 1905
+      },
+      "sizeLabel": null,
+      "tags": [],
+      "image": {
+        "path": "images/menu/px-30120985.jpg",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "imageIsStock": true,
+      "available": true,
+      "unavailableUntil": null,
+      "inBuilder": true,
+      "archived": false
+    },
+    {
+      "id": "p34",
+      "num": "#34",
+      "name": "Karnıyarık Pizza",
+      "cat": "PIZZAS",
+      "sub": null,
+      "order": 28,
+      "desc": {
+        "tr": "Taze sarımsak, mozzarella, soğan, küp domates, kıyma, közlenmiş patlıcan ve jalapenolu beyaz pizza.",
+        "en": "White pizza with fresh garlic, mozzarella, onion, diced tomato, minced beef, roasted eggplant and jalapeño."
+      },
+      "sizes": {
+        "S": 580,
+        "L": 1210,
+        "XXL": 1580
+      },
+      "sizeLabel": null,
+      "tags": [
+        "SPICY"
+      ],
+      "image": {
+        "path": "images/menu/px-34425644.jpg",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "imageIsStock": true,
+      "available": true,
+      "unavailableUntil": null,
+      "inBuilder": true,
+      "archived": false
+    },
+    {
+      "id": "p38",
+      "num": "#38",
+      "name": "Bi Nevi Vegan",
+      "cat": "PIZZAS",
+      "sub": null,
+      "order": 29,
+      "desc": {
+        "tr": "Fermente kaju peyniri, taze ıspanak, taze sarımsak, siyah zeytin, mantarlı ve trüf yağlı vegan pizza.",
+        "en": "Vegan pizza with fermented cashew cheese, fresh spinach, fresh garlic, black olives, mushrooms and truffle oil."
+      },
+      "sizes": {
+        "S": 990,
+        "L": 1910,
+        "XXL": 2325
+      },
+      "sizeLabel": null,
+      "tags": [
+        "VG",
+        "STAR"
+      ],
+      "image": {
+        "path": "images/menu/px-12035802.jpg",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "imageIsStock": true,
+      "available": true,
+      "unavailableUntil": null,
+      "inBuilder": true,
+      "archived": false
+    },
+    {
+      "id": "p41",
+      "num": "#41",
+      "name": "CheeseBurger Pizza",
+      "cat": "PIZZAS",
+      "sub": null,
+      "order": 30,
+      "desc": {
+        "tr": "Tabanı orta acılı dijon hardal kaplanmış, rende mozzarella, kıyma, soğan, küp domates ve cheddar peynirli beyaz pizza.",
+        "en": "White pizza on a medium-hot Dijon mustard base with shredded mozzarella, minced beef, onion, diced tomato and cheddar."
+      },
+      "sizes": {
+        "S": 615,
+        "L": 1280,
+        "XXL": 1670
+      },
+      "sizeLabel": null,
+      "tags": [],
+      "image": {
+        "path": "images/menu/px-10266269.jpg",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "imageIsStock": true,
+      "available": true,
+      "unavailableUntil": null,
+      "inBuilder": true,
+      "archived": false
+    },
+    {
+      "id": "p42",
+      "num": "#42",
+      "name": "The Upper Lahmacun",
+      "cat": "PIZZAS",
+      "sub": null,
+      "order": 31,
+      "desc": {
+        "tr": "Bizim Crust'ımızla, bol yeşillikli çıtır çıtır dev bir lahmacun hayal eden tek biz değiliz herhalde?",
+        "en": "A giant, crisp lahmacun on our own crust, served with lots of greens."
+      },
+      "sizes": {
+        "ONE_SIZE": 795
+      },
+      "sizeLabel": null,
+      "tags": [],
+      "image": {
+        "path": "images/menu/px-32562202.jpg",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "imageIsStock": true,
+      "available": true,
+      "unavailableUntil": null,
+      "inBuilder": false,
+      "archived": false
+    },
+    {
+      "id": "p43",
+      "num": "#43",
+      "name": "Pasifik Rüzgarı",
+      "cat": "PIZZAS",
+      "sub": null,
+      "order": 32,
+      "desc": {
+        "tr": "Domates sosu, taze sarımsak, mozzarella, istiridye mantarı, dana jambon, çeri domates, kuru kekik ve taze fesleğenli pizza.",
+        "en": "Tomato sauce, fresh garlic, mozzarella, oyster mushrooms, beef ham, cherry tomatoes, dried oregano and fresh basil."
+      },
+      "sizes": {
+        "S": 640,
+        "L": 1335,
+        "XXL": 1740
+      },
+      "sizeLabel": null,
+      "tags": [
+        "STAR"
+      ],
+      "image": {
+        "path": "images/menu/px-19252765.jpg",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "imageIsStock": true,
+      "available": true,
+      "unavailableUntil": null,
+      "inBuilder": true,
+      "archived": false
+    },
+    {
+      "id": "p50",
+      "num": "#50",
+      "name": "Çikolata Pizza",
+      "cat": "PIZZAS",
+      "sub": null,
+      "order": 33,
+      "desc": {
+        "tr": "Tabanı çikolata kaplı orman ve mevsim meyveli pizza.",
+        "en": "Chocolate base with forest and seasonal fruits."
+      },
+      "sizes": {
+        "S": 560,
+        "L": 1185,
+        "XXL": 1515
+      },
+      "sizeLabel": null,
+      "tags": [
+        "STAR"
+      ],
+      "image": {
+        "path": "images/menu/px-31094828.jpg",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "imageIsStock": true,
+      "available": true,
+      "unavailableUntil": null,
+      "inBuilder": true,
+      "archived": false
+    },
+    {
+      "id": "sl1",
+      "num": "",
+      "name": "Peynirli Dilim",
+      "cat": "SLICES",
+      "sub": null,
+      "order": 34,
+      "desc": {
+        "tr": "Bir dilim klasik peynirli pizza.",
+        "en": "One slice of classic cheese pizza."
+      },
+      "sizes": {
+        "ONE_SIZE": 215
+      },
+      "sizeLabel": null,
+      "tags": [
+        "V"
+      ],
+      "image": {
+        "path": "images/menu/px-35181407.jpg",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "imageIsStock": true,
+      "available": true,
+      "unavailableUntil": null,
+      "inBuilder": false,
+      "archived": false
+    },
+    {
+      "id": "sl2",
+      "num": "",
+      "name": "Pepperonili Dilim",
+      "cat": "SLICES",
+      "sub": null,
+      "order": 35,
+      "desc": {
+        "tr": "Bir dilim pepperonili pizza.",
+        "en": "One slice of pepperoni pizza."
+      },
+      "sizes": {
+        "ONE_SIZE": 215
+      },
+      "sizeLabel": null,
+      "tags": [],
+      "image": {
+        "path": "images/menu/px-34769483.jpg",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "imageIsStock": true,
+      "available": true,
+      "unavailableUntil": null,
+      "inBuilder": false,
+      "archived": false
+    },
+    {
+      "id": "sl3",
+      "num": "",
+      "name": "Günün Dilimi",
+      "cat": "SLICES",
+      "sub": null,
+      "order": 36,
+      "desc": {
+        "tr": "Her gün değişen bir pizzadan bir dilim. Dilim pizza ve diğer günlük menülerimizi şubelerimizde sorunuz.",
+        "en": "One slice of a pizza that changes every day. Ask in the branches for slice combos and daily menus."
+      },
+      "sizes": {
+        "ONE_SIZE": 290
+      },
+      "sizeLabel": null,
+      "tags": [],
+      "image": {
+        "path": "images/menu/px-31587831.jpg",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "imageIsStock": true,
+      "available": true,
+      "unavailableUntil": null,
+      "inBuilder": false,
+      "archived": false
+    },
+    {
+      "id": "s1",
+      "num": "",
+      "name": "Ispanak Küpleri",
+      "cat": "STARTERS",
+      "sub": null,
+      "order": 37,
+      "desc": {
+        "tr": "Ispanak, cheddar peyniri ve sütten oluşan lezzet küpleri.",
+        "en": "Spinach, cheddar and milk baked into little cubes."
+      },
+      "sizes": {
+        "ONE_SIZE": 375
+      },
+      "sizeLabel": null,
+      "tags": [
+        "V"
+      ],
+      "image": {
+        "path": "images/menu/px-5665638.jpg",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "imageIsStock": true,
+      "available": true,
+      "unavailableUntil": null,
+      "inBuilder": false,
+      "archived": false
+    },
+    {
+      "id": "s2",
+      "num": "",
+      "name": "Sarımsaklı Ekmek",
+      "cat": "STARTERS",
+      "sub": null,
+      "order": 38,
+      "desc": {
+        "tr": "Sarımsaklı sosla fırınlanmış mozzarellalı ekmek dilimleri.",
+        "en": "Bread slices baked with garlic sauce and mozzarella."
+      },
+      "sizes": {
+        "ONE_SIZE": 310
+      },
+      "sizeLabel": null,
+      "tags": [
+        "V"
+      ],
+      "image": {
+        "path": "images/sarmisakli.jpg",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "imageIsStock": false,
+      "available": true,
+      "unavailableUntil": null,
+      "inBuilder": false,
+      "archived": false
+    },
+    {
+      "id": "s3",
+      "num": "",
+      "name": "Lazanya",
+      "cat": "STARTERS",
+      "sub": null,
+      "order": 39,
+      "desc": {
+        "tr": "Fırında bolonez ve beşamel soslu lazanya.",
+        "en": "Oven-baked lasagna with bolognese and béchamel."
+      },
+      "sizes": {
+        "ONE_SIZE": 550
+      },
+      "sizeLabel": null,
+      "tags": [],
+      "image": {
+        "path": "images/menu/px-31779545.jpg",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "imageIsStock": true,
+      "available": true,
+      "unavailableUntil": null,
+      "inBuilder": false,
+      "archived": false
+    },
+    {
+      "id": "s4",
+      "num": "",
+      "name": "Parmak Patates",
+      "cat": "STARTERS",
+      "sub": null,
+      "order": 40,
+      "desc": {
+        "tr": "Özel karışım baharatlı fırında parmak patates.",
+        "en": "Oven-baked fries with our spice mix."
+      },
+      "sizes": {
+        "ONE_SIZE": 295
+      },
+      "sizeLabel": null,
+      "tags": [
+        "V",
+        "VG"
+      ],
+      "image": {
+        "path": "images/fries.jpg",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "imageIsStock": false,
+      "available": true,
+      "unavailableUntil": null,
+      "inBuilder": false,
+      "archived": false
+    },
+    {
+      "id": "s6",
+      "num": "",
+      "name": "Cheddar ve Trüflü Parmak Patates",
+      "cat": "STARTERS",
+      "sub": null,
+      "order": 41,
+      "desc": {
+        "tr": "Cheddar peyniri ve trüflü özel karışım baharatlı fırında parmak patates.",
+        "en": "Oven-baked fries with cheddar, truffle and our spice mix."
+      },
+      "sizes": {
+        "ONE_SIZE": 355
+      },
+      "sizeLabel": null,
+      "tags": [
+        "V"
+      ],
+      "image": {
+        "path": "images/menu/px-31806278.jpg",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "imageIsStock": true,
+      "available": true,
+      "unavailableUntil": null,
+      "inBuilder": false,
+      "archived": false
+    },
+    {
+      "id": "s5",
+      "num": "",
+      "name": "Güveçte Acılı Tavuk Topları",
+      "cat": "STARTERS",
+      "sub": null,
+      "order": 42,
+      "desc": {
+        "tr": "Özel karışım baharatlı fırında tavuk topları.",
+        "en": "Spicy chicken balls baked in a casserole with our spice mix."
+      },
+      "sizes": {
+        "ONE_SIZE": 465
+      },
+      "sizeLabel": null,
+      "tags": [
+        "SPICY"
+      ],
+      "image": {
+        "path": "images/menu/px-29872932.jpg",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "imageIsStock": true,
+      "available": true,
+      "unavailableUntil": null,
+      "inBuilder": false,
+      "archived": false
+    },
+    {
+      "id": "sa1",
+      "num": "",
+      "name": "Fit Salata",
+      "cat": "SALADS",
+      "sub": null,
+      "order": 43,
+      "desc": {
+        "tr": "Karışık yeşillik, renkli biberler, kuru kayısı, kuru erik, beyaz peynir, ceviz.",
+        "en": "Mixed greens, colourful peppers, dried apricot, prune, white cheese, walnuts."
+      },
+      "sizes": {
+        "ONE_SIZE": 410
+      },
+      "sizeLabel": null,
+      "tags": [
+        "V"
+      ],
+      "image": {
+        "path": "images/menu/px-31269817.jpg",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "imageIsStock": true,
+      "available": true,
+      "unavailableUntil": null,
+      "inBuilder": false,
+      "archived": false
+    },
+    {
+      "id": "sa2",
+      "num": "",
+      "name": "Izgara Sebze Salatası",
+      "cat": "SALADS",
+      "sub": null,
+      "order": 44,
+      "desc": {
+        "tr": "Akdeniz yeşillikleri, ızgara patlıcan, ızgara kabak, kinoa, kurutulmuş domates, keçi peyniri.",
+        "en": "Mediterranean greens, grilled eggplant, grilled zucchini, quinoa, sun-dried tomato, goat cheese."
+      },
+      "sizes": {
+        "ONE_SIZE": 490
+      },
+      "sizeLabel": null,
+      "tags": [
+        "V"
+      ],
+      "image": {
+        "path": "images/menu/px-34227777.jpg",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "imageIsStock": true,
+      "available": true,
+      "unavailableUntil": null,
+      "inBuilder": false,
+      "archived": false
+    },
+    {
+      "id": "sa4",
+      "num": "",
+      "name": "Roka Salatası",
+      "cat": "SALADS",
+      "sub": null,
+      "order": 45,
+      "desc": {
+        "tr": "Roka, parmesan, cherry domates, enginar kalbi, kurutulmuş domates, ceviz, limon.",
+        "en": "Arugula, parmesan, cherry tomatoes, artichoke hearts, sun-dried tomato, walnuts, lemon."
+      },
+      "sizes": {
+        "ONE_SIZE": 410
+      },
+      "sizeLabel": null,
+      "tags": [
+        "V"
+      ],
+      "image": {
+        "path": "images/menu/px-28446388.jpg",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "imageIsStock": true,
+      "available": true,
+      "unavailableUntil": null,
+      "inBuilder": false,
+      "archived": false
+    },
+    {
+      "id": "sa5",
+      "num": "",
+      "name": "Sezar Salata",
+      "cat": "SALADS",
+      "sub": null,
+      "order": 46,
+      "desc": {
+        "tr": "Göbek, parmesan, kruton, ızgara tavuk, limon.",
+        "en": "Iceberg, parmesan, croutons, grilled chicken, lemon."
+      },
+      "sizes": {
+        "ONE_SIZE": 410
+      },
+      "sizeLabel": null,
+      "tags": [],
+      "image": {
+        "path": "images/salad-caesar.jpg",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "imageIsStock": false,
+      "available": true,
+      "unavailableUntil": null,
+      "inBuilder": false,
+      "archived": false
+    },
+    {
+      "id": "sa6",
+      "num": "",
+      "name": "Ton Balıklı Salata",
+      "cat": "SALADS",
+      "sub": null,
+      "order": 47,
+      "desc": {
+        "tr": "Akdeniz yeşilliği, göbek, ton balığı, mısır, cherry domates, maydanoz, limon.",
+        "en": "Mediterranean greens, iceberg, tuna, corn, cherry tomatoes, parsley, lemon."
+      },
+      "sizes": {
+        "ONE_SIZE": 490
+      },
+      "sizeLabel": null,
+      "tags": [],
+      "image": {
+        "path": "images/menu/px-19051901.jpg",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "imageIsStock": true,
+      "available": true,
+      "unavailableUntil": null,
+      "inBuilder": false,
+      "archived": false
+    },
+    {
+      "id": "sa3",
+      "num": "",
+      "name": "Akdeniz Salata",
+      "cat": "SALADS",
+      "sub": null,
+      "order": 48,
+      "desc": {
+        "tr": "Göbek, akdeniz yeşillikleri, havuç, salatalık, domates, maydanoz, beyaz peynir, dilim zeytin, limon.",
+        "en": "Iceberg, Mediterranean greens, carrot, cucumber, tomato, parsley, white cheese, sliced olives, lemon."
+      },
+      "sizes": {
+        "ONE_SIZE": 410
+      },
+      "sizeLabel": null,
+      "tags": [
+        "V"
+      ],
+      "image": {
+        "path": "images/salad-mediterranean.jpg",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "imageIsStock": false,
+      "available": true,
+      "unavailableUntil": null,
+      "inBuilder": false,
+      "archived": false
+    },
+    {
+      "id": "d1",
+      "num": "",
+      "name": "Bask Cheesecake",
+      "cat": "DESSERTS",
+      "sub": null,
+      "order": 49,
+      "desc": {
+        "tr": "Bask usulü cheesecake.",
+        "en": "Basque cheesecake."
+      },
+      "sizes": {
+        "ONE_SIZE": 420
+      },
+      "sizeLabel": null,
+      "tags": [
+        "V"
+      ],
+      "image": {
+        "path": "images/cheesecake.jpg",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "imageIsStock": false,
+      "available": true,
+      "unavailableUntil": null,
+      "inBuilder": false,
+      "archived": false
+    },
+    {
+      "id": "d2",
+      "num": "",
+      "name": "Tiramisu",
+      "cat": "DESSERTS",
+      "sub": null,
+      "order": 50,
+      "desc": {
+        "tr": "Klasik tiramisu.",
+        "en": "Classic tiramisu."
+      },
+      "sizes": {
+        "ONE_SIZE": 495
+      },
+      "sizeLabel": null,
+      "tags": [
+        "V"
+      ],
+      "image": {
+        "path": "images/tiramisu.jpg",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "imageIsStock": false,
+      "available": true,
+      "unavailableUntil": null,
+      "inBuilder": false,
+      "archived": false
+    },
+    {
+      "id": "d3",
+      "num": "",
+      "name": "Chocolate Calzone",
+      "cat": "DESSERTS",
+      "sub": null,
+      "order": 51,
+      "desc": {
+        "tr": "Çikolatalı calzone.",
+        "en": "Chocolate calzone."
+      },
+      "sizes": {
+        "ONE_SIZE": 290
+      },
+      "sizeLabel": null,
+      "tags": [
+        "V"
+      ],
+      "image": {
+        "path": "images/menu/px-36642831.jpg",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "imageIsStock": true,
+      "available": true,
+      "unavailableUntil": null,
+      "inBuilder": false,
+      "archived": false
+    },
+    {
+      "id": "dr8",
+      "num": "",
+      "name": "Coca-Cola",
+      "cat": "DRINKS",
+      "sub": "COLD",
+      "order": 52,
+      "desc": {
+        "tr": "",
+        "en": ""
+      },
+      "sizes": {
+        "ONE_SIZE": 115
+      },
+      "sizeLabel": "33 cl",
+      "tags": [],
+      "image": {
+        "path": "images/menu/px-33469209.jpg",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "imageIsStock": true,
+      "available": true,
+      "unavailableUntil": null,
+      "inBuilder": false,
+      "archived": false
+    },
+    {
+      "id": "dr9",
+      "num": "",
+      "name": "Coca-Cola Zero",
+      "cat": "DRINKS",
+      "sub": "COLD",
+      "order": 53,
+      "desc": {
+        "tr": "",
+        "en": ""
+      },
+      "sizes": {
+        "ONE_SIZE": 115
+      },
+      "sizeLabel": "33 cl",
+      "tags": [],
+      "image": {
+        "path": "images/menu/px-8879617.jpg",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "imageIsStock": true,
+      "available": true,
+      "unavailableUntil": null,
+      "inBuilder": false,
+      "archived": false
+    },
+    {
+      "id": "dr19",
+      "num": "",
+      "name": "Coca-Cola Light",
+      "cat": "DRINKS",
+      "sub": "COLD",
+      "order": 54,
+      "desc": {
+        "tr": "",
+        "en": ""
+      },
+      "sizes": {
+        "ONE_SIZE": 115
+      },
+      "sizeLabel": "33 cl",
+      "tags": [],
+      "image": {
+        "path": "images/menu/px-8879626.jpg",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "imageIsStock": true,
+      "available": true,
+      "unavailableUntil": null,
+      "inBuilder": false,
+      "archived": false
+    },
+    {
+      "id": "dr10",
+      "num": "",
+      "name": "Fanta",
+      "cat": "DRINKS",
+      "sub": "COLD",
+      "order": 55,
+      "desc": {
+        "tr": "",
+        "en": ""
+      },
+      "sizes": {
+        "ONE_SIZE": 115
+      },
+      "sizeLabel": "33 cl",
+      "tags": [],
+      "image": {
+        "path": "images/menu/px-36951470.jpg",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "imageIsStock": true,
+      "available": true,
+      "unavailableUntil": null,
+      "inBuilder": false,
+      "archived": false
+    },
+    {
+      "id": "dr11",
+      "num": "",
+      "name": "Sprite",
+      "cat": "DRINKS",
+      "sub": "COLD",
+      "order": 56,
+      "desc": {
+        "tr": "",
+        "en": ""
+      },
+      "sizes": {
+        "ONE_SIZE": 115
+      },
+      "sizeLabel": "33 cl",
+      "tags": [],
+      "image": {
+        "path": "images/menu/px-9996446.jpg",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "imageIsStock": true,
+      "available": true,
+      "unavailableUntil": null,
+      "inBuilder": false,
+      "archived": false
+    },
+    {
+      "id": "dr12",
+      "num": "",
+      "name": "Schweppes",
+      "cat": "DRINKS",
+      "sub": "COLD",
+      "order": 57,
+      "desc": {
+        "tr": "",
+        "en": ""
+      },
+      "sizes": {
+        "ONE_SIZE": 120
+      },
+      "sizeLabel": "33 cl",
+      "tags": [],
+      "image": {
+        "path": "images/menu/px-33642286.jpg",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "imageIsStock": true,
+      "available": true,
+      "unavailableUntil": null,
+      "inBuilder": false,
+      "archived": false
+    },
+    {
+      "id": "dr13",
+      "num": "",
+      "name": "Fuse Tea",
+      "cat": "DRINKS",
+      "sub": "COLD",
+      "order": 58,
+      "desc": {
+        "tr": "",
+        "en": ""
+      },
+      "sizes": {
+        "ONE_SIZE": 115
+      },
+      "sizeLabel": "33 cl",
+      "tags": [],
+      "image": {
+        "path": "images/menu/px-792613.jpg",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "imageIsStock": true,
+      "available": true,
+      "unavailableUntil": null,
+      "inBuilder": false,
+      "archived": false
+    },
+    {
+      "id": "dr14",
+      "num": "",
+      "name": "Limonata",
+      "cat": "DRINKS",
+      "sub": "COLD",
+      "order": 59,
+      "desc": {
+        "tr": "Normal veya çilekli.",
+        "en": "Lemonade, plain or strawberry."
+      },
+      "sizes": {
+        "ONE_SIZE": 165
+      },
+      "sizeLabel": "33 cl",
+      "tags": [],
+      "image": {
+        "path": "images/menu/px-30591640.jpg",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "imageIsStock": true,
+      "available": true,
+      "unavailableUntil": null,
+      "inBuilder": false,
+      "archived": false
+    },
+    {
+      "id": "dr15",
+      "num": "",
+      "name": "Uludağ Premium",
+      "cat": "DRINKS",
+      "sub": "COLD",
+      "order": 60,
+      "desc": {
+        "tr": "",
+        "en": ""
+      },
+      "sizes": {
+        "ONE_SIZE": 220
+      },
+      "sizeLabel": "75 cl",
+      "tags": [],
+      "image": {
+        "path": "images/menu/px-13723906.jpg",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "imageIsStock": true,
+      "available": true,
+      "unavailableUntil": null,
+      "inBuilder": false,
+      "archived": false
+    },
+    {
+      "id": "dr20",
+      "num": "",
+      "name": "Uludağ Premium",
+      "cat": "DRINKS",
+      "sub": "COLD",
+      "order": 61,
+      "desc": {
+        "tr": "",
+        "en": ""
+      },
+      "sizes": {
+        "ONE_SIZE": 125
+      },
+      "sizeLabel": "25 cl",
+      "tags": [],
+      "image": {
+        "path": "images/menu/px-12987479.jpg",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "imageIsStock": true,
+      "available": true,
+      "unavailableUntil": null,
+      "inBuilder": false,
+      "archived": false
+    },
+    {
+      "id": "dr16",
+      "num": "",
+      "name": "Maden Suyu",
+      "cat": "DRINKS",
+      "sub": "COLD",
+      "order": 62,
+      "desc": {
+        "tr": "",
+        "en": "Mineral water."
+      },
+      "sizes": {
+        "ONE_SIZE": 75
+      },
+      "sizeLabel": "25 cl",
+      "tags": [],
+      "image": {
+        "path": "images/menu/px-8679539.jpg",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "imageIsStock": true,
+      "available": true,
+      "unavailableUntil": null,
+      "inBuilder": false,
+      "archived": false
+    },
+    {
+      "id": "dr17",
+      "num": "",
+      "name": "Ayran",
+      "cat": "DRINKS",
+      "sub": "COLD",
+      "order": 63,
+      "desc": {
+        "tr": "",
+        "en": ""
+      },
+      "sizes": {
+        "ONE_SIZE": 90
+      },
+      "sizeLabel": "33 cl",
+      "tags": [],
+      "image": {
+        "path": "images/menu/px-18142603.jpg",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "imageIsStock": true,
+      "available": true,
+      "unavailableUntil": null,
+      "inBuilder": false,
+      "archived": false
+    },
+    {
+      "id": "dr18",
+      "num": "",
+      "name": "Su",
+      "cat": "DRINKS",
+      "sub": "COLD",
+      "order": 64,
+      "desc": {
+        "tr": "",
+        "en": "Water."
+      },
+      "sizes": {
+        "ONE_SIZE": 75
+      },
+      "sizeLabel": "33 cl",
+      "tags": [],
+      "image": {
+        "path": "images/menu/px-7904434.jpg",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "imageIsStock": true,
+      "available": true,
+      "unavailableUntil": null,
+      "inBuilder": false,
+      "archived": false
+    },
+    {
+      "id": "dr21",
+      "num": "",
+      "name": "Su",
+      "cat": "DRINKS",
+      "sub": "COLD",
+      "order": 65,
+      "desc": {
+        "tr": "",
+        "en": "Water."
+      },
+      "sizes": {
+        "ONE_SIZE": 115
+      },
+      "sizeLabel": "1 L",
+      "tags": [],
+      "image": {
+        "path": "images/menu/px-38680786.jpg",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "imageIsStock": true,
+      "available": true,
+      "unavailableUntil": null,
+      "inBuilder": false,
+      "archived": false
+    },
+    {
+      "id": "dr1",
+      "num": "",
+      "name": "Türk Kahvesi",
+      "cat": "DRINKS",
+      "sub": "HOT",
+      "order": 66,
+      "desc": {
+        "tr": "",
+        "en": "Turkish coffee."
+      },
+      "sizes": {
+        "ONE_SIZE": 115
+      },
+      "sizeLabel": null,
+      "tags": [],
+      "image": {
+        "path": "images/menu/px-36535224.jpg",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "imageIsStock": true,
+      "available": true,
+      "unavailableUntil": null,
+      "inBuilder": false,
+      "archived": false
+    },
+    {
+      "id": "dr2",
+      "num": "",
+      "name": "Espresso",
+      "cat": "DRINKS",
+      "sub": "HOT",
+      "order": 67,
+      "desc": {
+        "tr": "",
+        "en": ""
+      },
+      "sizes": {
+        "ONE_SIZE": 115
+      },
+      "sizeLabel": null,
+      "tags": [],
+      "image": {
+        "path": "images/menu/px-11918562.jpg",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "imageIsStock": true,
+      "available": true,
+      "unavailableUntil": null,
+      "inBuilder": false,
+      "archived": false
+    },
+    {
+      "id": "dr3",
+      "num": "",
+      "name": "Double Espresso",
+      "cat": "DRINKS",
+      "sub": "HOT",
+      "order": 68,
+      "desc": {
+        "tr": "",
+        "en": ""
+      },
+      "sizes": {
+        "ONE_SIZE": 130
+      },
+      "sizeLabel": null,
+      "tags": [],
+      "image": {
+        "path": "images/menu/px-27589853.jpg",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "imageIsStock": true,
+      "available": true,
+      "unavailableUntil": null,
+      "inBuilder": false,
+      "archived": false
+    },
+    {
+      "id": "dr4",
+      "num": "",
+      "name": "Americano",
+      "cat": "DRINKS",
+      "sub": "HOT",
+      "order": 69,
+      "desc": {
+        "tr": "",
+        "en": ""
+      },
+      "sizes": {
+        "ONE_SIZE": 130
+      },
+      "sizeLabel": null,
+      "tags": [],
+      "image": {
+        "path": "images/menu/px-7855562.jpg",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "imageIsStock": true,
+      "available": true,
+      "unavailableUntil": null,
+      "inBuilder": false,
+      "archived": false
+    },
+    {
+      "id": "dr5",
+      "num": "",
+      "name": "Cappuccino",
+      "cat": "DRINKS",
+      "sub": "HOT",
+      "order": 70,
+      "desc": {
+        "tr": "",
+        "en": ""
+      },
+      "sizes": {
+        "ONE_SIZE": 145
+      },
+      "sizeLabel": null,
+      "tags": [],
+      "image": {
+        "path": "images/menu/px-4913342.jpg",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "imageIsStock": true,
+      "available": true,
+      "unavailableUntil": null,
+      "inBuilder": false,
+      "archived": false
+    },
+    {
+      "id": "dr6",
+      "num": "",
+      "name": "Filtre Kahve",
+      "cat": "DRINKS",
+      "sub": "HOT",
+      "order": 71,
+      "desc": {
+        "tr": "",
+        "en": "Filter coffee."
+      },
+      "sizes": {
+        "ONE_SIZE": 115
+      },
+      "sizeLabel": null,
+      "tags": [],
+      "image": {
+        "path": "images/menu/px-29498509.jpg",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "imageIsStock": true,
+      "available": true,
+      "unavailableUntil": null,
+      "inBuilder": false,
+      "archived": false
+    },
+    {
+      "id": "dr7",
+      "num": "",
+      "name": "Çay",
+      "cat": "DRINKS",
+      "sub": "HOT",
+      "order": 72,
+      "desc": {
+        "tr": "",
+        "en": "Tea."
+      },
+      "sizes": {
+        "ONE_SIZE": 70
+      },
+      "sizeLabel": null,
+      "tags": [],
+      "image": {
+        "path": "images/menu/px-28617425.jpg",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "imageIsStock": true,
+      "available": true,
+      "unavailableUntil": null,
+      "inBuilder": false,
+      "archived": false
+    },
+    {
+      "id": "w1",
+      "num": "",
+      "name": "Hayal",
+      "cat": "WINES",
+      "sub": "RED",
+      "order": 73,
+      "desc": {
+        "tr": "Cabernet Sauvignon & Shiraz",
+        "en": "Cabernet Sauvignon & Shiraz"
+      },
+      "sizes": {
+        "GLASS": 340,
+        "BOTTLE": 1350
+      },
+      "sizeLabel": null,
+      "tags": [],
+      "image": {
+        "path": "images/menu/px-14465764.jpg",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "imageIsStock": true,
+      "available": true,
+      "unavailableUntil": null,
+      "inBuilder": false,
+      "archived": false
+    },
+    {
+      "id": "w2",
+      "num": "",
+      "name": "DLC",
+      "cat": "WINES",
+      "sub": "RED",
+      "order": 74,
+      "desc": {
+        "tr": "Kalecik Karası",
+        "en": "Kalecik Karası"
+      },
+      "sizes": {
+        "GLASS": 460,
+        "BOTTLE": 1850
+      },
+      "sizeLabel": null,
+      "tags": [],
+      "image": {
+        "path": "images/menu/px-8084637.jpg",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "imageIsStock": true,
+      "available": true,
+      "unavailableUntil": null,
+      "inBuilder": false,
+      "archived": false
+    },
+    {
+      "id": "w3",
+      "num": "",
+      "name": "DLC",
+      "cat": "WINES",
+      "sub": "RED",
+      "order": 75,
+      "desc": {
+        "tr": "Cabernet Sauvignon & Merlot",
+        "en": "Cabernet Sauvignon & Merlot"
+      },
+      "sizes": {
+        "GLASS": 460,
+        "BOTTLE": 1850
+      },
+      "sizeLabel": null,
+      "tags": [],
+      "image": {
+        "path": "images/menu/px-14465764.jpg",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "imageIsStock": true,
+      "available": true,
+      "unavailableUntil": null,
+      "inBuilder": false,
+      "archived": false
+    },
+    {
+      "id": "w4",
+      "num": "",
+      "name": "Kav",
+      "cat": "WINES",
+      "sub": "RED",
+      "order": 76,
+      "desc": {
+        "tr": "Boğazkere & Öküzgözü",
+        "en": "Boğazkere & Öküzgözü"
+      },
+      "sizes": {
+        "GLASS": 460,
+        "BOTTLE": 1850
+      },
+      "sizeLabel": null,
+      "tags": [],
+      "image": {
+        "path": "images/menu/px-8084637.jpg",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "imageIsStock": true,
+      "available": true,
+      "unavailableUntil": null,
+      "inBuilder": false,
+      "archived": false
+    },
+    {
+      "id": "w5",
+      "num": "",
+      "name": "Sarafin",
+      "cat": "WINES",
+      "sub": "RED",
+      "order": 77,
+      "desc": {
+        "tr": "Cabernet Sauvignon",
+        "en": "Cabernet Sauvignon"
+      },
+      "sizes": {
+        "BOTTLE": 3950
+      },
+      "sizeLabel": null,
+      "tags": [],
+      "image": {
+        "path": "images/menu/px-14465764.jpg",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "imageIsStock": true,
+      "available": true,
+      "unavailableUntil": null,
+      "inBuilder": false,
+      "archived": false
+    },
+    {
+      "id": "w6",
+      "num": "",
+      "name": "Hayal",
+      "cat": "WINES",
+      "sub": "WHITE",
+      "order": 78,
+      "desc": {
+        "tr": "Sultaniye & Sauvignon Blanc",
+        "en": "Sultaniye & Sauvignon Blanc"
+      },
+      "sizes": {
+        "GLASS": 340,
+        "BOTTLE": 1350
+      },
+      "sizeLabel": null,
+      "tags": [],
+      "image": {
+        "path": "images/menu/px-28454104.jpg",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "imageIsStock": true,
+      "available": true,
+      "unavailableUntil": null,
+      "inBuilder": false,
+      "archived": false
+    },
+    {
+      "id": "w7",
+      "num": "",
+      "name": "DLC",
+      "cat": "WINES",
+      "sub": "WHITE",
+      "order": 79,
+      "desc": {
+        "tr": "Sauvignon Blanc",
+        "en": "Sauvignon Blanc"
+      },
+      "sizes": {
+        "GLASS": 460,
+        "BOTTLE": 1850
+      },
+      "sizeLabel": null,
+      "tags": [],
+      "image": {
+        "path": "images/menu/px-10403547.jpg",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "imageIsStock": true,
+      "available": true,
+      "unavailableUntil": null,
+      "inBuilder": false,
+      "archived": false
+    },
+    {
+      "id": "w8",
+      "num": "",
+      "name": "Kav",
+      "cat": "WINES",
+      "sub": "WHITE",
+      "order": 80,
+      "desc": {
+        "tr": "Narince",
+        "en": "Narince"
+      },
+      "sizes": {
+        "GLASS": 460,
+        "BOTTLE": 1850
+      },
+      "sizeLabel": null,
+      "tags": [],
+      "image": {
+        "path": "images/menu/px-28454104.jpg",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "imageIsStock": true,
+      "available": true,
+      "unavailableUntil": null,
+      "inBuilder": false,
+      "archived": false
+    },
+    {
+      "id": "w9",
+      "num": "",
+      "name": "Sarafin",
+      "cat": "WINES",
+      "sub": "WHITE",
+      "order": 81,
+      "desc": {
+        "tr": "Chardonnay",
+        "en": "Chardonnay"
+      },
+      "sizes": {
+        "BOTTLE": 3950
+      },
+      "sizeLabel": null,
+      "tags": [],
+      "image": {
+        "path": "images/menu/px-10403547.jpg",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "imageIsStock": true,
+      "available": true,
+      "unavailableUntil": null,
+      "inBuilder": false,
+      "archived": false
+    },
+    {
+      "id": "w10",
+      "num": "",
+      "name": "Hayal",
+      "cat": "WINES",
+      "sub": "ROSE",
+      "order": 82,
+      "desc": {
+        "tr": "Blush",
+        "en": "Blush"
+      },
+      "sizes": {
+        "GLASS": 340,
+        "BOTTLE": 1350
+      },
+      "sizeLabel": null,
+      "tags": [],
+      "image": {
+        "path": "images/menu/px-4946408.jpg",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "imageIsStock": true,
+      "available": true,
+      "unavailableUntil": null,
+      "inBuilder": false,
+      "archived": false
+    },
+    {
+      "id": "w11",
+      "num": "",
+      "name": "Verano",
+      "cat": "WINES",
+      "sub": "ROSE",
+      "order": 83,
+      "desc": {
+        "tr": "Blush",
+        "en": "Blush"
+      },
+      "sizes": {
+        "GLASS": 440,
+        "BOTTLE": 1700
+      },
+      "sizeLabel": null,
+      "tags": [],
+      "image": {
+        "path": "images/menu/px-4946408.jpg",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "imageIsStock": true,
+      "available": true,
+      "unavailableUntil": null,
+      "inBuilder": false,
+      "archived": false
+    },
+    {
+      "id": "b1",
+      "num": "",
+      "name": "Efes Pilsen",
+      "cat": "BEERS",
+      "sub": null,
+      "order": 84,
+      "desc": {
+        "tr": "",
+        "en": ""
+      },
+      "sizes": {
+        "ONE_SIZE": 230
+      },
+      "sizeLabel": "33 cl",
+      "tags": [],
+      "image": {
+        "path": "images/menu/px-27623973.jpg",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "imageIsStock": true,
+      "available": true,
+      "unavailableUntil": null,
+      "inBuilder": false,
+      "archived": false
+    },
+    {
+      "id": "b2",
+      "num": "",
+      "name": "Efes Pilsen",
+      "cat": "BEERS",
+      "sub": null,
+      "order": 85,
+      "desc": {
+        "tr": "",
+        "en": ""
+      },
+      "sizes": {
+        "ONE_SIZE": 310
+      },
+      "sizeLabel": "50 cl",
+      "tags": [],
+      "image": {
+        "path": "images/menu/px-20769832.jpg",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "imageIsStock": true,
+      "available": true,
+      "unavailableUntil": null,
+      "inBuilder": false,
+      "archived": false
+    },
+    {
+      "id": "b3",
+      "num": "",
+      "name": "Efes Özel Seri",
+      "cat": "BEERS",
+      "sub": null,
+      "order": 86,
+      "desc": {
+        "tr": "",
+        "en": ""
+      },
+      "sizes": {
+        "ONE_SIZE": 335
+      },
+      "sizeLabel": "50 cl",
+      "tags": [],
+      "image": {
+        "path": "images/menu/px-15991209.jpg",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "imageIsStock": true,
+      "available": true,
+      "unavailableUntil": null,
+      "inBuilder": false,
+      "archived": false
+    },
+    {
+      "id": "b4",
+      "num": "",
+      "name": "Efes Glutensiz",
+      "cat": "BEERS",
+      "sub": null,
+      "order": 87,
+      "desc": {
+        "tr": "Glutensiz.",
+        "en": "Gluten-free."
+      },
+      "sizes": {
+        "ONE_SIZE": 400
+      },
+      "sizeLabel": "50 cl",
+      "tags": [],
+      "image": {
+        "path": "images/menu/px-8508488.jpg",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "imageIsStock": true,
+      "available": true,
+      "unavailableUntil": null,
+      "inBuilder": false,
+      "archived": false
+    },
+    {
+      "id": "b5",
+      "num": "",
+      "name": "Efes Malt",
+      "cat": "BEERS",
+      "sub": null,
+      "order": 88,
+      "desc": {
+        "tr": "",
+        "en": ""
+      },
+      "sizes": {
+        "ONE_SIZE": 310
+      },
+      "sizeLabel": "50 cl",
+      "tags": [],
+      "image": {
+        "path": "images/menu/px-20769832.jpg",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "imageIsStock": true,
+      "available": true,
+      "unavailableUntil": null,
+      "inBuilder": false,
+      "archived": false
+    },
+    {
+      "id": "b6",
+      "num": "",
+      "name": "Beck's",
+      "cat": "BEERS",
+      "sub": null,
+      "order": 89,
+      "desc": {
+        "tr": "",
+        "en": ""
+      },
+      "sizes": {
+        "ONE_SIZE": 295
+      },
+      "sizeLabel": "33 cl",
+      "tags": [],
+      "image": {
+        "path": "images/menu/px-28902910.jpg",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "imageIsStock": true,
+      "available": true,
+      "unavailableUntil": null,
+      "inBuilder": false,
+      "archived": false
+    },
+    {
+      "id": "b7",
+      "num": "",
+      "name": "Bomonti Filtresiz",
+      "cat": "BEERS",
+      "sub": null,
+      "order": 90,
+      "desc": {
+        "tr": "",
+        "en": "Unfiltered."
+      },
+      "sizes": {
+        "ONE_SIZE": 360
+      },
+      "sizeLabel": "50 cl",
+      "tags": [],
+      "image": {
+        "path": "images/menu/px-27623973.jpg",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "imageIsStock": true,
+      "available": true,
+      "unavailableUntil": null,
+      "inBuilder": false,
+      "archived": false
+    },
+    {
+      "id": "b8",
+      "num": "",
+      "name": "Belfast",
+      "cat": "BEERS",
+      "sub": null,
+      "order": 91,
+      "desc": {
+        "tr": "",
+        "en": ""
+      },
+      "sizes": {
+        "ONE_SIZE": 340
+      },
+      "sizeLabel": "50 cl",
+      "tags": [],
+      "image": {
+        "path": "images/menu/px-15991209.jpg",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "imageIsStock": true,
+      "available": true,
+      "unavailableUntil": null,
+      "inBuilder": false,
+      "archived": false
+    },
+    {
+      "id": "b9",
+      "num": "",
+      "name": "Bud",
+      "cat": "BEERS",
+      "sub": null,
+      "order": 92,
+      "desc": {
+        "tr": "",
+        "en": ""
+      },
+      "sizes": {
+        "ONE_SIZE": 375
+      },
+      "sizeLabel": "50 cl",
+      "tags": [],
+      "image": {
+        "path": "images/menu/px-28902910.jpg",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "imageIsStock": true,
+      "available": true,
+      "unavailableUntil": null,
+      "inBuilder": false,
+      "archived": false
+    },
+    {
+      "id": "b10",
+      "num": "",
+      "name": "Corona",
+      "cat": "BEERS",
+      "sub": null,
+      "order": 93,
+      "desc": {
+        "tr": "",
+        "en": ""
+      },
+      "sizes": {
+        "ONE_SIZE": 480
+      },
+      "sizeLabel": "35,5 cl",
+      "tags": [],
+      "image": {
+        "path": "images/menu/px-30211152.jpg",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "imageIsStock": true,
+      "available": true,
+      "unavailableUntil": null,
+      "inBuilder": false,
+      "archived": false
+    },
+    {
+      "id": "b11",
+      "num": "",
+      "name": "Erdinger",
+      "cat": "BEERS",
+      "sub": null,
+      "order": 94,
+      "desc": {
+        "tr": "",
+        "en": ""
+      },
+      "sizes": {
+        "ONE_SIZE": 500
+      },
+      "sizeLabel": "33 cl",
+      "tags": [],
+      "image": {
+        "path": "images/menu/px-8508488.jpg",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "imageIsStock": true,
+      "available": true,
+      "unavailableUntil": null,
+      "inBuilder": false,
+      "archived": false
+    },
+    {
+      "id": "b12",
+      "num": "",
+      "name": "Heineken",
+      "cat": "BEERS",
+      "sub": null,
+      "order": 95,
+      "desc": {
+        "tr": "",
+        "en": ""
+      },
+      "sizes": {
+        "ONE_SIZE": 480
+      },
+      "sizeLabel": "33 cl",
+      "tags": [],
+      "image": {
+        "path": "images/menu/px-30211152.jpg",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "imageIsStock": true,
+      "available": true,
+      "unavailableUntil": null,
+      "inBuilder": false,
+      "archived": false
+    }
+  ],
+  "toppings": [
+    {
+      "id": "t-izgara-tavuk",
+      "group": "MEAT",
+      "name": {
+        "tr": "Izgara Tavuk",
+        "en": "Grilled chicken"
+      },
+      "prices": {
+        "L": 155,
+        "XXL": 195
+      },
+      "order": 1,
+      "archived": false
+    },
+    {
+      "id": "t-pane-tavuk",
+      "group": "MEAT",
+      "name": {
+        "tr": "Pane Tavuk",
+        "en": "Breaded chicken"
+      },
+      "prices": {
+        "L": 155,
+        "XXL": 195
+      },
+      "order": 2,
+      "archived": false
+    },
+    {
+      "id": "t-bbq-tavuk",
+      "group": "MEAT",
+      "name": {
+        "tr": "Barbekü Soslu Tavuk",
+        "en": "BBQ chicken"
+      },
+      "prices": {
+        "L": 155,
+        "XXL": 195
+      },
+      "order": 3,
+      "archived": false
+    },
+    {
+      "id": "t-buffalo-tavuk",
+      "group": "MEAT",
+      "name": {
+        "tr": "Buffalo Soslu Tavuk",
+        "en": "Buffalo chicken"
+      },
+      "prices": {
+        "L": 155,
+        "XXL": 195
+      },
+      "order": 4,
+      "archived": false
+    },
+    {
+      "id": "t-bonfile",
+      "group": "MEAT",
+      "name": {
+        "tr": "Bonfile",
+        "en": "Tenderloin"
+      },
+      "prices": {
+        "L": 260,
+        "XXL": 300
+      },
+      "order": 5,
+      "archived": false
+    },
+    {
+      "id": "t-bresaola",
+      "group": "MEAT",
+      "name": {
+        "tr": "Bresaola",
+        "en": "Bresaola"
+      },
+      "prices": {
+        "L": 485,
+        "XXL": 645
+      },
+      "order": 6,
+      "archived": false
+    },
+    {
+      "id": "t-sosis",
+      "group": "MEAT",
+      "name": {
+        "tr": "Sosis",
+        "en": "Sausage"
+      },
+      "prices": {
+        "L": 155,
+        "XXL": 195
+      },
+      "order": 7,
+      "archived": false
+    },
+    {
+      "id": "t-kusbasi",
+      "group": "MEAT",
+      "name": {
+        "tr": "Kuşbaşı Et",
+        "en": "Diced beef"
+      },
+      "prices": {
+        "L": 220,
+        "XXL": 295
+      },
+      "order": 8,
+      "archived": false
+    },
+    {
+      "id": "t-kiyma",
+      "group": "MEAT",
+      "name": {
+        "tr": "Kıyma",
+        "en": "Minced beef"
+      },
+      "prices": {
+        "L": 220,
+        "XXL": 295
+      },
+      "order": 9,
+      "archived": false
+    },
+    {
+      "id": "t-pastirma",
+      "group": "MEAT",
+      "name": {
+        "tr": "Pastırma",
+        "en": "Pastırma"
+      },
+      "prices": {
+        "L": 310,
+        "XXL": 395
+      },
+      "order": 10,
+      "archived": false
+    },
+    {
+      "id": "t-cotto",
+      "group": "MEAT",
+      "name": {
+        "tr": "Dana Cotto",
+        "en": "Beef cotto"
+      },
+      "prices": {
+        "L": 310,
+        "XXL": 395
+      },
+      "order": 11,
+      "archived": false
+    },
+    {
+      "id": "t-jambon",
+      "group": "MEAT",
+      "name": {
+        "tr": "Dana Jambon",
+        "en": "Beef ham"
+      },
+      "prices": {
+        "L": 175,
+        "XXL": 230
+      },
+      "order": 12,
+      "archived": false
+    },
+    {
+      "id": "t-pepperoni",
+      "group": "MEAT",
+      "name": {
+        "tr": "Dana Pepperoni",
+        "en": "Beef pepperoni"
+      },
+      "prices": {
+        "L": 180,
+        "XXL": 250
+      },
+      "order": 13,
+      "archived": false
+    },
+    {
+      "id": "t-bacon",
+      "group": "MEAT",
+      "name": {
+        "tr": "Dana Bacon",
+        "en": "Beef bacon"
+      },
+      "prices": {
+        "L": 310,
+        "XXL": 395
+      },
+      "order": 14,
+      "archived": false
+    },
+    {
+      "id": "t-sucuk",
+      "group": "MEAT",
+      "name": {
+        "tr": "Sucuk",
+        "en": "Sucuk"
+      },
+      "prices": {
+        "L": 175,
+        "XXL": 230
+      },
+      "order": 15,
+      "archived": false
+    },
+    {
+      "id": "t-kavurma",
+      "group": "MEAT",
+      "name": {
+        "tr": "Kavurma",
+        "en": "Kavurma"
+      },
+      "prices": {
+        "L": 260,
+        "XXL": 300
+      },
+      "order": 16,
+      "archived": false
+    },
+    {
+      "id": "t-karides",
+      "group": "SEA",
+      "name": {
+        "tr": "Karides",
+        "en": "Shrimp"
+      },
+      "prices": {
+        "L": 220,
+        "XXL": 295
+      },
+      "order": 17,
+      "archived": false
+    },
+    {
+      "id": "t-ton",
+      "group": "SEA",
+      "name": {
+        "tr": "Ton Balığı",
+        "en": "Tuna"
+      },
+      "prices": {
+        "L": 220,
+        "XXL": 295
+      },
+      "order": 18,
+      "archived": false
+    },
+    {
+      "id": "t-taze-mozzarella",
+      "group": "CHEESE",
+      "name": {
+        "tr": "Taze Mozzarella",
+        "en": "Fresh mozzarella"
+      },
+      "prices": {
+        "L": 165,
+        "XXL": 220
+      },
+      "order": 19,
+      "archived": false
+    },
+    {
+      "id": "t-parmesan",
+      "group": "CHEESE",
+      "name": {
+        "tr": "Parmesan",
+        "en": "Parmesan"
+      },
+      "prices": {
+        "L": 195,
+        "XXL": 285
+      },
+      "order": 20,
+      "archived": false
+    },
+    {
+      "id": "t-ricotta",
+      "group": "CHEESE",
+      "name": {
+        "tr": "Ricotta",
+        "en": "Ricotta"
+      },
+      "prices": {
+        "L": 175,
+        "XXL": 230
+      },
+      "order": 21,
+      "archived": false
+    },
+    {
+      "id": "t-kaju",
+      "group": "CHEESE",
+      "name": {
+        "tr": "Fermente Kaju Peyniri",
+        "en": "Fermented cashew cheese"
+      },
+      "prices": {
+        "L": 220,
+        "XXL": 295
+      },
+      "order": 22,
+      "archived": false
+    },
+    {
+      "id": "t-beyaz-peynir",
+      "group": "CHEESE",
+      "name": {
+        "tr": "Beyaz Peynir",
+        "en": "White cheese"
+      },
+      "prices": {
+        "L": 155,
+        "XXL": 195
+      },
+      "order": 23,
+      "archived": false
+    },
+    {
+      "id": "t-gorgonzola",
+      "group": "CHEESE",
+      "name": {
+        "tr": "Gorgonzola",
+        "en": "Gorgonzola"
+      },
+      "prices": {
+        "L": 155,
+        "XXL": 195
+      },
+      "order": 24,
+      "archived": false
+    },
+    {
+      "id": "t-keci",
+      "group": "CHEESE",
+      "name": {
+        "tr": "Keçi Peyniri",
+        "en": "Goat cheese"
+      },
+      "prices": {
+        "L": 155,
+        "XXL": 195
+      },
+      "order": 25,
+      "archived": false
+    },
+    {
+      "id": "t-beyaz-cheddar",
+      "group": "CHEESE",
+      "name": {
+        "tr": "Beyaz Cheddar",
+        "en": "White cheddar"
+      },
+      "prices": {
+        "L": 175,
+        "XXL": 230
+      },
+      "order": 26,
+      "archived": false
+    },
+    {
+      "id": "t-sari-cheddar",
+      "group": "CHEESE",
+      "name": {
+        "tr": "Sarı Cheddar",
+        "en": "Yellow cheddar"
+      },
+      "prices": {
+        "L": 195,
+        "XXL": 285
+      },
+      "order": 27,
+      "archived": false
+    },
+    {
+      "id": "t-mantar",
+      "group": "VEG",
+      "name": {
+        "tr": "Mantar",
+        "en": "Mushroom"
+      },
+      "prices": {
+        "L": 85,
+        "XXL": 130
+      },
+      "order": 28,
+      "archived": false
+    },
+    {
+      "id": "t-feslegen",
+      "group": "VEG",
+      "name": {
+        "tr": "Taze Fesleğen",
+        "en": "Fresh basil"
+      },
+      "prices": {
+        "L": 120,
+        "XXL": 160
+      },
+      "order": 29,
+      "archived": false
+    },
+    {
+      "id": "t-sarimsak",
+      "group": "VEG",
+      "name": {
+        "tr": "Taze Sarımsak",
+        "en": "Fresh garlic"
+      },
+      "prices": {
+        "L": 85,
+        "XXL": 130
+      },
+      "order": 30,
+      "archived": false
+    },
+    {
+      "id": "t-kup-domates",
+      "group": "VEG",
+      "name": {
+        "tr": "Küp Domates",
+        "en": "Diced tomato"
+      },
+      "prices": {
+        "L": 85,
+        "XXL": 130
+      },
+      "order": 31,
+      "archived": false
+    },
+    {
+      "id": "t-dilim-domates",
+      "group": "VEG",
+      "name": {
+        "tr": "Dilim Domates",
+        "en": "Sliced tomato"
+      },
+      "prices": {
+        "L": 85,
+        "XXL": 130
+      },
+      "order": 32,
+      "archived": false
+    },
+    {
+      "id": "t-sogan",
+      "group": "VEG",
+      "name": {
+        "tr": "Soğan",
+        "en": "Onion"
+      },
+      "prices": {
+        "L": 85,
+        "XXL": 130
+      },
+      "order": 33,
+      "archived": false
+    },
+    {
+      "id": "t-koz-biber",
+      "group": "VEG",
+      "name": {
+        "tr": "Közlenmiş Kırmızı Biber",
+        "en": "Roasted red pepper"
+      },
+      "prices": {
+        "L": 120,
+        "XXL": 160
+      },
+      "order": 34,
+      "archived": false
+    },
+    {
+      "id": "t-kuru-domates",
+      "group": "VEG",
+      "name": {
+        "tr": "Kurutulmuş Domates",
+        "en": "Sun-dried tomato"
+      },
+      "prices": {
+        "L": 85,
+        "XXL": 130
+      },
+      "order": 35,
+      "archived": false
+    },
+    {
+      "id": "t-koz-patlican",
+      "group": "VEG",
+      "name": {
+        "tr": "Közlenmiş Patlıcan",
+        "en": "Roasted eggplant"
+      },
+      "prices": {
+        "L": 120,
+        "XXL": 160
+      },
+      "order": 36,
+      "archived": false
+    },
+    {
+      "id": "t-ceri",
+      "group": "VEG",
+      "name": {
+        "tr": "Çeri Domates",
+        "en": "Cherry tomato"
+      },
+      "prices": {
+        "L": 85,
+        "XXL": 130
+      },
+      "order": 37,
+      "archived": false
+    },
+    {
+      "id": "t-patates",
+      "group": "VEG",
+      "name": {
+        "tr": "Dilim Patates",
+        "en": "Sliced potato"
+      },
+      "prices": {
+        "L": 85,
+        "XXL": 130
+      },
+      "order": 38,
+      "archived": false
+    },
+    {
+      "id": "t-roka",
+      "group": "VEG",
+      "name": {
+        "tr": "Roka",
+        "en": "Arugula"
+      },
+      "prices": {
+        "L": 85,
+        "XXL": 130
+      },
+      "order": 39,
+      "archived": false
+    },
+    {
+      "id": "t-brokoli",
+      "group": "VEG",
+      "name": {
+        "tr": "Brokoli",
+        "en": "Broccoli"
+      },
+      "prices": {
+        "L": 85,
+        "XXL": 130
+      },
+      "order": 40,
+      "archived": false
+    },
+    {
+      "id": "t-izgara-patlican",
+      "group": "VEG",
+      "name": {
+        "tr": "Izgara Patlıcan",
+        "en": "Grilled eggplant"
+      },
+      "prices": {
+        "L": 125,
+        "XXL": 165
+      },
+      "order": 41,
+      "archived": false
+    },
+    {
+      "id": "t-izgara-kabak",
+      "group": "VEG",
+      "name": {
+        "tr": "Izgara Kabak",
+        "en": "Grilled zucchini"
+      },
+      "prices": {
+        "L": 125,
+        "XXL": 165
+      },
+      "order": 42,
+      "archived": false
+    },
+    {
+      "id": "t-ispanak",
+      "group": "VEG",
+      "name": {
+        "tr": "Ispanak",
+        "en": "Spinach"
+      },
+      "prices": {
+        "L": 85,
+        "XXL": 130
+      },
+      "order": 43,
+      "archived": false
+    },
+    {
+      "id": "t-dilim-biber",
+      "group": "VEG",
+      "name": {
+        "tr": "Dilim Biber",
+        "en": "Sliced peppers"
+      },
+      "prices": {
+        "L": 120,
+        "XXL": 160
+      },
+      "order": 44,
+      "archived": false
+    },
+    {
+      "id": "t-sivri-biber",
+      "group": "VEG",
+      "name": {
+        "tr": "Sivri Biber",
+        "en": "Green pepper"
+      },
+      "prices": {
+        "L": 85,
+        "XXL": 130
+      },
+      "order": 45,
+      "archived": false
+    },
+    {
+      "id": "t-jalapeno",
+      "group": "VEG",
+      "name": {
+        "tr": "Jalapeno Biber",
+        "en": "Jalapeño"
+      },
+      "prices": {
+        "L": 130,
+        "XXL": 205
+      },
+      "order": 46,
+      "archived": false
+    },
+    {
+      "id": "t-maydanoz",
+      "group": "VEG",
+      "name": {
+        "tr": "Maydanoz",
+        "en": "Parsley"
+      },
+      "prices": {
+        "L": 85,
+        "XXL": 130
+      },
+      "order": 47,
+      "archived": false
+    },
+    {
+      "id": "t-ananas",
+      "group": "VEG",
+      "name": {
+        "tr": "Ananas",
+        "en": "Pineapple"
+      },
+      "prices": {
+        "L": 85,
+        "XXL": 130
+      },
+      "order": 48,
+      "archived": false
+    },
+    {
+      "id": "t-enginar",
+      "group": "VEG",
+      "name": {
+        "tr": "Enginar Kalbi",
+        "en": "Artichoke hearts"
+      },
+      "prices": {
+        "L": 130,
+        "XXL": 205
+      },
+      "order": 49,
+      "archived": false
+    },
+    {
+      "id": "t-zeytin",
+      "group": "VEG",
+      "name": {
+        "tr": "Siyah Zeytin",
+        "en": "Black olives"
+      },
+      "prices": {
+        "L": 85,
+        "XXL": 130
+      },
+      "order": 50,
+      "archived": false
+    },
+    {
+      "id": "t-misir",
+      "group": "VEG",
+      "name": {
+        "tr": "Mısır",
+        "en": "Corn"
+      },
+      "prices": {
+        "L": 125,
+        "XXL": 165
+      },
+      "order": 51,
+      "archived": false
+    },
+    {
+      "id": "t-pesto",
+      "group": "SAUCE",
+      "name": {
+        "tr": "Pesto Sos",
+        "en": "Pesto sauce"
+      },
+      "prices": {
+        "L": 130,
+        "XXL": 205
+      },
+      "order": 52,
+      "archived": false
+    },
+    {
+      "id": "t-atom",
+      "group": "SAUCE",
+      "name": {
+        "tr": "Atom Acı Sos",
+        "en": "Atom hot sauce"
+      },
+      "prices": {
+        "L": 85,
+        "XXL": 130
+      },
+      "order": 53,
+      "archived": false
+    },
+    {
+      "id": "t-truffle",
+      "group": "SAUCE",
+      "name": {
+        "tr": "Truffle Sos",
+        "en": "Truffle sauce"
+      },
+      "prices": {
+        "L": 85,
+        "XXL": 130
+      },
+      "order": 54,
+      "archived": false
+    }
+  ],
+  "toppingGroups": [
+    {
+      "id": "MEAT",
+      "name": {
+        "tr": "Et ve tavuk",
+        "en": "Meat and chicken"
+      }
+    },
+    {
+      "id": "SEA",
+      "name": {
+        "tr": "Deniz",
+        "en": "Seafood"
+      }
+    },
+    {
+      "id": "CHEESE",
+      "name": {
+        "tr": "Peynir",
+        "en": "Cheese"
+      }
+    },
+    {
+      "id": "VEG",
+      "name": {
+        "tr": "Sebze",
+        "en": "Vegetables"
+      }
+    },
+    {
+      "id": "SAUCE",
+      "name": {
+        "tr": "Sos",
+        "en": "Sauces"
+      }
+    }
+  ],
+  "rules": {
+    "halfHalf": {
+      "L": 40,
+      "XXL": 80
+    },
+    "glutenFree": {
+      "L": 165,
+      "XXL": 220
+    },
+    "wholeWheat": true,
+    "sizes": {
+      "S": {
+        "cm": 23,
+        "slices": 4
+      },
+      "L": {
+        "cm": 37,
+        "slices": 8
+      },
+      "XXL": {
+        "cm": 47,
+        "slices": 12
+      }
+    }
+  },
+  "sliceOfDay": {
+    "itemId": null,
+    "note": {
+      "tr": "",
+      "en": ""
+    },
+    "date": null
+  },
+  "branches": [
+    {
+      "id": "bebek",
+      "name": "Bebek",
+      "order": 1,
+      "desc": {
+        "tr": "Geniş bira ve şarap seçkisi, dışarıda oturma, üst katta jukebox. Maç akşamları için birebir.",
+        "en": "A wide beer and wine list, outdoor seating, a jukebox upstairs. Made for match nights."
+      },
+      "address": "Küçük Bebek Cad. No:6, Bebek, İstanbul",
+      "phone": "+902122650266",
+      "phoneDisplay": "0212 265 0 266",
+      "whatsapp": "+905305807528",
+      "hours": {
+        "mon": [
+          "11:30",
+          "22:30"
+        ],
+        "tue": [
+          "11:30",
+          "22:30"
+        ],
+        "wed": [
+          "11:30",
+          "22:30"
+        ],
+        "thu": [
+          "11:30",
+          "22:30"
+        ],
+        "fri": [
+          "11:30",
+          "22:30"
+        ],
+        "sat": [
+          "11:30",
+          "22:30"
+        ],
+        "sun": [
+          "11:30",
+          "22:30"
+        ]
+      },
+      "mapsUrl": "https://www.google.com/maps/place/The+Upper+Crust+Bebek/@41.0790052,29.0429535,17z",
+      "mapQuery": "The Upper Crust Pizzeria Bebek Istanbul",
+      "image": {
+        "path": "images/official/bebekbg.jpg",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "archived": false
+    },
+    {
+      "id": "maslak",
+      "name": "Maslak",
+      "order": 2,
+      "desc": {
+        "tr": "İş dünyasının çekim merkezi 42 Maslak'ta. Açık büfe öğle yemeği ve hızlı servis.",
+        "en": "At 42 Maslak, the magnet of the business district. Open-buffet lunch and fast service."
+      },
+      "address": "42 Maslak, Ahi Evran Cad. No:6/190, Sarıyer",
+      "phone": "+902122761900",
+      "phoneDisplay": "0212 276 1900",
+      "whatsapp": null,
+      "hours": {
+        "mon": [
+          "11:30",
+          "22:00"
+        ],
+        "tue": [
+          "11:30",
+          "22:00"
+        ],
+        "wed": [
+          "11:30",
+          "22:00"
+        ],
+        "thu": [
+          "11:30",
+          "22:00"
+        ],
+        "fri": [
+          "11:30",
+          "22:00"
+        ],
+        "sat": [
+          "11:30",
+          "22:00"
+        ],
+        "sun": [
+          "11:30",
+          "22:00"
+        ]
+      },
+      "mapsUrl": "https://www.google.com/maps/place/The+Upper+Crust+Pizzeria+Maslak/@41.1135946,29.0191992,17z",
+      "mapQuery": "The Upper Crust Pizzeria 42 Maslak Istanbul",
+      "image": {
+        "path": "images/official/DSC_3587.jpg",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "archived": false
+    }
+  ],
+  "landing": {
+    "hero": {
+      "title": {
+        "tr": "Ödüllü ince dilim gurme pizza.",
+        "en": "Award-winning thin slice gourmet pizza."
+      },
+      "subtitle": {
+        "tr": "Boston'un bol ödüllü pizzacısı, Nisan 2009'dan beri İstanbul'da.",
+        "en": "Boston's much-awarded pizzeria, in Istanbul since April 2009."
+      },
+      "video": {
+        "path": "video/hero-oven.mp4",
+        "poster": "images/official/icslide2.jpg"
+      },
+      "awards": [
+        {
+          "tr": "Best of Boston",
+          "en": "Best of Boston"
+        },
+        {
+          "tr": "Pizzakind 2018",
+          "en": "Pizzakind 2018"
+        },
+        {
+          "tr": "İstanbul'da 17 yıl",
+          "en": "17 years in Istanbul"
+        }
+      ]
+    },
+    "marquee": {
+      "words": [
+        "One slice at a time",
+        "Happiness"
+      ]
+    },
+    "story": {
+      "title": {
+        "tr": "Uzaklardan gelen tanıdık bir lezzet.",
+        "en": "A familiar taste from far away."
+      },
+      "text": {
+        "tr": "Boston ve çevresinin bol ödüllü gurme pizza zinciri The Upper Crust Pizzeria, Nisan 2009'dan bu yana İstanbullu pizzaseverleri sağlıklı gurme pizzanın lezzeti ile buluşturuyor. Özel tarifli domates sosunun yayıldığı incecik hamurun çıtırlığına tat katan taze sebze, çeşit çeşit peynir, tavuk, et ve deniz mahsulü: hem keyfine hem sağlığına düşkün pizza tutkunlarının vazgeçilmezi.",
+        "en": "The Upper Crust Pizzeria, the much-awarded gourmet pizza chain of Boston and its surroundings, has brought Istanbul's pizza lovers the taste of healthy gourmet pizza since April 2009. A special-recipe tomato sauce on a paper-thin, crisp crust, topped with fresh vegetables, a range of cheeses, chicken, meat and seafood: the go-to for pizza lovers who care about both pleasure and health."
+      },
+      "facts": [
+        {
+          "k": {
+            "tr": "İstanbul'da",
+            "en": "In Istanbul"
+          },
+          "v": {
+            "tr": "Nisan 2009'dan beri",
+            "en": "Since April 2009"
+          }
+        },
+        {
+          "k": {
+            "tr": "Köken",
+            "en": "Origin"
+          },
+          "v": {
+            "tr": "Boston, ABD",
+            "en": "Boston, USA"
+          }
+        },
+        {
+          "k": {
+            "tr": "Çeşit",
+            "en": "Range"
+          },
+          "v": {
+            "tr": "30 pizza",
+            "en": "30 pizzas"
+          }
+        },
+        {
+          "k": {
+            "tr": "Boyutlar",
+            "en": "Sizes"
+          },
+          "v": {
+            "tr": "Dilim, 37 cm, 47 cm",
+            "en": "Slice, 37 cm, 47 cm"
+          }
+        }
+      ],
+      "photos": [
+        {
+          "path": "images/official/uppercrust2ic1.jpg",
+          "focal": {
+            "x": 0.5,
+            "y": 0.5
+          }
+        },
+        {
+          "path": "images/official/DSC02661-copy.jpg",
+          "focal": {
+            "x": 0.5,
+            "y": 0.5
+          }
+        }
+      ]
+    },
+    "timeline": {
+      "title": {
+        "tr": "Üç adres, tek fırın geleneği.",
+        "en": "Three addresses, one oven tradition."
+      },
+      "entries": [
+        {
+          "date": {
+            "tr": "Nisan 2009",
+            "en": "April 2009"
+          },
+          "text": {
+            "tr": "İstanbul'daki ilk adres Çırağan. Boston tarifi, İstanbul fırını.",
+            "en": "The first Istanbul address, Çırağan. Boston recipe, Istanbul oven."
+          },
+          "image": {
+            "path": "images/official/icslide2-2018.jpg",
+            "focal": {
+              "x": 0.5,
+              "y": 0.5
+            }
+          }
+        },
+        {
+          "date": {
+            "tr": "Ekim 2011",
+            "en": "October 2011"
+          },
+          "text": {
+            "tr": "Bebek şubesi açıldı. Boğaz kıyısında geniş bira ve şarap seçkisi, üst katta jukebox.",
+            "en": "Bebek opens on the Bosphorus shore. A wide beer and wine list, a jukebox upstairs."
+          },
+          "image": {
+            "path": "images/ucbebek.jpg",
+            "focal": {
+              "x": 0.5,
+              "y": 0.5
+            }
+          }
+        },
+        {
+          "date": {
+            "tr": "Mayıs 2017",
+            "en": "May 2017"
+          },
+          "text": {
+            "tr": "Maslak şubesi 42 Maslak'ta açıldı. Açık büfe öğle yemeği, hızlı servis.",
+            "en": "Maslak opens at 42 Maslak. Open-buffet lunch, fast service."
+          },
+          "image": {
+            "path": "images/IMG_1807.jpg",
+            "focal": {
+              "x": 0.5,
+              "y": 0.5
+            }
+          }
+        },
+        {
+          "date": {
+            "tr": "Bugün",
+            "en": "Today"
+          },
+          "text": {
+            "tr": "30 çeşit pizza, her gün değişen Günün Dilimi ve kendi pizzanızı kurma özgürlüğü.",
+            "en": "30 pizzas, a Slice of the Day that changes daily, and the freedom to build your own."
+          },
+          "image": {
+            "path": "images/social/ig-5.jpg",
+            "focal": {
+              "x": 0.5,
+              "y": 0.5
+            }
+          }
+        }
+      ]
+    },
+    "signature": {
+      "title": {
+        "tr": "İmza lezzetler",
+        "en": "Signature plates"
+      },
+      "text": {
+        "tr": "Her birinin ayrı bir hikayesi olan otuz pizzadan mutfağın öne çıkardığı üçü, bir de sezonun yıldızı.",
+        "en": "Of thirty pizzas, each with its own story, three the kitchen puts forward, plus the star of the season."
+      },
+      "itemIds": [
+        "p27",
+        "p13",
+        "p4"
+      ],
+      "season": {
+        "label": {
+          "tr": "Sezon",
+          "en": "Season"
+        },
+        "name": {
+          "tr": "White Summer Pizza",
+          "en": "White Summer Pizza"
+        },
+        "desc": {
+          "tr": "Hindi füme, istiridye mantarı, kurutulmuş domates, mozzarella, taze sarımsak, fesleğen sos ve krema, taze kekik.",
+          "en": "Smoked turkey, oyster mushroom, sun-dried tomato, mozzarella, fresh garlic, basil sauce and cream, fresh thyme."
+        },
+        "image": {
+          "path": "images/social/ig-1.jpg",
+          "focal": {
+            "x": 0.5,
+            "y": 0.4
+          }
+        },
+        "url": "https://instagram.com/uppercrusttr"
+      }
+    },
+    "teaser": {
+      "title": {
+        "tr": "Menüye göz atın.",
+        "en": "Browse the menu."
+      },
+      "text": {
+        "tr": "33 pizza, dilimler, başlangıçlar, salatalar, tatlılar ve içecekler. Pizzanızı yarı yarıya kurun, ek malzeme ekleyin, tepsinize atın.",
+        "en": "33 pizzas, slices, starters, salads, desserts and drinks. Build your pizza half and half, add toppings, drop it on your tray."
+      },
+      "image": {
+        "path": "images/official/MaslakRoni-.jpg",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      }
+    },
+    "statement": {
+      "title": {
+        "tr": "Bir dilim yeter.",
+        "en": "One slice is enough."
+      },
+      "text": {
+        "tr": "Bir ısırık alanın koca bir pizzayı tek başına bitirme isteği duyduğu gurme pizzacı. Boston tarifi, İstanbul fırını.",
+        "en": "The gourmet pizzeria where one bite makes you want to finish the whole pizza alone. Boston recipe, Istanbul oven."
+      },
+      "video": {
+        "path": "video/cheese-pull.mp4",
+        "poster": "images/stock/statement.jpg"
+      }
+    },
+    "catering": {
+      "title": {
+        "tr": "Kocaman pizzalarımızla kalabalıkları doyurmayı çok seviyoruz.",
+        "en": "We love feeding crowds with our giant pizzas."
+      },
+      "text": {
+        "tr": "Parti organizasyonlarınız, müşteri toplantılarınız, doğum günü ve özel günlerinizde eğlenceli, sağlıklı, doyurucu ve lezzetli bir pizza şenliğine ne dersiniz? Bizi arayın, kaç kişi olacağınızı söyleyin. Çeşit çeşit pizzamızdan dilediğinizi seçin, sevdiklerinize en lezzetli ikramı biz yapalım.",
+        "en": "Parties, client meetings, birthdays and special days: how about a fun, healthy, filling and delicious pizza feast? Call us and tell us how many you are. Pick anything from our range and let us serve your people the tastiest treat."
+      },
+      "phone": "+902122650266",
+      "image": {
+        "path": "images/official/Dk-1332.jpg",
+        "focal": {
+          "x": 0.5,
+          "y": 0.5
+        }
+      },
+      "strip": [
+        {
+          "path": "images/official/ctr221.jpg",
+          "focal": {
+            "x": 0.5,
+            "y": 0.5
+          }
+        },
+        {
+          "path": "images/official/chr2027.jpg",
+          "focal": {
+            "x": 0.5,
+            "y": 0.5
+          }
+        },
+        {
+          "path": "images/official/ctr225.jpg",
+          "focal": {
+            "x": 0.5,
+            "y": 0.5
+          }
+        },
+        {
+          "path": "images/official/catering-keyframe.003.jpeg",
+          "focal": {
+            "x": 0.5,
+            "y": 0.5
+          }
+        },
+        {
+          "path": "images/official/ctr_3296.jpg",
+          "focal": {
+            "x": 0.5,
+            "y": 0.5
+          }
+        }
+      ]
+    },
+    "locations": {
+      "title": {
+        "tr": "Şubelerimiz",
+        "en": "Our locations"
+      },
+      "text": {
+        "tr": "Boğaz kıyısında ve iş dünyasının merkezinde. İkisi de aynı fırın, aynı hamur.",
+        "en": "On the Bosphorus shore and in the heart of the business district. Same oven, same dough."
+      }
+    },
+    "social": {
+      "title": "@uppercrusttr",
+      "text": {
+        "tr": "Instagram'dan son kareler.",
+        "en": "Latest from Instagram."
+      },
+      "url": "https://instagram.com/uppercrusttr",
+      "tiles": [
+        {
+          "image": {
+            "path": "images/social/ig-1.jpg",
+            "focal": {
+              "x": 0.5,
+              "y": 0.5
+            }
+          },
+          "caption": "Yaz menüsünün yıldızı geldi: White Summer Pizza",
+          "url": "https://instagram.com/uppercrusttr"
+        },
+        {
+          "image": {
+            "path": "images/social/ig-5.jpg",
+            "focal": {
+              "x": 0.5,
+              "y": 0.5
+            }
+          },
+          "caption": "One bite and it's over",
+          "url": "https://instagram.com/uppercrusttr"
+        },
+        {
+          "image": {
+            "path": "images/social/ig-2.jpg",
+            "focal": {
+              "x": 0.5,
+              "y": 0.5
+            }
+          },
+          "caption": "Mutluluk satın alınamaz diyorlar. Biz pizza satıyoruz.",
+          "url": "https://instagram.com/uppercrusttr"
+        },
+        {
+          "image": {
+            "path": "images/social/ig-4.jpg",
+            "focal": {
+              "x": 0.5,
+              "y": 0.5
+            }
+          },
+          "caption": "Just a normal Wednesday at Upper Crust",
+          "url": "https://instagram.com/uppercrusttr"
+        },
+        {
+          "image": {
+            "path": "images/social/ig-3.jpg",
+            "focal": {
+              "x": 0.5,
+              "y": 0.5
+            }
+          },
+          "caption": "Temiz hava + pizza",
+          "url": "https://instagram.com/uppercrusttr"
+        },
+        {
+          "image": {
+            "path": "images/social/ig-6.jpg",
+            "focal": {
+              "x": 0.5,
+              "y": 0.5
+            }
+          },
+          "caption": "Dev pizzalara ulaşmanın en kolay yolu",
+          "url": "https://instagram.com/uppercrusttr"
+        }
+      ]
+    },
+    "conversion": {
+      "title": {
+        "tr": "Bir dilimle başlayın.",
+        "en": "Start with a slice."
+      },
+      "text": {
+        "tr": "Online siparişlerde her zaman ücretsiz teslimat. İnce dilim gurme lezzet kapınıza gelsin.",
+        "en": "Free delivery on every online order. Thin slice gourmet pizza, at your door."
+      }
+    },
+    "footer": {
+      "tagline": {
+        "tr": "Boston'un bol ödüllü ince dilim gurme pizzası, Nisan 2009'dan beri İstanbul'da.",
+        "en": "Boston's much-awarded thin slice gourmet pizza, in Istanbul since April 2009."
+      },
+      "instagram": "https://instagram.com/uppercrusttr",
+      "facebook": "https://facebook.com/TheUpperCrustTR",
+      "x": "https://twitter.com/UpperCrustTR"
+    },
+    "menuHero": {
+      "title": {
+        "tr": "Menü",
+        "en": "Menu"
+      },
+      "text": {
+        "tr": "Amerikan pizza kapınızda. Otuz üç pizza, üç boyut, her gün değişen bir dilim.",
+        "en": "American pizza at your door. Thirty-three pizzas, three sizes, a slice that changes every day."
+      }
+    },
+    "notes": [
+      {
+        "tr": "Açıklamasında beyaz pizza olarak belirtilmeyen bütün pizzalar domates soslu hazırlanır. Domates sos istemeyenler için White Pizza, peynir istemeyenler için Red Pizza yapabiliriz.",
+        "en": "Every pizza not described as a white pizza comes on tomato sauce. We can make any pizza white (mozzarella base, no tomato) or red (tomato base, no cheese)."
+      },
+      {
+        "tr": "Tüm Large ve XXL pizzalarımızı glutensiz hamurla tercih edebilirsiniz (L 165 ₺ / XXL 220 ₺ fark).",
+        "en": "Any Large or XXL pizza can be made on gluten-free dough (L 165 ₺ / XXL 220 ₺ extra)."
+      },
+      {
+        "tr": "Yarı yarıya pizzalara L 40 ₺ / XXL 80 ₺ fark eklenir.",
+        "en": "Half-and-half pizzas carry an L 40 ₺ / XXL 80 ₺ surcharge."
+      },
+      {
+        "tr": "Dilim pizza ve diğer günlük menülerimizi şubelerimizde sorunuz.",
+        "en": "Ask in the branches for slice combos and other daily menus."
+      },
+      {
+        "tr": "Vejetaryen, vegan, acılı ve favori işaretleri menümüzdeki işaretlerdir.",
+        "en": "Vegetarian, vegan, spicy and favourite marks follow the printed menu."
+      },
+      {
+        "tr": "Fiyatlarımıza KDV dahildir. Fiyat değişim tarihi: 03.06.2026.",
+        "en": "Prices include VAT. Price date: 03.06.2026."
+      }
+    ]
+  }
+}

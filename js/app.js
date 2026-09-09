@@ -5,13 +5,12 @@
     const ORDER_URL = 'https://uppercrustturkiye.com/online-siparis/';
     const SIZE_CM = { S: 23, L: 37, XXL: 47 };
     const SIZE_ORDER = ['S', 'L', 'XXL', 'GLASS', 'BOTTLE'];
-    const CAT_ORDER = ['PIZZAS', 'SLICES', 'STARTERS', 'SALADS', 'DESSERTS', 'DRINKS', 'WINES', 'BEERS'];
-    const COMPACT_CATS = new Set(['DRINKS', 'WINES', 'BEERS']);
+    const CAT_ORDER_DEFAULT = ['PIZZAS', 'SLICES', 'STARTERS', 'SALADS', 'DESSERTS', 'DRINKS', 'WINES', 'BEERS'];
+    const catOrder = () => (window.menuCategories && window.menuCategories.length) ? window.menuCategories.map(c => c.id) : CAT_ORDER_DEFAULT;
+    const isCompact = cat => { const c = (window.menuCategories || []).find(x => x.id === cat); return c ? c.layout === 'rows' : ['DRINKS', 'WINES', 'BEERS'].includes(cat); };
     const SUB_ORDER = { DRINKS: ['COLD', 'HOT'], WINES: ['RED', 'WHITE', 'ROSE'] };
-    const LANGS = ['TR', 'EN', 'AR', 'RU', 'DE'];
-    const LOCALE = { TR: 'tr-TR', EN: 'en-GB', AR: 'tr-TR', RU: 'ru-RU', DE: 'de-DE' };
-    const SIGNATURE_IDS = ['p27', 'p13', 'p4'];
-    const SEASON_IMG = 'images/social/ig-1.jpg';
+    const LANGS = ['TR', 'EN'];
+    const LOCALE = { TR: 'tr-TR', EN: 'en-GB' };
     const TOP_COLORS = { MEAT: '#B0563C', SEA: '#F0997A', CHEESE: '#F6E7B8', VEG: '#5F8F3E', SAUCE: '#6F8F3A',
         't-mantar': '#C8B69A', 't-zeytin': '#2B2620', 't-jalapeno': '#4E8A3A', 't-misir': '#F2C230', 't-kup-domates': '#D33A2F', 't-dilim-domates': '#D33A2F', 't-ceri': '#D9463A',
         't-sogan': '#EADFF2', 't-feslegen': '#3F7A3A', 't-pepperoni': '#B53A2E', 't-sucuk': '#9E2F2A', 't-bacon': '#A9563A', 't-pastirma': '#7E2A2A', 't-ananas': '#F5D36A',
@@ -26,12 +25,21 @@
     const PAGE = document.body.classList.contains('page-menu') ? 'menu' : 'landing';
     const ROOT = window.ASSET_ROOT || '';
     const asset = p => (p ? ROOT + p : p);
-    const data = window.menuData || [];
-    const toppings = window.menuToppings || [];
-    const rules = window.menuRules || { halfHalfSurcharge: { L: 0, XXL: 0 }, glutenFreeSurcharge: { L: 0, XXL: 0 } };
-    const dict = window.translations || {};
-    const byId = new Map(data.map(i => [i.id, i]));
-    const topById = new Map(toppings.map(x => [x.id, x]));
+    /* Data is bound after content.js has resolved (published content, or the bundled fallback). */
+    let data = [], toppings = [], rules = { halfHalfSurcharge: { L: 0, XXL: 0 }, glutenFreeSurcharge: { L: 0, XXL: 0 } }, dict = {}, byId = new Map(), topById = new Map(), site = null;
+    function bindData() {
+        data = window.menuData || [];
+        toppings = window.menuToppings || [];
+        rules = window.menuRules || rules;
+        site = window.siteContent || null;
+        dict = JSON.parse(JSON.stringify(window.translations || {}));
+        const o = window.siteDictOverrides || {};
+        for (const lang of Object.keys(o)) { dict[lang] = Object.assign(dict[lang] || {}, o[lang]); }
+        byId = new Map(data.map(i => [i.id, i]));
+        topById = new Map(toppings.map(x => [x.id, x]));
+    }
+    const SIGNATURE = () => (site && site.landing && site.landing.signature) || { itemIds: ['p27', 'p13', 'p4'], season: { image: { path: 'images/social/ig-1.jpg', focal: { x: 0.5, y: 0.4 } }, url: 'https://instagram.com/uppercrusttr' } };
+    const mediaUrl = p => (window.mediaUrl ? window.mediaUrl(p) : asset(p));
     const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)');
     const finePointer = matchMedia('(pointer: fine)');
     const hasGsap = typeof window.gsap !== 'undefined' && typeof window.ScrollTrigger !== 'undefined';
@@ -66,7 +74,7 @@
     function applyI18n() {
         const html = document.documentElement;
         html.lang = state.lang.toLowerCase();
-        html.dir = state.lang === 'AR' ? 'rtl' : 'ltr';
+        html.dir = 'ltr';
         $$('[data-i18n]').forEach(el => { el.textContent = t(el.dataset.i18n); });
         $$('[data-i18n-placeholder]').forEach(el => { el.placeholder = t(el.dataset.i18nPlaceholder); });
         $$('[data-i18n-aria]').forEach(el => { el.setAttribute('aria-label', t(el.dataset.i18nAria)); });
@@ -139,40 +147,44 @@
 
     /* ---------- Menu page: sections and cards ---------- */
     function cardHtml(item) {
-        const compact = COMPACT_CATS.has(item.cat);
+        const compact = isCompact(item.cat);
+        const out = item.available === false;
         const media = item.img
-            ? `<img src="${asset(item.img)}" alt="" loading="lazy" decoding="async">`
+            ? `<img src="${esc(item.img)}" alt="" loading="lazy" decoding="async">`
             : `<div class="card-type">${esc(item.num || item.name.slice(0, 1))}</div>`;
         const num = item.num ? `<span class="row-num">${esc(item.num)}</span>` : '';
         const desc = descOf(item);
         const meta = (item.tags.length || isPizzaSized(item)) ? `<div class="card-meta">${tagsHtml(item)}${isPizzaSized(item) ? sizesInline(item) : ''}</div>` : '';
         const sub = compact ? `<p class="card-sub">${esc([item.size_label, desc].filter(Boolean).join(', '))}</p>` : (desc ? `<p class="card-desc">${esc(desc)}</p>` : '');
-        return `<article class="card ${compact ? 'is-row' : ''}" data-id="${item.id}" data-cat="${item.cat}" data-tags="${item.tags.join(' ')}" data-text="${esc((item.num + ' ' + item.name + ' ' + item.desc + ' ' + (item.desc_en || '')).toLowerCase())}">
+        return `<article class="card ${compact ? 'is-row' : ''} ${out ? 'is-out' : ''}" data-id="${item.id}" data-cat="${item.cat}" data-tags="${item.tags.join(' ')}" data-text="${esc((item.num + ' ' + item.name + ' ' + item.desc + ' ' + (item.desc_en || '')).toLowerCase())}">
             <button type="button" class="card-media" data-open aria-label="${esc(item.name)}, ${esc(t('menu.open'))}">${media}</button>
             <div class="card-body">
                 <div class="card-head"><h3 class="card-name">${num}${esc(item.name)}</h3><p class="card-price" data-price>${priceText(item)}</p></div>
+                ${out ? `<p class="card-out">${esc(t('menu.soldout'))}</p>` : ''}
                 ${sub}${compact ? '' : meta}
             </div>
-            <button type="button" class="quick" data-add aria-label="${esc(t('menu.quickadd'))}: ${esc(item.name)}">+ ${esc(t('menu.quickadd'))}</button>
+            ${out ? '' : `<button type="button" class="quick" data-add aria-label="${esc(t('menu.quickadd'))}: ${esc(item.name)}">+ ${esc(t('menu.quickadd'))}</button>`}
         </article>`;
     }
 
     function renderMenuPage() {
         const host = $('#menu-sections'); if (!host) return;
         const chips = $('#chips');
-        host.innerHTML = CAT_ORDER.map(cat => {
+        const sod = site && site.sliceOfDay && site.sliceOfDay.itemId ? byId.get(site.sliceOfDay.itemId) : null;
+        host.innerHTML = catOrder().map(cat => {
             const items = data.filter(i => i.cat === cat);
             if (!items.length) return '';
             const subs = SUB_ORDER[cat];
+            const sliceBox = cat === 'SLICES' && sod ? `<div class="slice-today"><span class="slice-today-k">${esc(t('menu.sliceToday'))}</span><strong>${esc((sod.num ? sod.num + ' ' : '') + sod.name)}</strong>${site.sliceOfDay.note && (state.lang === 'TR' ? site.sliceOfDay.note.tr : site.sliceOfDay.note.en) ? `<span>${esc(state.lang === 'TR' ? site.sliceOfDay.note.tr : site.sliceOfDay.note.en)}</span>` : ''}</div>` : '';
             const body = subs
                 ? subs.map(sub => { const list = items.filter(i => i.sub === sub); return list.length ? `<h3 class="sub-title" data-sub="${sub}">${esc(t('menu.sub.' + sub))}</h3>${list.map(cardHtml).join('')}` : ''; }).join('')
                 : items.map(cardHtml).join('');
             return `<section class="mcat" id="cat-${cat}" data-cat="${cat}">
                 <div class="mcat-head"><h2>${esc(t('menu.cat.' + cat))}</h2><span class="mcat-count" data-count>${esc(t('menu.count', { n: items.length }))}</span></div>
-                <div class="grid ${COMPACT_CATS.has(cat) ? 'is-compact' : ''}">${body}</div>
+                ${sliceBox}<div class="grid ${isCompact(cat) ? 'is-compact' : ''}">${body}</div>
             </section>`;
         }).join('');
-        chips.innerHTML = CAT_ORDER.filter(cat => data.some(i => i.cat === cat)).map(cat =>
+        chips.innerHTML = catOrder().filter(cat => data.some(i => i.cat === cat)).map(cat =>
             `<a class="chip" href="#cat-${cat}" data-chip="${cat}">${esc(t('menu.cat.' + cat))}<small>${data.filter(i => i.cat === cat).length}</small></a>`).join('')
             + `<a class="chip is-build" href="#builder" data-chip="builder">${esc(t('nav.builder'))}</a>`;
         applyMenuFilter();
@@ -223,6 +235,7 @@
             const card = e.target.closest('.card'); if (!card) return;
             const item = byId.get(card.dataset.id); if (!item) return;
             if (e.target.closest('[data-add]')) {
+                if (item.available === false) return;
                 addToTray({ id: item.id, size: defaultSize(item), qty: 1 });
                 card.classList.add('is-added'); setTimeout(() => card.classList.remove('is-added'), 900);
                 toast(t('tray.added'));
@@ -287,7 +300,7 @@
             const b = e.target.closest('.card.is-row');
             if (!b || b.contains(e.relatedTarget)) return;
             const item = byId.get(b.dataset.id); if (!item || !item.img) return;
-            peek.src = asset(item.img);
+            peek.src = item.img;
             gsap.set(peek, { x: e.clientX, y: e.clientY });
             gsap.to(peek, { opacity: 1, scale: 1, rotate: -2, duration: 0.35, ease: 'power3.out', overwrite: true });
             shown = true;
@@ -304,11 +317,12 @@
     /* ---------- Signature (landing) ---------- */
     function renderSignature() {
         const grid = $('#sig-grid'); if (!grid) return;
-        const cards = SIGNATURE_IDS.map((id, i) => {
+        const sig = SIGNATURE();
+        const cards = (sig.itemIds || []).map((id, i) => {
             const item = byId.get(id); if (!item) return '';
             const from = isPizzaSized(item) ? ['S', 'L', 'XXL'].map(s => `${s} ${fmt(item.sizes[s])}`).join('   ') : fmt(priceOf(item, state.size));
             return `<button type="button" class="sig ${i === 0 ? 'is-feature' : ''}" data-id="${item.id}" aria-haspopup="dialog">
-                <span class="sig-media" data-reveal><img src="${asset(item.img)}" alt="" loading="lazy" decoding="async"></span>
+                <span class="sig-media" data-reveal><img src="${esc(item.img || '')}" alt="" loading="lazy" decoding="async"></span>
                 <span class="sig-text">
                     <span class="sig-name">${item.num ? esc(item.num) + ' ' : ''}${esc(item.name)}</span>
                     <span class="sig-desc">${esc(descOf(item))}</span>
@@ -316,8 +330,9 @@
                 </span>
             </button>`;
         });
-        cards.push(`<a class="sig is-season" href="https://instagram.com/uppercrusttr" target="_blank" rel="noopener noreferrer">
-            <span class="sig-media" data-reveal><img src="${asset(SEASON_IMG)}" alt="" loading="lazy" decoding="async" style="object-position:50% 40%"></span>
+        const season = sig.season || {};
+        if (season.image && season.image.path) cards.push(`<a class="sig is-season" href="${esc(season.url || '#')}" target="_blank" rel="noopener noreferrer">
+            <span class="sig-media" data-reveal><img src="${esc(mediaUrl(season.image.path))}" alt="" loading="lazy" decoding="async" style="object-position:${(season.image.focal?.x ?? 0.5) * 100}% ${(season.image.focal?.y ?? 0.5) * 100}%"></span>
             <span class="sig-text">
                 <span class="sig-kicker">${esc(t('signature.season'))}</span>
                 <span class="sig-name">${esc(t('signature.season.name'))}</span>
@@ -360,7 +375,7 @@
     function fillDish() {
         const item = state.dish;
         $('#dish-visual').innerHTML = item.img
-            ? `<img src="${asset(item.img)}" alt="">`
+            ? `<img src="${esc(item.img)}" alt="">`
             : `<div class="dish-type"><span>${esc(item.num || t('menu.cat.' + item.cat))}</span><strong>${esc(item.name)}</strong></div>`;
         $('#dish-tags').innerHTML = tagsHtml(item);
         $('#dish-title').textContent = `${item.num ? item.num + ' ' : ''}${item.name}${item.size_label ? ', ' + item.size_label : ''}`;
@@ -465,7 +480,7 @@
     }
 
     /* ---------- Builder: half and half, toppings, house rules ---------- */
-    const pizzas = () => data.filter(i => i.cat === 'PIZZAS' && isPizzaSized(i));
+    const pizzas = () => data.filter(i => i.cat === 'PIZZAS' && isPizzaSized(i) && i.inBuilder !== false && i.available !== false);
     const half = { l: { img: '#half-l-img', txt: '#half-l-txt', nimg: '#half-l-next', ntxt: '#half-l-ntxt', wipe: '#wipeL-c' },
                    r: { img: '#half-r-img', txt: '#half-r-txt', nimg: '#half-r-next', ntxt: '#half-r-ntxt', wipe: '#wipeR-c' } };
     const shortName = item => item.num || item.name.split(' ')[0];
@@ -474,7 +489,7 @@
         ['l', 'r'].forEach(side => {
             const wrap = $(`#thumbs-${side}`); if (!wrap) return;
             wrap.innerHTML = pizzas().map(p => `<button type="button" role="radio" class="thumb ${p.img ? '' : 'is-text'}" data-id="${p.id}" aria-checked="${p.id === state.build[side]}" title="${esc((p.num ? p.num + ' ' : '') + p.name)}">
-                <span class="thumb-disc">${p.img ? `<img src="${asset(p.img)}" alt="" loading="lazy" decoding="async">` : `<span>${esc(p.num || p.name.slice(0, 2))}</span>`}</span>
+                <span class="thumb-disc">${p.img ? `<img src="${esc(p.img)}" alt="" loading="lazy" decoding="async">` : `<span>${esc(p.num || p.name.slice(0, 2))}</span>`}</span>
                 <span class="thumb-name">${esc(p.name)}</span>
             </button>`).join('');
         });
@@ -496,7 +511,7 @@
         const h = half[side];
         const put = (imgSel, txtSel) => {
             const img = $(imgSel), txt = $(txtSel); if (!img) return;
-            if (item.img) { img.setAttribute('href', asset(item.img)); img.style.opacity = 1; txt.textContent = ''; }
+            if (item.img) { img.setAttribute('href', item.img); img.style.opacity = 1; txt.textContent = ''; }
             else { img.style.opacity = 0; txt.textContent = shortName(item); }
         };
         if (animate && motionOK()) {
@@ -557,6 +572,9 @@
 
     function renderBuilder(animate = true) {
         const svg = $('#pz'); if (!svg) return;
+        const pool = pizzas(); if (!pool.length) return;
+        if (!pool.some(p => p.id === state.build.l)) state.build.l = pool[0].id;
+        if (!pool.some(p => p.id === state.build.r)) state.build.r = (pool[1] || pool[0]).id;
         setHalf('l', state.build.l, false);
         setHalf('r', state.build.r, false);
         svg.style.setProperty('--sauce', state.build.base === 'red' ? '#B8321F' : '#F3E4C2');
@@ -676,10 +694,11 @@
         } catch { return; }
         const mins = s => { const [h, m] = s.split(':').map(Number); return h * 60 + m; };
         $$('.loc[data-open]').forEach(loc => {
-            const open = now >= mins(loc.dataset.open) && now < mins(loc.dataset.close);
-            const st = $('[data-status]', loc);
+            const closedDay = !loc.dataset.open || !loc.dataset.close;
+            const open = !closedDay && now >= mins(loc.dataset.open) && now < mins(loc.dataset.close);
+            const st = $('[data-status]', loc); if (!st) return;
             st.classList.toggle('is-open', open);
-            $('[data-status-text]', st).textContent = t(open ? 'locations.open' : 'locations.closed');
+            $('[data-status-text]', st).textContent = open ? t('locations.open') : closedDay ? t('locations.closedToday') : t('locations.closedNow', { t: loc.dataset.open });
         });
     }
 
@@ -906,7 +925,9 @@
     }
 
     /* ---------- Boot ---------- */
-    document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('DOMContentLoaded', async () => {
+        try { await (window.siteReady || Promise.resolve()); } catch { /* fall back to bundled data */ }
+        bindData();
         if (reduceMotion.matches) $$('video[autoplay]').forEach(v => { v.removeAttribute('autoplay'); v.pause(); });
         initImageFade();
         initHeader();

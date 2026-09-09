@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Upper Crust Yönetim</title>
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="theme-color" content="#15110F">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="manifest" href="manifest.webmanifest">
+    <link rel="icon" href="../images/official/UC-Logo.png">
+    <link rel="apple-touch-icon" href="../images/official/cropped-uppercrust_logotype_faviw.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Manrope:wght@400;500;600;700&family=Prata&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body class="admin">
+    <div id="app" aria-live="polite">
+        <div class="boot"><img src="../images/official/uppercrust_logotype16-w.svg" alt="" width="90"><p>Yükleniyor…</p></div>
+    </div>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <dialog class="sheet" id="sheet" data-lenis-prevent></dialog>
+    <input type="file" id="file-image" accept="image/*" hidden>
+    <input type="file" id="file-camera" accept="image/*" capture="environment" hidden>
+    <input type="file" id="file-video" accept="video/mp4,video/quicktime" hidden>
+
+    <script src="../js/config.js"></script>
+    <script src="../js/idb.js"></script>
+    <script src="i18n.js"></script>
+    <script src="store.js"></script>
+    <script src="admin.js"></script>
+</body>
+</html>

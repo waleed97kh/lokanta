@@ -1,0 +1,16 @@
+{
+  "name": "Upper Crust Yönetim",
+  "short_name": "UC Yönetim",
+  "description": "The Upper Crust Pizzeria Türkiye web sitesi yönetim paneli",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#15110F",
+  "theme_color": "#15110F",
+  "lang": "tr",
+  "icons": [
+    { "src": "../images/official/UC-Logo.png", "sizes": "454x347", "type": "image/png", "purpose": "any" },
+    { "src": "../images/official/cropped-uppercrust_logotype_faviw.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}
